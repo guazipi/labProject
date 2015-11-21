@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>全球资源环境信息平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/webglobeMain.css" rel="stylesheet" media="screen">
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+
+    <link href="css/jqueryUIcss/jquery-ui.min-1.11.4.css" rel="stylesheet">
+    <link href="js/dateTimePicker/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <link href="js/jqwidgets/jqwidgets/styles/jqx.base.css" rel="stylesheet">
+
+    <link href="css/rcarousel.css" rel="stylesheet">
+
+    <link href="css/ligerui-tree.css" rel="stylesheet">
+    <link href="css/sattrack.css" rel="stylesheet">
+    <link href="css/rightSideStyle.css" rel="stylesheet">
+    <style>
+        @import url(js/cesium/Widgets/widgets.css);
+        @import url(js/drawHelper/DrawHelper.css);
+    </style>
+</head>
+<body oncontextmenu="window.event.returnvalue=false">
+<div id="wrapper">
+    <!-- Fixed navbar -->
+    <!--************************************网站导航条**************************************-->
+    <div class="navbar  web3dglobe-bar">
+        <div class="header" id="head">
+            <h1><img src="img/title.png" style="height:47px;"/></h1>
+
+            <div class="logo"><a href=""><img src="img/logo.png" alt=""></a></div>
+        </div>
+        <div class="navigation clearfix" id="toolbar">
+            <div class="main-nav">
+                <ul style="font-size:17px;">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="javascript:ui.data();" id="data-nav">数据导航</a></li>
+                    <li><a href="#" id="space-earth-nav">空间地球信息高性能计算</a>
+
+                        <div class="sec-nav" id="space-earth-cal-nav">
+                            <div><a href="javascript:ui.calc(1);">计算集群配置</a></div>
+                            <div><a href="javascript:ui.calc(2);">高性能计算模型库</a></div>
+                            <div><a href="javascript:ui.calc(3);">自动计算</a></div>
+                        </div>
+                    </li>
+                    <li><a href="#" id="geo-space-nav">地学空间信息模拟</a>
+
+                        <div class="sec-nav" id="geo-space-sec-nav">
+                            <div><a href="javascript:ui.sim(1);" id="btn001">时序模拟</a></div>
+                            <div><a href="javascript:ui.sim(2);">三维数值模拟</a></div>
+                            <div><a href="javascript:ui.sim(3);">时空拉伸模拟</a></div>
+                        </div>
+                    </li>
+                    <li><a id="search-nav" href="#">数据产品搜索</a></li>
+                    <li><a id="track-nav" href="javascript:void(0)">卫星追踪</a></li>
+                </ul>
+            </div>
+            <div class="user-nav">
+                <a href="javascript:ui.login();">登录</a>
+                <a href="javascript:ui.register();">注册</a>
+            </div>
+        </div>
+    </div>
+    <div id="globediv">
+        <div id="addSimpleFile"></div>
+        <div class="popup" id="satellite_popup"></div>
+        <!-- /#satellite_popup -->
+        <!--************************************球体显示div**************************************-->
+        <div id="cesiumContainer"></div>
+        <!--************************************球体下部的图片轮询条********************************-->
+        <div id="prod"></div>
+    </div>
+</div>
+<!--************************************两个slider滑块**************************************-->
+<li>
+    <div id="timingsimulation" class="twoSlider">
+        <div id="LayerSwitcher"></div>
+        <div style="color:white">当前显示年月</div>
+    </div>
+    <div id="Elevationsimulation" class="twoSlider">
+        <div id="ElevationSlider"></div>
+        <div style="color:white">地形缩放</div>
+    </div>
+</li>
+<!--************************************网页的footer**************************************-->
+<div id="footer" style=" position:absolute; bottom:0; height: 60px;width:100%;z-index: 10">
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <img src="img/cas.gif"/>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <div>主办:&nbsp;中国科学院遥感与数字地球研究所&nbsp;地址:&nbsp;海淀区邓庄南路9号&nbsp;邮编:&nbsp;100094</div>
+                    <div>Copyright&copy;&nbsp;2013,&nbsp;中国科学院遥感与数字地球研究所,&nbsp;保留所有权利</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--************************************卫星追踪hud**************************************-->
+<div id="sattrack_buttons" class="satmodal">
+    <img src="img/tracksat/cross_1.jpeg"
+         id="crosssat_button"
+         title="追踪过境卫星"
+         alt="追踪过境卫星"
+         class="hud_button"
+         onmouseover="this.src='img/tracksat/cross_2.jpeg'"
+         onmouseout="this.src='img/tracksat/cross_1.jpeg'"/>
+    <img src="img/tracksat/Orbit_1.png"
+         id="display_button"
+         title="显示选项"
+         alt="显示选项"
+         class="hud_button"
+         onmouseover="this.src='img/tracksat/Orbit_2.png'"
+         onmouseout="this.src='img/tracksat/Orbit_1.png'"/>
+    <img src="img/tracksat/Satellite_1.png"
+         id="satselect_button"
+         title="选择卫星"
+         alt="选择卫星"
+         class="hud_button"
+         onmouseover="this.src='img/tracksat/Satellite_2.png'"
+         onmouseout="this.src='img/tracksat/Satellite_1.png'"/>
+    <img src="img/tracksat/help_1.png"
+         id="satshelp_button"
+         title="帮助"
+         alt="帮助"
+         class="hud_button"
+         onmouseover="this.src='img/tracksat/help_2.png'"
+         onmouseout="this.src='img/tracksat/help_1.png'"/>
+    <!--<img src="img/tracksat/Expand_1.png"-->
+    <!--id="fullscreen_button"-->
+    <!--title="全屏"-->
+    <!--alt="全屏"-->
+    <!--class="hud_button"-->
+    <!--onmouseover="this.src='img/tracksat/Expand_2b.png'"-->
+    <!--onmouseout="this.src='img/tracksat/Expand_1.png'"/>-->
+</div>
+<!--************************************卫星追踪－追踪过境卫星**************************************-->
+<div id="satsCrossSwr" class="satmodal">
+    <img src="img/tracksat/close.png" id="satsCrossSwr_close" title="关闭窗口" alt="关闭窗口" class="close_button"/>
+
+    <h2 class="h2title">查询过境卫星</h2>
+
+    <div style="height: 89%;overflow: auto">
+
+        <div>
+            <h4>选择感兴趣的区域</h4>
+
+            <div id="drawSthTools">
+            </div>
+            <div id="logging" class="logging">
+            </div>
+        </div>
+        <div style="padding: 3px">
+            <h4>选择时间范围</h4>
+
+            <div style="padding: 3px">
+                <label for="dateTimePickerBegin">起始点：</label>
+                <input type="text" id="dateTimePickerBegin" placeholder="请输入起始时间"/><br>
+            </div>
+            <div style="padding: 3px">
+                <label for="dateTimePickerEnd">结束点：</label>
+                <input type="text" id="dateTimePickerEnd" placeholder="请输入结束时间"/>
+            </div>
+        </div>
+        <button type="button" id="queryCrossSats" class="btn btn-default" style="position: relative;left: 20px">查询过境卫星
+        </button>
+        <button type="button" id="clearCrossPolyline" class="btn btn-default" style="position: relative;left: 40px">
+            清除过境卫星轨迹
+        </button>
+    </div>
+</div>
+<!--************************************卫星追踪－显示选项**************************************-->
+<div id="sats_displayopts" class="satmodal">
+    <img src="img/tracksat/close.png" id="mapopts_close" title="关闭窗口" alt="关闭窗口" class="close_button"/>
+
+    <h2 class="h2title">显示选项</h2>
+
+    <div style="height: 89%;overflow: auto">
+        <div id="perpective">
+            <h4>选择观察模式</h4>
+            <img src="img/tracksat/3D_1.png"
+                 id="three_d_display_button"
+                 title="三维模式"
+                 alt="三维模式"
+                 onmouseover="this.src='img/tracksat/3D_2.png'"
+                 onmouseout="this.src='img/tracksat/3D_1.png'"
+                 class="perspective_button"/>
+            <img src="img/tracksat/2.5D_1.png"
+                 id="columbus_display_button"
+                 title="哥伦布视角模式"
+                 alt="哥伦布视角模式"
+                 onmouseover="this.src='img/tracksat/2.5D_2.png'"
+                 onmouseout="this.src='img/tracksat/2.5D_1.png'"
+                 class="perspective_button"/>
+            <img src="img/tracksat/2D_1.png"
+                 id="two_d_display_button"
+                 title="二维模式"
+                 alt="二维模式"
+                 onmouseover="this.src='img/tracksat/2D_2.png'"
+                 onmouseout="this.src='img/tracksat/2D_1.png'"
+                 class="perspective_button"/>
+        </div>
+        <br> <br> <br> <br>
+
+        <div id="otherDispleyOpts">
+            <h4>其他显示选项</h4>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_showsatSweep"/> 显示卫星传感器扫描范围 </label>
+            <br>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_showsatOrbit"/> 显示卫星轨道 </label> <br>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" checked id="cb_showsatLabel"/> 显示卫星标签
+        </label>
+            <br>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_showmousepos"/> 显示鼠标坐标 </label> <br>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" value=""/> 显示昼夜效果 </label> <br>
+            &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_toggleSatView"/> 切换卫星视角 </label>
+        </div>
+    </div>
+</div>
+<!--************************************卫星追踪－选择卫星**************************************-->
+<div id="satellite_form" class="satmodal">
+    <img src="img/tracksat/close.png" id="satellite_form_close" title="关闭窗口" alt="关闭窗口" class="close_button"/>
+
+    <h2 class="h2title">选择卫星</h2>
+
+    <div style="height: 89%;overflow: auto">
+        <form id="satcontrols">
+            <fieldset>
+                <!--<legend>选择卫星:</legend>-->
+                <dl id="controls_satellite">
+                    <dt>
+                        <label for="select_satellite_group">卫星类别:</label>
+                    </dt>
+                    <dd>
+                        <select id="select_satellite_group">
+                            <option value="allSats">所有资源卫星</option>
+                            <option value="innerSats">国内所有资源卫星</option>
+                            <optgroup class="second_level" label="国内卫星">
+                                <option value="tiangong">天宫一号</option>
+                                <option value="gaofenSet">高分系列</option>
+                                <option value="HJSet">环境卫星系列</option>
+                                <option value="CBERSSet">中巴资源卫星系列</option>
+                                <option value="ZYSet">资源卫星系列</option>
+                                <option value="HAIYANGSet">海洋卫星系列</option>
+                            </optgroup>
+                            <option value="foreignSats">国外所有资源卫星</option>
+                            <optgroup class="second_level" label="国外卫星">
+                                <option value="LandSatSet">美国陆地卫星LANDSAT系列</option>
+                                <option value="IRSSet">印度IRS系列</option>
+                                <option value="ESASet">欧空局雷达卫星系列</option>
+                                <option value="CASet">加拿大雷达卫星系列</option>
+                                <option value="SPOTSet">法国地球观测卫星SPOT系列</option>
+                                <option value="TERRA">TERRA卫星</option>
+                                <option value="ALOSSet">ALOS卫星系列</option>
+                                <option value="THEOS">THEOS卫星</option>
+                            </optgroup>
+                        </select>
+                    </dd>
+                    <dt>
+                        <label for="select_satellite">选择具体卫星:</label>
+                    </dt>
+                    <dd>
+                        <select id="select_satellite"></select>
+                    </dd>
+                </dl>
+            </fieldset>
+        </form>
+        上次更新时间：<label id="yearLabel">2015</label>年<label id="monthLabel">7</label>月<label id="dayLabel">25</label>日
+        <label id="hourLabel">02</label>:<label id="minuteLabel">39</label>:<label id="secondLabel">48</label>
+        <br>
+
+        <div>
+            <input type="text" id="updateOrnot" value="1" hidden>
+            <button type="button" id="updateSatsBtn" class="btn btn-default" style="position: relative;left: 90px">
+                更新全部卫星
+            </button>
+        </div>
+    </div>
+</div>
+<!--************************************更新卫星弹出的对话框**************************************-->
+<div class="modal fade" id="updateSatsModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true" id="closeUpdateBox">&times;</button>
+                <h4 class="modal-title">更新卫星数据</h4>
+            </div>
+            <div class="modal-body">
+                <div id="progressbar">
+                    <div class="progress-label">加载中...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="shutdownUpdatedBox">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************卫星追踪－帮助**************************************-->
+<div id="satshelp" class="satmodal">
+    <img src="img/tracksat/close.png"
+         id="instructions_close"
+         title="关闭窗口"
+         alt="关闭窗口"
+         class="close_button"/>
+
+    <h2 class="h2title">帮助</h2>
+
+    <div style="height: 89%;overflow: auto">
+
+        <p>随着全球化的发展，资源环境问题已不仅局限于局部区域，大区域乃至全球对资源环境问题的影响越来越强烈。</p>
+
+        <p>针对全球环境资源问题展开研究，突破全球资源环境研究的理论和关键技术，构建全球环境资源系统，为国家宏观决策提供全球性环境、资源及应急反应等实时准实时信息。</p>
+
+        <p>针对国家迫切需要解决的全球资源和环境问题，从数字地球科学平台、全球变化地球科学要素空间信息和全球环境资源遥感应用等方面展开研究。</p>
+
+        <p>
+            针对全球化带来的“大数据问题”，研究多源异构海量数据网络组织、地学时空过程计算集成、地球系统多维表现与多用户协同等关键技术。将地球空间数据、地学高性能计算、地球要素表达和呈现等系统进行有机集成，构建数字地球科学平台系统，形成地球空间信息科学研究的基础数据管理、计算、服务和工具系统环境。</p>
+    </div>
+</div>
+<!--************************************网页右边框－显示卫星详细信息和过境卫星信息**************************************-->
+<div class="easyuipanel layout-easyuipanel layout-easyuipanel-west" id="rightSide_div">
+    <div class="easyuipanel-header" id="rightHead_div">
+        <div class="easyuipanel-tool"><a href="javascript:void(0)" class="layout-button-left" id="hideSatInfoPanel"></a>
+        </div>
+        <div class="panel-title" style="text-align: center"><font style="color: white;">信息</font></div>
+    </div>
+    <div id="rightInfoList_div">
+        <ul>
+            <li><a href="#satinfo_div">卫星信息</a></li>
+            <li><a href="#crossSats_div" id="showCrossSats">过境卫星信息</a></li>
+        </ul>
+        <div title="卫星信息" class="rightSideBody" id="satinfo_div">
+            <div id="satinfo-message">
+                <h2>
+                    <center>未选中跟踪卫星</center>
+                </h2>
+                <br>
+                <center>请点击选择一个卫星显示其详细信息。</center>
+                </p>
+            </div>
+
+            <table class="satinfo InfoTable" id="satInfoTable">
+                <tr>
+                    <th colspan="2">卫星基本信息</th>
+                </tr>
+                <tr>
+                    <td width="50%">卫星NORAD编号</td>
+                    <td id="noradid" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>卫星名称</td>
+                    <td id="satName" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>所属国家</td>
+                    <td id="owner" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>发射日期</td>
+                    <td id="launchDate" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>国际识别号</td>
+                    <td id="objectID" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>发射地点</td>
+                    <td id="launchSitez" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>轨道类型</td>
+                    <td id="orbitType" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>轨道周期</td>
+                    <td id="period" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>轨道倾角</td>
+                    <td id="inclination" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>近地点</td>
+                    <td id="perigee" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>远地点</td>
+                    <td id="apogee" class="sat-info"></td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">卫星实时信息</th>
+                </tr>
+                <tr>
+                    <td>经度(°)</td>
+                    <td id="sat_lon" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>纬度(°)</td>
+                    <td id="sat_lat" class="sat-info"></td>
+                </tr>
+
+                <tr>
+                    <td>卫星高度(km)</td>
+                    <td id="sat_height" class="sat-info"></td>
+                </tr>
+                <tr>
+                    <td>卫星速度(km/s)</td>
+                    <td id="sat_velocity" class="sat-info"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="crossSats_div" class="rightSideBody">
+            <div id="crossinfo-message">
+                <h2>
+                    <center>无过境卫星</center>
+                </h2>
+                <br>
+                <center>请检查查询条件，查询过境卫星。</center>
+                </p>
+            </div>
+            <div class="InfoTable" id="crossSatsTableDiv">
+                <!-- <div id="crossSatsTable"></div> -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--************************************弹出的对话框（临时使用）**************************************-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modal-title_h4"></h4>
+            </div>
+            <div class="modal-body" id="modal-body_div"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--************************************网页左边的数据导航栏**************************************-->
+<div class="panel panel-primary web3dglobe-data">
+    <div class="panel-heading">
+        <div class="panel-title">数据导航
+            <div class="btn-group pull-right">
+                <button type="button" class="close" onclick="javascript:ui.dataClose();">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="panelBody">
+        <hr>
+
+        <ul id="datatree"></ul>
+
+    </div>
+    <div class="panel-footer" id="panelFooter_div">
+    </div>
+</div>
+
+<!--************************************计算过境卫星轨迹时显示的效果**************************************-->
+<div id="cover"></div>
+<div id="coverShow">
+    <table align="center" border="0" width="100%" cellspacing="0" cellpadding="0"
+           style="border-collapse: collapse; height: 100px; min-height: 100px;" bgcolor="#127386">
+        <tr>
+            <td height="30" style="font-size: 12px;">正在计算过境卫星，请稍后......</td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff">
+                <img src="img/loadingg.gif" alt="正在计算过境卫星！" title="正在计算过境卫星！">
+            </td>
+        </tr>
+    </table>
+</div>
+<!--************************************网站下部的图片轮询**************************************-->
+<div id="carousel-items" class="nav-item">
+    <div id="4">
+        <div>
+            <img onclick="gotoloctation()" class="nav-item" src="img/2.png" id="imagef1"/>
+        </div>
+        <div class="prod-descr">植被FPAR平均值</div>
+    </div>
+    <div id="15">
+        <div>
+            <img class="nav-item" src="img/1.png"/>
+        </div>
+        <div class="prod-descr">全国十大湖泊水色</div>
+    </div>
+    <div id="7">
+        <div>
+            <img class="nav-item" src="img/2.png"/>
+        </div>
+        <div class="prod-descr">全球植被FPAR</div>
+    </div>
+    <div id="10">
+        <div>
+            <img class="nav-item" src="img/3.png"/>
+        </div>
+        <div class="prod-descr">城镇地面沉降</div>
+    </div>
+    <div id="image1">
+        <div>
+            <img class="nav-item" src="img/4.png"/>
+        </div>
+        <div class="prod-descr">京津典型大气</div>
+    </div>
+    <div id="5">
+        <img class="nav-item" src="img/5.png"/>
+
+        <div class="prod-descr">南海海表盐度</div>
+    </div>
+    <div id="6">
+        <img class="nav-item" src="img/6.png"/>
+
+        <div class="prod-descr">南极冰盖冻融遥感</div>
+    </div>
+    <div id="2">
+        <img class="nav-item" src="img/7.png"/>
+
+        <div class="prod-descr">青藏每日无云雪盖</div>
+    </div>
+    <div id="crop" style=" z-index:99999;">
+        <img class="nav-item" onclick="onclickCrop()" src="img/8.png"/>
+
+        <div class="prod-descr">青藏积雪雪水当量</div>
+    </div>
+    <div id="9">
+        <img class="nav-item" src="img/9.png"/>
+
+        <div class="prod-descr">全国湖泊水位变化</div>
+    </div>
+    <div id="3">
+        <img class="nav-item" src="img/10.png"/>
+
+        <div class="prod-descr">全球大气CO2浓度</div>
+    </div>
+    <div id="11">
+        <img class="nav-item" src="img/11.png"/>
+
+        <div class="prod-descr">全球森林植被高度</div>
+    </div>
+    <div id="12">
+        <img class="nav-item" src="img/12.png"/>
+
+        <div class="prod-descr"> 全球植被物候</div>
+    </div>
+    <div id="13">
+        <img class="nav-item" src="img/13.png"/>
+
+        <div class="prod-descr">太平洋海表温度</div>
+    </div>
+    <div id="14">
+        <img class="nav-item" src="img/14.png"/>
+
+        <div class="prod-descr">元中都遗址遥感</div>
+    </div>
+    <div id="1">
+        <img class="nav-item" src="img/15.png"/>
+
+        <div class="prod-descr">中国区叶面积指数</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.rcarousel.min.js"></script>
+
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxdata.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxdatatable.js"></script>
+<script type="text/javascript" src="js/jqwidgets/scripts/demos.js"></script>
+
+
+<script type="text/javascript" src="js/jqueryUI/jquery-ui-1.11.4.js"></script>
+
+<script type="text/javascript" src="js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="js/crossSatsPolylines/calculateCrossSats.js"></script>
+<script type="text/javascript" src="js/crossSatsPolylines/calCrossSatsFuncs.js"></script>
+<script type="text/javascript" src="js/crossSatsPolylines/clickCrossPolyline.js"></script>
+<!-- <script type="text/javascript" src="js/crossSatsPolylines/usefullFuncs.js"></script>
+<script type="text/javascript" src="js/crossSatsPolylines/newCrossFoot.js"></script>
+
+ -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/cesium/Cesium.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/ligerTree.js"></script>
+<script type="text/javascript" src="js/globalVar.js"></script>
+
+<!--<script type="text/javascript" src="js/demotest/Sandcastle-header.js"></script>-->
+<!--<script type="text/javascript" src="js/demotest/addSimpleFile.js"></script>-->
+
+
+<script type="text/javascript" src="js/addFootprints/footPrints.js"></script>
+<script type="text/javascript" src="js/addFootprints/addPrintsonEarth.js"></script>
+
+<script type="text/javascript" src="js/tlefuncs.js"></script>
+<script type="text/javascript" src="js/tleparse/sciencenasa/isat.js"></script>
+
+<script type="text/javascript" src="js/layerfuncs.js"></script>
+<script type="text/javascript" src="js/UI.js"></script>
+
+
+<script type="text/javascript" src="js/drawHelper/DrawHelper.js"></script>
+<script type="text/javascript" src="js/drawsth.js"></script>
+
+
+<script type="text/javascript" src="js/sattrack.js"></script>
+<script type="text/javascript" src="js/updateSats.js"></script>
+<script type="text/javascript" src="js/initialTLES.js"></script>
+<script type="text/javascript" src="js/initializeDatelabel.js"></script>
+<script type="text/javascript" src="js/observerFuncs.js"></script>
+<script type="text/javascript" src="js/slectsetSats.js"></script>
+<script type="text/javascript" src="js/webglobeMain.js"></script>
+</body>
+</html>

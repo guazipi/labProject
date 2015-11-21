@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello World!</title>
+    <link href="js/balloon/Balloon.css" rel="stylesheet" type="text/css">
+    <script src="js/cesium/Cesium.js"></script>
+    <!--<script src="js/balloon/Balloon.js"></script>-->
+    <!--<script src="js/balloon/BalloonViewModel.js"></script>-->
+
+    <style>
+        @import url(js/cesium/Widgets/widgets.css);
+
+        #cesiumContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<button></button>
+<div id="cesiumContainer"></div>
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    viewer.dataSources.add(Cesium.KmlDataSource.load('runthemap.kml'));
+//    var clickDetailHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+//
+//    clickDetailHandler.setInputAction(function (click) {
+//                var pickedObject = scene.pick(click.position);
+//                var satDiv = document.getElementById('crossSat_popup');
+//                if (Cesium.defined(pickedObject)) {
+//                    if (typeof window !== 'undefined') {
+//                        if (pickedObject.primitive) {
+//                            if (pickedObject.primitive.beginDateEpoch) {
+//                                showCrossPolylineInfo(satDiv, pickedObject.primitive, click.position);
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    satDiv.style.display = 'none';
+//                }
+//            },
+//            Cesium.ScreenSpaceEventType.LEFT_CLICK // MOVE, WHEEL, {LEFT|MIDDLE|RIGHT}_{CLICK|DOUBLE_CLICK|DOWN|UP}
+//    );
+//
+//    function createBalloon() {
+//        var balloonContainer = document.createElement('div');
+//        balloonContainer.className = 'cesium-viewer-balloonContainer';
+//        viewer.container.appendChild(balloonContainer);
+//        var balloon = new Cesium.Balloon(balloonContainer, scene);
+//        balloon.viewModel.computeScreenSpacePosition = function (value, result) {
+//            result.x = value.x;
+//            result.y = viewer.container.clientHeight - value.y;
+//            return result;
+//        };
+//
+//        var balloonViewModel = balloon.viewModel;
+//        balloonViewModel.position = endPosition;
+//        balloonViewModel.content = pick.id.html;
+//        balloonViewModel.showBalloon = true;
+//        balloonViewModel.update();
+//    }
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+/****************************卫星追踪－公用的样式*******************************/
+.h2title {
+    color: rgb(28, 48, 65);
+}
+
+.hud_button {
+    height: 43px;
+    width: 55px;
+    display: inline-block;
+    margin: 4px;
+    border-radius:5px;
+}
+
+.close_button {
+    float: right;
+}
+
+.second_level {
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.satmodal {
+    position: absolute;
+    background-color: #61A7E4;
+    color: white;
+    padding: 3px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    opacity: 0.85;
+    z-index: 101;
+}
+
+/***************************卫星追踪********************************/
+#sattrack_buttons {
+    position: absolute;
+    top: 90px;
+    left: 305px;
+    z-index: 100;
+    width: 300px;
+    text-align: center;
+    display: none;
+}
+/***************************卫星追踪－过境卫星********************************/
+#satsCrossSwr {
+    display: none;
+    top: 155px;
+    left: 305px;
+    width: 300px;
+    /*overflow: auto;*/
+    height: 49%;
+}
+.datePickerInput{
+    border-radius: 4px;
+    padding: 2px;
+}
+
+/***************************卫星追踪－显示选项********************************/
+
+#sats_displayopts {
+    display: none;
+    top: 155px;
+    left: 305px;
+    width: 300px;
+    /*overflow: auto;*/
+    height: 50%;
+}
+
+.perspective_button {
+    padding-top: 1px;
+    padding-left: 10px;
+    padding-right: 15px;
+    height: 70px;
+    float: left;
+    text-align: center
+}
+
+#otherDispleyOpts label {
+    color: rgba(9, 9, 10, 0.5);
+}
+
+/***************************卫星追踪－选择卫星********************************/
+#satellite_form {
+    display: none;
+    top: 155px;
+    left: 305px;
+    /*overflow: auto;*/
+    height: 40%;
+}
+
+#satellite_form fieldset {
+    border: none;
+}
+
+#satcontrols fieldset {
+    margin: 0px;
+    padding: 0px;
+}
+
+#satcontrols dl {
+    margin: 0px;
+}
+
+#satcontrols dt {
+    padding-left: 5px;
+}
+
+#satcontrols dd {
+    margin: 0 0 0 5px;
+}
+
+#satcontrols dd {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#satcontrols select {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 290px;
+    border-radius: 4px 4px 4px 4px;
+    color: #555555;
+    display: inline-block;
+    font-size: 14px;
+    /*height: 25px;*/
+    line-height: 20px;
+    margin-bottom: 10px;
+    padding: 4px 6px;
+    vertical-align: middle;
+}
+
+/**************更新进度条**************/
+/*#updateDialog{*/
+    /*z-index: 201;*/
+/*}*/
+/*#progressbar {*/
+    /*margin-top: 20px;*/
+/*}*/
+
+/*.progress-label {*/
+    /*font-weight: bold;*/
+    /*text-shadow: 1px 1px 0 #fff;*/
+/*}*/
+
+/*.ui-dialog-titlebar-close {*/
+    /*display: none;*/
+/*}*/
+
+.ui-progressbar {
+    position: relative;
+}
+.progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+/***************************卫星追踪－帮助********************************/
+#satshelp {
+    display: none;
+    top: 155px;
+    left: 305px;
+    width: 300px;
+    /*overflow: auto;*/
+    height: 50%;
+}
+
+#satshelp p {
+    margin: 4px;
+    color: rgb(11, 6, 2);
+}

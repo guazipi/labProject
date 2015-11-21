@@ -1,0 +1,59 @@
+/*右边显示卫星信息和过境卫星信息的div*/
+#rightSide_div {
+    position: absolute;
+    right: 0;
+    top: 80px;
+    /*width: 290px;*/
+    /*height: 400px;*/
+    width: 40px;
+    height: 40px;
+    /*height: 63%;*/
+    margin: 2px;
+    z-index: 100;
+    opacity: 0.9;
+
+    /*/!*动画显示*!/*/
+    transition: width 1s, height 1s;
+    -moz-transition: width 1s, height 1s; /* Firefox 4 */
+    -webkit-transition: width 1s, height 1s; /* Safari 和 Chrome */
+    -o-transition: width 1s, height 1s; /* Opera */
+}
+/*右边显示卫星信息和过境卫星信息的div的head*/
+#rightHead_div {
+    width: 290px;
+}
+/*右边显示卫星信息和过境卫星信息的div的主体部分div*/
+#rightInfoList_div {
+    height: 90%;
+    /*height: 440px;*/
+    width: 290px;
+    background:#fff url("jqueryUIcss/images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+    /*overflow: auto;*/
+}
+/*右边显示卫星信息和过境卫星信息的div的主体部分div中显示卫星信息的div*/
+.rightSideBody {
+    /*overflow: auto;*/
+    padding: 2px;
+    height: 90%;
+
+}
+/*右边显示卫星信息和过境卫星信息的div的主体部分div中显示卫星信息的div中的table*/
+.InfoTable {
+    display: none;
+    padding: 4px;
+    width: 100%;
+    height: 95%;
+    overflow: auto;
+}
+/*控制卫星信息显示的字体等样式*/
+.satinfo {
+    font-size: 0.8em;
+    text-align: left;
+}
+#crossSats_div{
+    padding-top: 0.5em;
+    /*overflow: auto;*/
+}
+#crossSatsTable{
+    /*overflow: auto;*/
+}

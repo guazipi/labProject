@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello World!</title>
+    <script src="../../js/cesium/Cesium.js"></script>
+    <script src="../../js/jquery/jquery-1.10.2.min.js"></script>
+
+    <style>
+        @import url(../../js/cesium/Widgets/widgets.css);
+
+        #cesiumContainer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 90%;
+            width: 90%;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<button id="computation_result" onclick="getMessage();" style="z-index: 100;background-color: white">点击我一下吧</button>
+<div id="cesiumContainer"></div>
+<script>
+    var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
+    function getMessage(){
+        var worker = new Worker('worker.js');
+        worker.postMessage("{first:347734080,second:3423744400}");
+        worker.onmessage = function (event) {
+            alert(event.data);
+        };
+    }
+
+</script>
+</body>
+</html>
