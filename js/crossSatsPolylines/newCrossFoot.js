@@ -9,8 +9,8 @@ $('#dateTimePickerEnd').datetimepicker({
 	timeFormat: 'hh:mm:ss:l'
 });
 $('#queryCrossSats').click(function() {
-	// excuteQuery();
-	addPringonEarth();
+	 excuteQuery();
+	//addPringonEarth();
 });
 
 function excuteQuery() {
@@ -28,7 +28,7 @@ function excuteQuery() {
 		}
 		if (editPrimitive.hasOwnProperty("center")) {
 			var features = getCrossRecs.crossCircle(times, editPrimitive);
-			alert(features);
+			//alert(features);//经常是undefined，因为是异步获取数据，所以在还没获取数据的时候，已经执行到了这里，所以弹出undefined
 		}
 		if (editPrimitive.hasOwnProperty("positions")) {
 			var features = getCrossRecs.crossPoly(times, editPrimitive);

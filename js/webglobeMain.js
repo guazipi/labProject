@@ -11,14 +11,14 @@ $(document).ready(function() {
         //imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
         //    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
         //}),
-        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
-        //    url: "../data/bluemarble/",
-        //    fileExtension: "jpg"
-        //}),
         imageryProvider: new Cesium.TileMapServiceImageryProvider({
-            url: "/Earth_Data/bluemmarble/",
+            url: "../webGL2015/data/bluemarble/",
             fileExtension: "jpg"
         }),
+        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
+        //    url: "/Earth_Data/bluemmarble/",
+        //    fileExtension: "jpg"
+        //}),
         //imageryProvider: new Cesium.TileMapServiceImageryProvider({
         //    url: "js/cesium/Assets/Textures/NaturalEarthII",
         //    fileExtension: "jpg"
