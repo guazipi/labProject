@@ -40,6 +40,7 @@ function excuteQuery() {
 	}
 }
 
+
 function isEndGreaterBegin() {
 	var dateTxtBegin, dateTxtEnd, dateObjBegin, dateObjEnd;
 	dateTxtBegin = $('#dateTimePickerBegin').val();
