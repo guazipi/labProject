@@ -10,7 +10,7 @@
 
 <script>
     function createCoverDiv() {
-        var cover = $('<div id="cover"></div>').css({
+        var cover = $('<div id="cover">tggggggggggggggggggggggggggggggggggg</div>').css({
             "display": "block",
             "position": "fixed",
             "z-index": 100,
@@ -70,7 +70,7 @@
             "height": "20%",
             "position":"relative"
         });
-        var cancelQuery=$('<input name="cancelQuery" type="button" value="取消查询" />').css({
+        var cancelQuery=$('<input id="cancelQuery" type="button" value="取消查询" />').css({
             "position": "absolute",
             "left":"65%",
             "top":" 35%",
@@ -79,7 +79,14 @@
         queryFoot.append(cancelQuery);
         coverMiddle.append(queryFoot);
 
-        setTimeout('$("#status").append("---时间：查询中...");',1000);
+//        setTimeout('$("#status").append("---时间：查询中...");',1000);
+
+
+        $("#cancelQuery").click(function(){
+            alert("sldj");
+            $("#cover").remove();
+            $("#coverMiddle").remove();
+        })
     }
 </script>
 </body>
