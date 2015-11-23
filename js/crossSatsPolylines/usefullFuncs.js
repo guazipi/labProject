@@ -12,6 +12,8 @@ usefullFuncs.getLonLatFromCartesian = function(position) {
 
 	return lonLatArray;
 };
+
+
 usefullFuncs.getDateObjFromText = function(dateTxt) {
 	var month, day, year,
 		hour, minute, second;
