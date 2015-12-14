@@ -36,36 +36,40 @@ function excuteQuery() {
         if (!editPrimitive) {
             return;
         }
-        if (editPrimitive.hasOwnProperty("extent")) {
-            var features = getCrossRecs.crossRectangle(times, editPrimitive);
-            // alert(features);
-            if (features) {
-                displayFeatures(features);
+        setTimeout(function () {
+            excuteSth();
+        }, 1000);//延迟1秒执行，在延迟的这一秒内把对话框渲染出来，不然渲染线程和js执行线程互斥
+        function excuteSth() {
+            if (editPrimitive.hasOwnProperty("extent")) {
+                var features = getCrossRecs.crossRectangle(times, editPrimitive);
+                // alert(features);
+                if (features) {
+                    displayFeatures(features);
+                }
+
             }
+            if (editPrimitive.hasOwnProperty("center")) {
+                var features = getCrossRecs.crossCircle(times, editPrimitive);
+                //alert(features);//经常是undefined，因为是异步获取数据，所以在还没获取数据的时候，已经执行到了这里，所以弹出undefined
 
-        }
-        if (editPrimitive.hasOwnProperty("center")) {
-            var features = getCrossRecs.crossCircle(times, editPrimitive);
-            //alert(features);//经常是undefined，因为是异步获取数据，所以在还没获取数据的时候，已经执行到了这里，所以弹出undefined
+                if (features) {
+                    displayFeatures(features);
+                }
 
-            if (features) {
-                displayFeatures(features);
+                //$("#cancelQuery").click(function(){
+                //    $("#cover").remove();
+                //    $("#coverMiddle").remove();
+                //})
+
             }
-
-            //$("#cancelQuery").click(function(){
-            //    $("#cover").remove();
-            //    $("#coverMiddle").remove();
-            //})
-
-        }
-        if (editPrimitive.hasOwnProperty("positions")) {
-            var features = getCrossRecs.crossPoly(times, editPrimitive);
-            if (features) {
-                displayFeatures(features);
+            if (editPrimitive.hasOwnProperty("positions")) {
+                var features = getCrossRecs.crossPoly(times, editPrimitive);
+                if (features) {
+                    displayFeatures(features);
+                }
             }
+            $("#cancelQuery").val("确定");
         }
-
-        $("#cancelQuery").val("确定");
     }
 }
 
@@ -108,32 +112,123 @@ function displayFeatures(featuresArray) {
         //]);
         var positions = [];
 
-        for (var i = 0; i < pointsArray.length-1; ++i) {
+        for (var i = 0; i < pointsArray.length - 1; ++i) {
             positions.push(Cesium.Cartesian3.fromDegrees(pointsArray[i][0], pointsArray[i][1]));
         }
-        viewer.entities.add({
-            polyline: {
-                positions: positions,
-                width: 2.0,
-                material: new Cesium.PolylineGlowMaterialProperty({
-                    color: Cesium.Color.DEEPSKYBLUE,
-                    glowPower: 0.25
-                })
-            }
-        });
-        //var entity = viewer.entities.add({
-        //    polygon: {
-        //        hierarchy: new Cesium.PolygonHierarchy(positions),
-        //        extrudedHeight: 0,
-        //        perPositionHeight: true,
-        //        material: Cesium.Color.ORANGE.withAlpha(0.5),
-        //        outline: true,
-        //        outlineColor: Cesium.Color.BLACK
+        //viewer.entities.add({
+        //    polyline: {
+        //        positions: positions,
+        //        width: 2.0,
+        //        material: new Cesium.PolylineGlowMaterialProperty({
+        //            color: Cesium.Color.DEEPSKYBLUE,
+        //            glowPower: 0.25
+        //        })
         //    }
         //});
-        //entity.identity = "footPrint";
-    }
 
+        var entity = viewer.entities.add({
+            polygon: {
+                hierarchy: new Cesium.PolygonHierarchy(positions),
+                extrudedHeight: 0,
+                perPositionHeight: true,
+                //material: Cesium.Color.ORANGE.withAlpha(0.5),
+                material: new Cesium.ColorMaterialProperty({
+                    //color: new Cesium.Color(0.5,0.5,0.5,0),
+                    color: Cesium.Color.WHITE
+                }),
+                outline: true,
+                outlineColor: Cesium.Color.CYAN,
+                outlineWidth: 6.0
+            }
+        });
+
+        entity.imageFoot = "hello";
+        //条带数据
+        entity.satllite = featuresArray[k].attributes.SATELLITE;//卫星
+        entity.acceptTime = featuresArray[k].attributes.ACQUISITION_START_TIME;//接收时间
+        entity.pathNum = featuresArray[k].attributes.PATH_NUMBER;//条带号
+        entity.rowNum = featuresArray[k].attributes.ROW_NUMBER;//行编号
+
+        var urlStr = featuresArray[k].attributes.GRANULEID;
+        entity.imageUrl="http://eds.ceode.ac.cn/image4flex/"+urlStr+"/C/sq";
+        //entity.imageUrl = "/ceode/image4flex/" + urlStr + "/C/sq";
+    }
+    var scene = viewer.scene;
+    var clickDetailHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+    var ellipsoid = scene.globe.ellipsoid;
+
+    clickDetailHandler.setInputAction(function (click) { // actionFunction, mouseEventType, eventModifierKey
+            var pickedObject = scene.pick(click.position);
+
+            if (Cesium.defined(pickedObject)) {
+                if (typeof window !== 'undefined') {
+                    if (pickedObject.id.imageFoot) {
+                        var pickedObjId = pickedObject.id;
+                        clickposition = scene.camera.pickEllipsoid(click.position, ellipsoid);
+                        balloonViewModel.position = click.position;
+                        balloonViewModel.content = getHtml(pickedObjId.satllite, pickedObjId.acceptTime, pickedObjId.pathNum, pickedObjId.rowNum, pickedObjId.imageUrl);
+                        balloonViewModel.showBalloon = true;
+                        balloonViewModel.update();
+
+//                            var clickMaterial = new Cesium.Material({
+//                                fabric: {
+//                                    type: 'Color',
+//                                    uniforms: {
+//                                        color: Cesium.Color.BLUEVIOLET
+//                                    }
+//                                }
+//                            });
+////                            alert(pickedObject.id._polygon._material);
+//                            console.log(pickedObject.id._polygon._material);
+////                            console.log(clickMaterial);
+//                            var materialss=new Cesium.ColorMaterialProperty(Cesium.Color.BLUEVIOLET);
+//                            console.log(materialss);
+//                            pickedObject.id._polygon._material = materialss;
+//
+//                            console.log("dd");
+//                            pickedObject.primitive._material = clickMaterial;
+
+                    }
+                }
+            }
+        },
+        Cesium.ScreenSpaceEventType.LEFT_CLICK // MOVE, WHEEL, {LEFT|MIDDLE|RIGHT}_{CLICK|DOUBLE_CLICK|DOWN|UP}
+    );
+    function getHtml(satllite, acceptTime, pathNum, rowNum, imageUrl) {
+        var html = "";
+        html += "        <table height='130' width='300'>";
+        html += "            <tr style='text-align:center;font-weight:bold;background:#9CBCE2'>";
+        html += "                <td colspan='2'>条带数据</td>";
+        html += "            </tr>";
+        html += "            <tr>";
+        html += "                <td> 卫星：</td>";
+        html += "                <td>" + satllite + "</td>";
+        html += "            </tr>";
+        html += "            <tr>";
+        html += "                <td width='50%'>接收时间：</td>";
+        html += "                <td>" + acceptTime + "</td>";
+        html += "            </tr>";
+        html += "            <tr>";
+        html += "                <td> 条带号： </td>";
+        html += "                <td>" + pathNum + "</td>";
+        html += "            </tr>";
+        html += "            <tr>";
+        html += "                <td width='50%'>行编号：</td>";
+        html += "                <td>" + rowNum + "</td>";
+        html += "            </tr>";
+        //html += "            <tr>";
+        //html += "                <td> 站点名称 </td>";
+        //html += "                <td>" + zdmc + "</td>";
+        //html += "            </tr>";
+        //html += "            <tr>";
+        //html += "                <td> 当前时间 </td>";
+        //html += "                <td>" + time + "</td>";
+        //html += "            </tr>";
+        html += "        </table>";
+        html += "<img height='300' width='320' src="+imageUrl+"></img> ";
+        return html;
+    }
 }
 
 
