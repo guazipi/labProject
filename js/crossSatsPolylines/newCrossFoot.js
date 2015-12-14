@@ -18,7 +18,7 @@ function excuteQuery() {
         //生成查询状态的对话框
         createCoverDiv();
 
-        $("#cancelQuery").click(function(){
+        $("#cancelQuery").click(function () {
             $("#coverMiddle").remove();
             $("#cover").remove();
         })
@@ -31,7 +31,7 @@ function excuteQuery() {
             ellipsoid: viewer.scene.globe.ellipsoid
         });
         //var times = getTimes($('#dateTimePickerBegin').val(), $('#dateTimePickerEnd').val());
-        var times="satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('2001-06-23 00:00:00','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('2015-11-23 22:18:21','YYYY-MM-DD HH24:MI:SS')";
+        var times = "satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('2001-06-23 00:00:00','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('2015-11-23 22:18:21','YYYY-MM-DD HH24:MI:SS')";
         var editPrimitive = getEditPrimitive();
         if (!editPrimitive) {
             return;
@@ -39,14 +39,16 @@ function excuteQuery() {
         if (editPrimitive.hasOwnProperty("extent")) {
             var features = getCrossRecs.crossRectangle(times, editPrimitive);
             // alert(features);
-            displayFeatures(featuresArray);
+            if (features) {
+                displayFeatures(features);
+            }
 
         }
         if (editPrimitive.hasOwnProperty("center")) {
             var features = getCrossRecs.crossCircle(times, editPrimitive);
             //alert(features);//经常是undefined，因为是异步获取数据，所以在还没获取数据的时候，已经执行到了这里，所以弹出undefined
 
-            if(features){
+            if (features) {
                 displayFeatures(features);
             }
 
@@ -58,10 +60,12 @@ function excuteQuery() {
         }
         if (editPrimitive.hasOwnProperty("positions")) {
             var features = getCrossRecs.crossPoly(times, editPrimitive);
-
+            if (features) {
+                displayFeatures(features);
+            }
         }
 
-
+        $("#cancelQuery").val("确定");
     }
 }
 
@@ -94,27 +98,42 @@ function displayFeatures(featuresArray) {
     //    entity.identity = "footPrint";
     //    entities.push(entity);
     //})
-    for (var k = 0; k < featuresArray.length / 10; k++) {
+    for (var k = 0; k < featuresArray.length; k++) {
         var pointsArray = featuresArray[k].geometry.rings[0];
-        var hierarchy = Cesium.Cartesian3.fromDegreesArray([
-            pointsArray[0][0], pointsArray[0][1],
-            pointsArray[1][0], pointsArray[1][1],
-            pointsArray[2][0], pointsArray[2][1],
-            pointsArray[3][0], pointsArray[3][1]
-        ]);
+        //var hierarchy = Cesium.Cartesian3.fromDegreesArray([
+        //    pointsArray[0][0], pointsArray[0][1],
+        //    pointsArray[1][0], pointsArray[1][1],
+        //    pointsArray[2][0], pointsArray[2][1],
+        //    pointsArray[3][0], pointsArray[3][1]
+        //]);
+        var positions = [];
 
-        var entity=viewer.entities.add({
-            polygon: {
-                hierarchy: hierarchy,
-                extrudedHeight: 0,
-                perPositionHeight: true,
-                material: Cesium.Color.ORANGE.withAlpha(0.5),
-                outline: true,
-                outlineColor: Cesium.Color.BLACK
+        for (var i = 0; i < pointsArray.length-1; ++i) {
+            positions.push(Cesium.Cartesian3.fromDegrees(pointsArray[i][0], pointsArray[i][1]));
+        }
+        viewer.entities.add({
+            polyline: {
+                positions: positions,
+                width: 2.0,
+                material: new Cesium.PolylineGlowMaterialProperty({
+                    color: Cesium.Color.DEEPSKYBLUE,
+                    glowPower: 0.25
+                })
             }
         });
-        entity.identity = "footPrint";
+        //var entity = viewer.entities.add({
+        //    polygon: {
+        //        hierarchy: new Cesium.PolygonHierarchy(positions),
+        //        extrudedHeight: 0,
+        //        perPositionHeight: true,
+        //        material: Cesium.Color.ORANGE.withAlpha(0.5),
+        //        outline: true,
+        //        outlineColor: Cesium.Color.BLACK
+        //    }
+        //});
+        //entity.identity = "footPrint";
     }
+
 }
 
 
