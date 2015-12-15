@@ -74,34 +74,6 @@ function excuteQuery() {
 }
 
 function displayFeatures(featuresArray) {
-    //$.each(featuresArray,function(key,value){
-    //    var pointsArr = value.geometry.rings[0];
-    //    var hierarchy = Cartesian3.fromDegreesArray([
-    //        pointsArray[0][0], pointsArray[0][1],
-    //        pointsArray[1][0], pointsArray[1][1],
-    //        pointsArray[2][0], pointsArray[2][1],
-    //        pointsArray[3][0], pointsArray[3][1]
-    //    ]);
-    //
-    //    var entity = new Entity({
-    //        polygon: {
-    //            hierarchy: Cartesian3.fromDegreesArray([
-    //                -72.0, 40.0,
-    //                -70.0, 35.0,
-    //                -75.0, 30.0,
-    //                -70.0, 30.0,
-    //                -68.0, 40.0
-    //            ]),
-    //            extrudedHeight: 0,
-    //            perPositionHeight: true,
-    //            material: Cesium.Color.ORANGE.withAlpha(0.5),
-    //            outline: true,
-    //            outlineColor: Cesium.Color.BLACK
-    //        }
-    //    });
-    //    entity.identity = "footPrint";
-    //    entities.push(entity);
-    //})
     for (var k = 0; k < featuresArray.length; k++) {
         var pointsArray = featuresArray[k].geometry.rings[0];
         //var hierarchy = Cesium.Cartesian3.fromDegreesArray([
@@ -131,7 +103,6 @@ function displayFeatures(featuresArray) {
                 hierarchy: new Cesium.PolygonHierarchy(positions),
                 extrudedHeight: 0,
                 perPositionHeight: true,
-                //material: Cesium.Color.ORANGE.withAlpha(0.5),
                 material: new Cesium.ColorMaterialProperty({
                     //color: new Cesium.Color(0.5,0.5,0.5,0),
                     color: Cesium.Color.WHITE
@@ -150,7 +121,7 @@ function displayFeatures(featuresArray) {
         entity.rowNum = featuresArray[k].attributes.ROW_NUMBER;//行编号
 
         var urlStr = featuresArray[k].attributes.GRANULEID;
-        entity.imageUrl="http://eds.ceode.ac.cn/image4flex/"+urlStr+"/C/sq";
+        entity.imageUrl = "http://eds.ceode.ac.cn/image4flex/" + urlStr + "/C/sq";//因为是img标签，不存在跨域的问题
         //entity.imageUrl = "/ceode/image4flex/" + urlStr + "/C/sq";
     }
     var scene = viewer.scene;
@@ -217,23 +188,15 @@ function displayFeatures(featuresArray) {
         html += "                <td width='50%'>行编号：</td>";
         html += "                <td>" + rowNum + "</td>";
         html += "            </tr>";
-        //html += "            <tr>";
-        //html += "                <td> 站点名称 </td>";
-        //html += "                <td>" + zdmc + "</td>";
-        //html += "            </tr>";
-        //html += "            <tr>";
-        //html += "                <td> 当前时间 </td>";
-        //html += "                <td>" + time + "</td>";
-        //html += "            </tr>";
         html += "        </table>";
-        html += "<img height='300' width='320' src="+imageUrl+"></img> ";
+        html += "<img height='300' width='320' src=" + imageUrl + "></img> ";
         return html;
     }
 }
 
 
 function createCoverDiv() {
-    var cover = $('<div id="cover">ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div>').css({
+    var cover = $('<div id="cover"></div>').css({
         "display": "block",
         "position": "fixed",
         "z-index": 700,
@@ -247,7 +210,7 @@ function createCoverDiv() {
 
     var coverMiddle = $('<div id="coverMiddle"></div>').css({
         "z-index": 710,
-        "top": "40%",
+        "top": "30%",
         "left": "30%",
         "width": "350px",
         "height": "350px",
