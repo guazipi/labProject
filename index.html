@@ -70,7 +70,6 @@
     <div id="globediv">
         <div id="addSimpleFile"></div>
         <div class="popup" id="satellite_popup"></div>
-        <!-- /#satellite_popup -->
         <!--************************************球体显示div**************************************-->
         <div id="cesiumContainer"></div>
         <!--************************************球体下部的图片轮询条********************************-->
@@ -136,13 +135,6 @@
          class="hud_button"
          onmouseover="this.src='img/tracksat/help_2.png'"
          onmouseout="this.src='img/tracksat/help_1.png'"/>
-    <!--<img src="img/tracksat/Expand_1.png"-->
-    <!--id="fullscreen_button"-->
-    <!--title="全屏"-->
-    <!--alt="全屏"-->
-    <!--class="hud_button"-->
-    <!--onmouseover="this.src='img/tracksat/Expand_2b.png'"-->
-    <!--onmouseout="this.src='img/tracksat/Expand_1.png'"/>-->
 </div>
 <!--************************************卫星追踪－追踪过境卫星**************************************-->
 <div id="satsCrossSwr" class="satmodal">
@@ -301,34 +293,6 @@
         上次更新时间：<label id="yearLabel">2015</label>年<label id="monthLabel">7</label>月<label id="dayLabel">25</label>日
         <label id="hourLabel">02</label>:<label id="minuteLabel">39</label>:<label id="secondLabel">48</label>
         <br>
-
-        <div>
-            <input type="text" id="updateOrnot" value="1" hidden>
-            <button type="button" id="updateSatsBtn" class="btn btn-default" style="position: relative;left: 90px">
-                更新全部卫星
-            </button>
-        </div>
-    </div>
-</div>
-<!--************************************更新卫星弹出的对话框**************************************-->
-<div class="modal fade" id="updateSatsModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true" id="closeUpdateBox">&times;</button>
-                <h4 class="modal-title">更新卫星数据</h4>
-            </div>
-            <div class="modal-body">
-                <div id="progressbar">
-                    <div class="progress-label">加载中...</div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="shutdownUpdatedBox">关闭</button>
-            </div>
-        </div>
     </div>
 </div>
 <!--************************************卫星追踪－帮助**************************************-->
@@ -495,25 +459,9 @@
         <ul id="datatree"></ul>
 
     </div>
-    <div class="panel-footer" id="panelFooter_div">
-    </div>
+    <!--<div class="panel-footer" id="panelFooter_div">-->
+    <!--</div>-->
 </div>
-
-<!--&lt;!&ndash;************************************计算过境卫星轨迹时显示的效果**************************************&ndash;&gt;-->
-<!--<div id="cover"></div>-->
-<!--<div id="coverShow">-->
-<!--<table align="center" border="0" width="100%" cellspacing="0" cellpadding="0"-->
-<!--style="border-collapse: collapse; height: 100px; min-height: 100px;" bgcolor="#127386">-->
-<!--<tr>-->
-<!--<td height="30" style="font-size: 12px;">正在计算过境卫星，请稍后......</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td align="center" bgcolor="#ffffff">-->
-<!--<img src="img/loadingg.gif" alt="正在计算过境卫星！" title="正在计算过境卫星！">-->
-<!--</td>-->
-<!--</tr>-->
-<!--</table>-->
-<!--</div>-->
 <!--************************************网站下部的图片轮询**************************************-->
 <div id="carousel-items" class="nav-item">
     <div id="4">
@@ -618,9 +566,6 @@
 <script type="text/javascript" src="js/jqueryUI/jquery-ui-1.11.4.js"></script>
 
 <script type="text/javascript" src="js/dateTimePicker/jquery.datetimepicker.js"></script>
-<!--<script type="text/javascript" src="js/crossSatsPolylines/calculateCrossSats.js"></script>-->
-<!--<script type="text/javascript" src="js/crossSatsPolylines/calCrossSatsFuncs.js"></script>-->
-<!--<script type="text/javascript" src="js/crossSatsPolylines/clickCrossPolyline.js"></script>-->
 
 <script type="text/javascript" src="js/crossSatsPolylines/usefullFuncs.js"></script>
 <script type="text/javascript" src="js/crossSatsPolylines/newCrossFoot.js"></script>
@@ -646,7 +591,7 @@
 
 
 <script type="text/javascript" src="js/sattrack.js"></script>
-<script type="text/javascript" src="js/updateSats.js"></script>
+<!--<script type="text/javascript" src="js/updateSats.js"></script>-->
 <script type="text/javascript" src="js/initialTLES.js"></script>
 <script type="text/javascript" src="js/initializeDatelabel.js"></script>
 <script type="text/javascript" src="js/observerFuncs.js"></script>

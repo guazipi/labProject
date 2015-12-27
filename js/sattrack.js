@@ -41,62 +41,65 @@ $("#track-nav").click(function() {
             // }, 600)
 
             $('#sattrack_buttons').show();
-            //初始化从数据库取得的tle数据
-            initialTLES();
 
-            //默认select_satellite_group选择国内所有资源卫星
-            $("#select_satellite_group").val("innerSats");
-            //清空选择卫星的select中的选择项
-            $("#select_satellite").empty();
+            setTimeout(function(){
+                //初始化从数据库取得的tle数据
+                initialTLES();
 
-            //初始化并且添加entity到scene
-            populateSatelliteEntity();
+                //默认select_satellite_group选择国内所有资源卫星
+                $("#select_satellite_group").val("innerSats");
+                //清空选择卫星的select中的选择项
+                $("#select_satellite").empty();
+
+                //初始化并且添加entity到scene
+                populateSatelliteEntity();
 
 
-            /**
-             * 控制每当显示卫星追踪hud时，默认选中显示卫星标签复选框,而不选中显示鼠标位置复选框
-             * 当然，卫星的标签也是默认显示的。
-             * 其实没有做到复选框的选中和标签的显示两者真正的协同工作，只是实现了这个效果
-             */
-            /**
-             * 方法一这个有时候会不行
-             * @type {boolean}
-             */
-            //$("#cb_showsatLabel").attr("checked","checked");
-            //$("#cb_showmousepos").attr("checked","checked");
-            /**
-             * 方法二，这个是javascript原生的方法，应该是每个浏览器都可用的
-             * @type {boolean}
-             */
-            document.getElementById("cb_showsatLabel").checked = true;
-            //if ($("#cb_showmousepos").is(':checked'))
-            //if (!document.getElementById("cb_showmousepos").checked)
-            //    document.getElementById("cb_showmousepos").checked = false;
-            if ($("#cb_showsatOrbit").is(':checked')) {
-                $("#cb_showsatOrbit").prop("checked", false);
-            }
-            if ($("#cb_showsatSweep").is(':checked')) {
-                $("#cb_showsatSweep").prop("checked", false);
-            }
+                /**
+                 * 控制每当显示卫星追踪hud时，默认选中显示卫星标签复选框,而不选中显示鼠标位置复选框
+                 * 当然，卫星的标签也是默认显示的。
+                 * 其实没有做到复选框的选中和标签的显示两者真正的协同工作，只是实现了这个效果
+                 */
+                /**
+                 * 方法一这个有时候会不行
+                 * @type {boolean}
+                 */
+                //$("#cb_showsatLabel").attr("checked","checked");
+                //$("#cb_showmousepos").attr("checked","checked");
+                /**
+                 * 方法二，这个是javascript原生的方法，应该是每个浏览器都可用的
+                 * @type {boolean}
+                 */
+                document.getElementById("cb_showsatLabel").checked = true;
+                //if ($("#cb_showmousepos").is(':checked'))
+                //if (!document.getElementById("cb_showmousepos").checked)
+                //    document.getElementById("cb_showmousepos").checked = false;
+                if ($("#cb_showsatOrbit").is(':checked')) {
+                    $("#cb_showsatOrbit").prop("checked", false);
+                }
+                if ($("#cb_showsatSweep").is(':checked')) {
+                    $("#cb_showsatSweep").prop("checked", false);
+                }
 
-            /**
-             * 方法三，这个还真不好说，方法一不可行时，这个可行
-             * @type {boolean}
-             */
-            //$("#cb_showsatLabel").prop("checked",true);
-            //$("#cb_showmousepos").prop("checked",true);
+                /**
+                 * 方法三，这个还真不好说，方法一不可行时，这个可行
+                 * @type {boolean}
+                 */
+                //$("#cb_showsatLabel").prop("checked",true);
+                //$("#cb_showmousepos").prop("checked",true);
 
-            //for (var i = 0; i < satBillboards.length; i++) {
-            //    if (!satBillboards.get(i).show) {
-            //        satBillboards.get(i).show = true;
-            //    }
-            //}
-            //for (var i = 0; i < satlabels.length; i++) {
-            //    if (!satlabels.get(i).show) {
-            //        satlabels.get(i).show = true;
-            //    }
-            //}
+                //for (var i = 0; i < satBillboards.length; i++) {
+                //    if (!satBillboards.get(i).show) {
+                //        satBillboards.get(i).show = true;
+                //    }
+                //}
+                //for (var i = 0; i < satlabels.length; i++) {
+                //    if (!satlabels.get(i).show) {
+                //        satlabels.get(i).show = true;
+                //    }
+                //}
 
+            },1000)
         }
     })
     //切换显示卫星追踪下的几个显示框

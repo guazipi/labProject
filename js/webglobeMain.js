@@ -106,10 +106,6 @@ $(document).ready(function() {
     balloonViewModel = balloon.viewModel;
 
 
-    ////初始化更新卫星数据时显示的对话框
-    //initialUpdateatsDialog();
-
-
     satelliteClickDetails(viewer.scene);
 
     //初始化右侧div中的tabs标签
