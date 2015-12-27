@@ -9,14 +9,15 @@
  * 根据一个卫星的noradid编号数组去数据库中查询卫星的名称，然后组合成一个名称数组，返回。
  * 被使用于calCrossSatsFuncs.js
  */
+include 'config.php';
 $satNumArr = $_GET["satNumArr"];
 // $satNumArr =array('37820','40118');
-$con = mysql_connect("localhost", "chetde", "123456");
+$con = mysql_connect($mysql_host, $mysql_username, $mysql_pwd);
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
 //选中某个数据库
-mysql_select_db("labtles", $con);
+mysql_select_db($mysql_dbname, $con);
 
 $satNameArr = array();
 

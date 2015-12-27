@@ -5,15 +5,16 @@
  * Date: 15/7/25
  * Time: 14:52
  */
+include 'config.php';
 require 'spacetrack.php';
 require 'initializeVar.php';
 
-$con = mysql_connect("localhost", "chetde", "123456");
+$con = mysql_connect($mysql_host, $mysql_username, $mysql_pwd);
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
 //选中某个数据库
-mysql_select_db("labtles", $con);
+mysql_select_db($mysql_dbname, $con);
 
 $spacetrack = spacetrack::getInstance();
 $api = 'tle_latest';

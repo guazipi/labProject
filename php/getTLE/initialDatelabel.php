@@ -5,14 +5,15 @@
  * Date: 15/7/25
  * Time: 22:11
  */
+include 'config.php';
 $noradNum = $_POST ["noradNum"];
 //$noradNum=37820;
-$con = mysql_connect("localhost", "chetde", "123456");
+$con = mysql_connect($mysql_host, $mysql_username, $mysql_pwd);
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
 //选中某个数据库
-mysql_select_db("labtles", $con);
+mysql_select_db($mysql_dbname, $con);
 
 $queryString = "SELECT tleLine1 FROM satsinfo WHERE satNum='$noradNum'";
 $queryResult = mysql_query($queryString, $con);

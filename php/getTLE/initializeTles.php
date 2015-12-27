@@ -5,15 +5,16 @@
  * Date: 15/7/26
  * Time: 11:37
  */
+include 'config.php';
 require 'initializeVar.php';
 
-$con = mysql_connect("localhost", "chetde", "123456");
+$con = mysql_connect($mysql_host, $mysql_username, $mysql_pwd);
 //$con = mysql_connect("localhost", "root");
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
 //选中某个数据库
-mysql_select_db("labtles", $con);
+mysql_select_db($mysql_dbname, $con);
 
 $returnTLE=array();
 
