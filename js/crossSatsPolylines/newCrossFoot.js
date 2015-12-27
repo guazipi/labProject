@@ -13,15 +13,36 @@ $('#queryCrossSats').click(function () {
     //addPringonEarth();
 });
 
+
+$('#clearCrossPolyline').click(function () {
+    //当清除卫星轨迹时，将Balloon也消除掉
+    if (balloonViewModel.userClosed == false) {
+        balloonViewModel.userClosed = true;
+    }
+
+    var length = viewer.scene.primitives.length;
+    var removeArray = new Array();
+    for (var i = 0; i < length; i++) {
+        var primit=viewer.scene.primitives.get(i);
+        if ("imageFoot" in viewer.scene.primitives.get(i)) {
+            //viewer.scene.primitives.remove(viewer.scene.primitives.get(i));
+            removeArray.push(viewer.scene.primitives.get(i));
+            //break;
+        }
+    }
+    if(removeArray.length>0){
+        $.each(removeArray, function (k, val) {
+            viewer.scene.primitives.remove(val);
+        });
+    }
+});
+
 function excuteQuery() {
     if (isEndGreaterBegin()) {
         //生成查询状态的对话框
         createCoverDiv();
 
-        $("#cancelQuery").click(function () {
-            $("#coverMiddle").remove();
-            $("#cover").remove();
-        })
+        $("#cancelQuery").attr('disabled',true);
 
         var now = new Date;
         var nowString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
@@ -30,8 +51,9 @@ function excuteQuery() {
         var getCrossRecs = new Cesium.GetCrossRecs({
             ellipsoid: viewer.scene.globe.ellipsoid
         });
-        //var times = getTimes($('#dateTimePickerBegin').val(), $('#dateTimePickerEnd').val());
-        var times = "satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('2001-06-23 00:00:00','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('2015-11-23 22:18:21','YYYY-MM-DD HH24:MI:SS')";
+        var satellite = $("#select_crossSat").val();
+        var times = getQueryStr(satellite, $('#dateTimePickerBegin').val(), $('#dateTimePickerEnd').val());
+        //var times = "satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('2001-06-23 00:00:00','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('2015-11-23 22:18:21','YYYY-MM-DD HH24:MI:SS')";
         var editPrimitive = getEditPrimitive();
         if (!editPrimitive) {
             return;
@@ -55,12 +77,6 @@ function excuteQuery() {
                 if (features) {
                     displayFeatures(features);
                 }
-
-                //$("#cancelQuery").click(function(){
-                //    $("#cover").remove();
-                //    $("#coverMiddle").remove();
-                //})
-
             }
             if (editPrimitive.hasOwnProperty("positions")) {
                 var features = getCrossRecs.crossPoly(times, editPrimitive);
@@ -68,7 +84,12 @@ function excuteQuery() {
                     displayFeatures(features);
                 }
             }
-            $("#cancelQuery").val("确定");
+            $("#cancelQuery").val("确 定");
+            $("#cancelQuery").attr('disabled',false);
+            $("#cancelQuery").click(function () {
+                $("#coverMiddle").remove();
+                $("#cover").remove();
+            })
         }
     }
 }
@@ -98,30 +119,73 @@ function displayFeatures(featuresArray) {
         //    }
         //});
 
-        var entity = viewer.entities.add({
-            polygon: {
-                hierarchy: new Cesium.PolygonHierarchy(positions),
-                extrudedHeight: 0,
-                perPositionHeight: true,
-                material: new Cesium.ColorMaterialProperty({
-                    //color: new Cesium.Color(0.5,0.5,0.5,0),
-                    color: Cesium.Color.WHITE
-                }),
-                outline: true,
-                outlineColor: Cesium.Color.CYAN,
-                outlineWidth: 6.0
+        //var entity = viewer.entities.add({
+        //    polygon: {
+        //        hierarchy: new Cesium.PolygonHierarchy(positions),
+        //        extrudedHeight: 0,
+        //        perPositionHeight: true,
+        //        material: new Cesium.ColorMaterialProperty({
+        //            //color: new Cesium.Color(0.5,0.5,0.5,0),
+        //            color: Cesium.Color.WHITE
+        //        }),
+        //        outline: true,
+        //        outlineColor: Cesium.Color.CYAN,
+        //        outlineWidth: 6.0
+        //    }
+        //});
+        //
+        //entity.imageFoot = "hello";
+        ////条带数据
+        //entity.satllite = featuresArray[k].attributes.SATELLITE;//卫星
+        //entity.acceptTime = featuresArray[k].attributes.ACQUISITION_START_TIME;//接收时间
+        //entity.pathNum = featuresArray[k].attributes.PATH_NUMBER;//条带号
+        //entity.rowNum = featuresArray[k].attributes.ROW_NUMBER;//行编号
+        //
+        //var urlStr = featuresArray[k].attributes.GRANULEID;
+        //entity.imageUrl = "http://eds.ceode.ac.cn/image4flex/" + urlStr + "/C/sq";//因为是img标签，不存在跨域的问题
+        ////entity.imageUrl = "/ceode/image4flex/" + urlStr + "/C/sq";
+
+
+        //// 1. create a polygon from points
+        //var polygon = new Cesium.PolygonGeometry({
+        //    polygonHierarchy: {
+        //        positions: positions
+        //    }
+        //});
+        //var geometry = Cesium.PolygonGeometry.createGeometry(polygon);
+
+
+        var instance = new Cesium.GeometryInstance({
+            geometry: new Cesium.PolygonGeometry({
+                polygonHierarchy: {
+                    positions: positions
+                },
+                height: 1000.0
+            }),
+            id: featuresArray[k].attributes.GRANULEID,
+            attributes: {
+                color: Cesium.ColorGeometryInstanceAttribute.fromColor(Cesium.Color.BLUE)
             }
         });
 
-        entity.imageFoot = "hello";
+
+        var primiti = viewer.scene.primitives.add(new Cesium.Primitive({
+            geometryInstances: instance,
+            appearance: new Cesium.PerInstanceColorAppearance({
+                translucent: false,
+                //closed : true
+            })
+        }));
+
+        primiti.imageFoot = "hello";
         //条带数据
-        entity.satllite = featuresArray[k].attributes.SATELLITE;//卫星
-        entity.acceptTime = featuresArray[k].attributes.ACQUISITION_START_TIME;//接收时间
-        entity.pathNum = featuresArray[k].attributes.PATH_NUMBER;//条带号
-        entity.rowNum = featuresArray[k].attributes.ROW_NUMBER;//行编号
+        primiti.satllite = featuresArray[k].attributes.SATELLITE;//卫星
+        primiti.acceptTime = featuresArray[k].attributes.ACQUISITION_START_TIME;//接收时间
+        primiti.pathNum = featuresArray[k].attributes.PATH_NUMBER;//条带号
+        primiti.rowNum = featuresArray[k].attributes.ROW_NUMBER;//行编号
 
         var urlStr = featuresArray[k].attributes.GRANULEID;
-        entity.imageUrl = "http://eds.ceode.ac.cn/image4flex/" + urlStr + "/C/sq";//因为是img标签，不存在跨域的问题
+        primiti.imageUrl = "http://eds.ceode.ac.cn/image4flex/" + urlStr + "/C/sq";//因为是img标签，不存在跨域的问题
         //entity.imageUrl = "/ceode/image4flex/" + urlStr + "/C/sq";
     }
     var scene = viewer.scene;
@@ -134,32 +198,13 @@ function displayFeatures(featuresArray) {
 
             if (Cesium.defined(pickedObject)) {
                 if (typeof window !== 'undefined') {
-                    if (pickedObject.id.imageFoot) {
-                        var pickedObjId = pickedObject.id;
+                    if (pickedObject.primitive.imageFoot) {
+                        var pickedObjId = pickedObject.primitive;
                         clickposition = scene.camera.pickEllipsoid(click.position, ellipsoid);
                         balloonViewModel.position = click.position;
                         balloonViewModel.content = getHtml(pickedObjId.satllite, pickedObjId.acceptTime, pickedObjId.pathNum, pickedObjId.rowNum, pickedObjId.imageUrl);
                         balloonViewModel.showBalloon = true;
                         balloonViewModel.update();
-
-//                            var clickMaterial = new Cesium.Material({
-//                                fabric: {
-//                                    type: 'Color',
-//                                    uniforms: {
-//                                        color: Cesium.Color.BLUEVIOLET
-//                                    }
-//                                }
-//                            });
-////                            alert(pickedObject.id._polygon._material);
-//                            console.log(pickedObject.id._polygon._material);
-////                            console.log(clickMaterial);
-//                            var materialss=new Cesium.ColorMaterialProperty(Cesium.Color.BLUEVIOLET);
-//                            console.log(materialss);
-//                            pickedObject.id._polygon._material = materialss;
-//
-//                            console.log("dd");
-//                            pickedObject.primitive._material = clickMaterial;
-
                     }
                 }
             }
@@ -306,12 +351,6 @@ function isEndGreaterBegin() {
                         return false;
 
                     }
-                    if (dateObjEnd.minute < dateObjBegin.minute) {
-                        if (dateObjEnd.second < dateObjBegin.second) {
-                            alert("结束时间必须晚于开始时间，请重新选择！");
-                            return false;
-                        }
-                    }
                 }
             }
         }
@@ -320,16 +359,23 @@ function isEndGreaterBegin() {
     return true;
 }
 
-function getTimes(dateTxtBegin, dateTxtEnd) {
-    var time = "satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('";
-    var time1 = "','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('";
+function getQueryStr(satllite, dateTxtBegin, dateTxtEnd) {
+    var satlliteStr = "satellite ='" + satllite + "' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('20";
+    var time1 = "','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('20";
     var time2 = "','YYYY-MM-DD HH24:MI:SS')";
 
-    var timeStart = dateTxtBegin.slice(6, 10) + "-" + dateTxtBegin.slice(0, 2) + "-" + dateTxtBegin.slice(3, 5) + " " + dateTxtBegin.slice(11, 13) + ":" + dateTxtBegin.slice(14, 16) + ":" + dateTxtBegin.slice(17, 19);
-    var timeEnd = dateTxtEnd.slice(6, 10) + "-" + dateTxtEnd.slice(0, 2) + "-" + dateTxtEnd.slice(3, 5) + " " + dateTxtEnd.slice(11, 13) + ":" + dateTxtEnd.slice(14, 16) + ":" + dateTxtEnd.slice(17, 19);
-    var totalTime = time + timeStart + time1 + timeEnd + time2;
+    var timeStart = dateTxtBegin.slice(2, 4) + "-" + dateTxtBegin.slice(5, 7) + "-" + dateTxtBegin.slice(8, 10) + " " + dateTxtBegin.slice(11, 13) + ":" + dateTxtBegin.slice(14, 16) + ":00";
+    var timeEnd = dateTxtEnd.slice(2, 4) + "-" + dateTxtEnd.slice(5, 7) + "-" + dateTxtEnd.slice(8, 10) + " " + dateTxtEnd.slice(11, 13) + ":" + dateTxtEnd.slice(14, 16) + ":00";
+    var totalStr = satlliteStr + timeStart + time1 + timeEnd + time2;
 
-    return totalTime;
+    return totalStr;
+
+
+    //month = parseInt(dateTxt.slice(5, 7));
+    //day = parseInt(dateTxt.slice(8, 10));
+    //year = parseInt(dateTxt.slice(2, 4));
+    //hour = parseInt(dateTxt.slice(11, 13));
+    //minute = parseInt(dateTxt.slice(14, 16));
 }
 
 function getEditPrimitive() {

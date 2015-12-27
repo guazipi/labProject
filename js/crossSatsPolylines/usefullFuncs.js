@@ -17,12 +17,12 @@ usefullFuncs.getLonLatFromCartesian = function(position) {
 usefullFuncs.getDateObjFromText = function(dateTxt) {
 	var month, day, year,
 		hour, minute, second;
-	month = parseInt(dateTxt.slice(0, 2));
-	day = parseInt(dateTxt.slice(3, 5));
-	year = parseInt(dateTxt.slice(6, 10));
+	month = parseInt(dateTxt.slice(5, 7));
+	day = parseInt(dateTxt.slice(8, 10));
+	year = parseInt(dateTxt.slice(2, 4));
 	hour = parseInt(dateTxt.slice(11, 13));
 	minute = parseInt(dateTxt.slice(14, 16));
-	second = parseInt(dateTxt.slice(17, 19));
+	//second = parseInt(dateTxt.slice(17, 19));
 
 	
 
@@ -32,6 +32,6 @@ return {
 	'year': year,
 	'hour': hour,
 	'minute': minute,
-	'second': second
+	//'second': second
 }
 }

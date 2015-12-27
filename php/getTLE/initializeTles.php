@@ -8,6 +8,7 @@
 require 'initializeVar.php';
 
 $con = mysql_connect("localhost", "chetde", "123456");
+//$con = mysql_connect("localhost", "root");
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }

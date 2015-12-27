@@ -16,15 +16,15 @@ function populateSatelliteEntity() {
         entity = viewer.entities.add({
             id: satData[satnum].noradId,
             position: new Cesium.Cartesian3(0, 0, 0),
-            billboard: {
-                image: "../../img/satellites/satellite.png"
-            },
-            //model: {
-            //    uri: "../dataset/3dmodels/Deep_space.bgltf",
-            //    show: 'true',
-            //    scale: 2.0,
-            //    minimumPixelSize:64
+            //billboard: {
+            //    image: "../../img/satellites/satellite.png"
             //},
+            model: {
+                uri: "./dataset/3dmodels/Deep_space.bgltf",
+                show: 'true',
+                scale: 2.0,
+                minimumPixelSize:64
+            },
             label: {
                 font: '15px sans-serif',
                 pixelOffset: new Cesium.Cartesian2(16, 12),
