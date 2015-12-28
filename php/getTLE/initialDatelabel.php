@@ -6,8 +6,8 @@
  * Time: 22:11
  */
 include 'config.php';
-$noradNum = $_POST ["noradNum"];
-//$noradNum=37820;
+//$noradNum = $_POST ["noradNum"];
+$noradNum=37820;
 $con = mysql_connect($mysql_host, $mysql_username, $mysql_pwd);
 if (!$con) {
     die('Could not connect: ' . mysql_error());
@@ -25,5 +25,6 @@ if (!$queryResult) {
 
 $tleLine1 = mysql_fetch_assoc($queryResult)['tleLine1'];
 $getOnEpoch = (float)substr($tleLine1, 18, 14);
-mysql_close($con);
+
 echo $getOnEpoch;
+mysql_close($con);

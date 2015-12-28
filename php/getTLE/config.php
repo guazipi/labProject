@@ -9,3 +9,9 @@ $mysql_host = 'localhost';
 $mysql_username = 'chetde';
 $mysql_pwd = '123456';
 $mysql_dbname = 'labtles';
+
+//$mysql_host = '10.2.3.4';
+//$mysql_username = 'root';
+//$mysql_pwd = 'qwer1234';
+//$mysql_dbname = 'labtles';
+
