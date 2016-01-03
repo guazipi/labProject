@@ -38,7 +38,11 @@ $('#clearCrossPolyline').click(function () {
 });
 
 function excuteQuery() {
-    if (isEndGreaterBegin()) {
+    var editPrimitive = getEditPrimitive();
+    //if (!editPrimitive) {
+    //    return;
+    //}
+    if (isEndGreaterBegin()&&editPrimitive) {
         //生成查询状态的对话框
         createCoverDiv();
 
@@ -54,10 +58,7 @@ function excuteQuery() {
         var satellite = $("#select_crossSat").val();
         var times = getQueryStr(satellite, $('#dateTimePickerBegin').val(), $('#dateTimePickerEnd').val());
         //var times = "satellite = 'SPOT-1' and CLOUD_COVER_AVG<=10 and START_TIME>= to_date('2001-06-23 00:00:00','YYYY-MM-DD HH24:MI:SS') AND START_TIME <= to_date('2015-11-23 22:18:21','YYYY-MM-DD HH24:MI:SS')";
-        var editPrimitive = getEditPrimitive();
-        if (!editPrimitive) {
-            return;
-        }
+
         setTimeout(function () {
             excuteSth();
         }, 1000);//延迟1秒执行，在延迟的这一秒内把对话框渲染出来，不然渲染线程和js执行线程互斥
