@@ -29,6 +29,7 @@ function initializeDatelabel() {
     //恢复ajax的异步执行设置，默认是异步执行的，
     // 上边开启了同步执行设置
     //$.ajaxSettings.async = true;
+    //$.ajaxSettings.async = false;
     $.getJSON("php/getTLE/initialDatelabel.php", function (data) {
             //console.log(data);
             //alert(data);
@@ -41,6 +42,7 @@ function initializeDatelabel() {
             $("#minuteLabel").text(dateArray['minute']);
             $("#secondLabel").text(dateArray['second']);
         });
+   // $.ajaxSettings.async = true;
 }
 /**
  * 从epoch中计算具体日期
