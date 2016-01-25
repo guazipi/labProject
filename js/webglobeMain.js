@@ -4,28 +4,27 @@
 var ui;
 var carousel_items = [];
 var prodList = [];
-var dataImageLayer;
 
-$(document).ready(function() {
+$(document).ready(function () {
     var value = Math.PI * 256.0 / 180.0;
     var extent = new Cesium.Rectangle(-value, -value, value, value);
     viewer = new Cesium.Viewer('cesiumContainer', {
-        //imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-        //    url: '/QuadServer/services/maps/wmts100',
-        //    layer: 'world_image',
-        //    //layer: 'world_vector',
-        //    style: 'default',
-        //    format: 'image/jpeg',
-        //    tileMatrixSetID: 'PGIS_TILE_STORE',
-        //    minimumLevel: 0,
-        //    maximumLevel: 19,
-        //    credit: new Cesium.Credit('world_country'),
-        //    tilingScheme: new Cesium.GeographicTilingScheme({
-        //        rectangle: extent,
-        //        numberOfLevelZeroTilesX: 1,
-        //        numberOfLevelZeroTilesY: 1
-        //    }),
-        //}),
+        imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+            url: '/QuadServer/services/maps/wmts100',
+            layer: 'world_image',
+            //layer: 'world_vector',
+            style: 'default',
+            format: 'image/jpeg',
+            tileMatrixSetID: 'PGIS_TILE_STORE',
+            minimumLevel: 0,
+            maximumLevel: 19,
+            credit: new Cesium.Credit('world_country'),
+            tilingScheme: new Cesium.GeographicTilingScheme({
+                rectangle: extent,
+                numberOfLevelZeroTilesX: 1,
+                numberOfLevelZeroTilesY: 1
+            }),
+        }),
         //imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
         //    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
         //}),
@@ -77,9 +76,9 @@ $(document).ready(function() {
     ui.carousel();
     ui.data();
 
-    //prepareLayers();
+
     initializeSlider();
-    initializeDatatree();
+
 
     //初始化日期标签，在卫星追踪hud－选择卫星显示框中
     initializeDatelabel();
@@ -98,7 +97,7 @@ $(document).ready(function() {
     balloonContainer.className = 'cesium-viewer-balloonContainer';
     viewer.container.appendChild(balloonContainer);
     var balloon = new Cesium.Balloon(balloonContainer, viewer.scene);
-    balloon.viewModel.computeScreenSpacePosition = function(value, result) {
+    balloon.viewModel.computeScreenSpacePosition = function (value, result) {
         result.x = value.x;
         result.y = viewer.container.clientHeight - value.y;
         return result;
@@ -117,7 +116,7 @@ $(document).ready(function() {
     /**
      * 每隔1000ms更新一次，卫星billboard的位置，让其动态显示
      */
-    setInterval(function() {
+    setInterval(function () {
         var now = Cesium.JulianDate.now(); // TODO> we'll want to base on tick and time-speedup
 
         if (satrecs.length > 0) {
@@ -160,16 +159,17 @@ $(document).ready(function() {
             }
         }
     }
+
     /**
      * 每次更新卫星billboard的位置后，不会立即显示，需要重新绘制canvas上变化的元素，
      * 这样更新后的卫星billboard才会及时显示在球体周围
      */
-    // Loop the clock
+        // Loop the clock
     (function tick() {
         var scene = viewer.scene;
         scene.initializeFrame(); // takes optional 'time' argument
 
-        if(balloonViewModel.showBalloon == true){
+        if (balloonViewModel.showBalloon == true) {
             changeBallon(balloonViewModel, clickposition);
         }
 

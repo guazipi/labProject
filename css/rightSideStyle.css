@@ -24,7 +24,7 @@
 }
 /*右边显示卫星信息和过境卫星信息的div的主体部分div*/
 #rightInfoList_div {
-    height: 90%;
+    height: 70%;
     /*height: 440px;*/
     width: 290px;
     background:#fff url("jqueryUIcss/images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
