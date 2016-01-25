@@ -63,7 +63,6 @@ $(document).ready(function () {
         timeline: false
     });
     //控制地球的初始视野为中国
-    // alert('i am here');
     viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
     //viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -19.5, 130.0, 70.0));
     // viewer.scene.camera.viewRectangle(new Cesium.Rectangle(124.5, -9.5, 140.0, 70.0));
@@ -71,14 +70,13 @@ $(document).ready(function () {
     $('.cesium-viewer-bottom').hide();
     ui = new UI();
 
+    //初始化图片轮询
     initializeCarousel();
 
     ui.carousel();
     ui.data();
-
-
-    initializeSlider();
-
+    ////初始化时间序列的滑块
+    //initializeSlider();
 
     //初始化日期标签，在卫星追踪hud－选择卫星显示框中
     initializeDatelabel();
@@ -111,8 +109,6 @@ $(document).ready(function () {
     var tabs = $("#rightInfoList_div").tabs();
 
 
-    //临时添加卫星过境时所采集的数据
-    //addPringonEarth();
     /**
      * 每隔1000ms更新一次，卫星billboard的位置，让其动态显示
      */
