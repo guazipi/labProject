@@ -2,33 +2,6 @@
  * Created by chet on 15/7/25.
  */
 function initializeDatelabel() {
-    //开启ajax的同步执行设置，默认是异步执行的
-    //$.ajaxSettings.async = false;
-    //$.ajax({
-    //    url: "php/getTLE/initialDatelabel.php",
-    //    data: {noradNum: 38046},
-    //    type: "GET",
-    //    async: true,
-    //    dataType: 'text',
-    //    success: function (data) {
-    //        //console.log(data);
-    //        //alert(data);
-    //        var dateArray = DateFromEpoch(data);
-    //
-    //        $("#yearLabel").text(dateArray['year']);
-    //        $("#monthLabel").text(dateArray['month']);
-    //        $("#dayLabel").text(dateArray['day']);
-    //        $("#hourLabel").text(dateArray['hour']);
-    //        $("#minuteLabel").text(dateArray['minute']);
-    //        $("#secondLabel").text(dateArray['second']);
-    //    },
-    //    error: function (err) {
-    //        alert(err);
-    //    }
-    //});
-    //恢复ajax的异步执行设置，默认是异步执行的，
-    // 上边开启了同步执行设置
-    //$.ajaxSettings.async = true;
     //$.ajaxSettings.async = false;
     $.getJSON("php/getTLE/initialDatelabel.php", function (data) {
             //console.log(data);

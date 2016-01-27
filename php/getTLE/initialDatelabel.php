@@ -23,8 +23,13 @@ if (!$queryResult) {
 }
 
 
-$tleLine1 = mysql_fetch_assoc($queryResult)['tleLine1'];//怀疑问题就出在这里，版本不同导致有些写法的兼容性不同
-$getOnEpoch = (float)substr($tleLine1, 18, 14);
+//$tleLine1 = mysql_fetch_assoc($queryResult)['tleLine1'];//怀疑问题就出在这里，版本不同导致有些写法的兼容性不同
+$tleLine1 = mysql_fetch_assoc($queryResult);
+//echo $tleLine1[0];
+//var_dump($tleLine1['tleLine1']);
+$tleLine1Str=$tleLine1['tleLine1'];
+$getOnEpoch = (float)substr($tleLine1Str, 18, 14);
+//$getOnEpoch = (float)substr($tleLine1, 18, 14);
 
 echo $getOnEpoch;
 mysql_close($con);
