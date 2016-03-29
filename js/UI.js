@@ -94,6 +94,13 @@ function UI() {
         
         this.carousel();
     }
+    this.isShow=function(){
+        if (!$('.web3dglobe-data').is(':visible')) {
+            this.data();
+        } else {
+            this.dataClose();
+        }
+    }
 
     this.calc = function (idx) {
         this.dialog('空间地球信息高性能计算', idx == 1 ? '计算集群配置' : (idx == 2 ? '高性能计算模型库' : '自动计算'));

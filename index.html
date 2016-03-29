@@ -32,15 +32,15 @@
     <!--************************************网站导航条**************************************-->
     <div class="navbar  web3dglobe-bar">
         <div class="header" id="head">
-            <h1><img src="img/title.png" style="height:47px;"/></h1>
+            <h1><img src="img/title.png" style="height:48px;"/></h1>
 
             <div class="logo"><a href=""><img src="img/logo.png" alt=""></a></div>
         </div>
         <div class="navigation clearfix" id="toolbar">
             <div class="main-nav">
-                <ul style="font-size:17px;">
+                <ul style="font-size:20px;">
                     <li><a href="/">首页</a></li>
-                    <li><a href="javascript:ui.data();" id="data-nav">数据导航</a></li>
+                    <li><a href="javascript:ui.isShow();" id="data-nav">数据导航</a></li>
                     <li><a href="#" id="space-earth-nav">空间地球信息高性能计算</a>
 
                         <div class="sec-nav" id="space-earth-cal-nav">
@@ -142,10 +142,10 @@
 
     <h2 class="h2title">过境卫星查询</h2>
 
-    <div style="height: 89%;overflow: auto">
+    <div style="height: 90%;overflow: auto">
 
         <div>
-            <h4>选择感兴趣的区域</h4>
+            <h4 class="h4title">选择感兴趣的区域</h4>
 
             <div id="drawSthTools">
             </div>
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div>
-            <h4>选择卫星</h4>
+            <h4 class="h4title">选择卫星</h4>
 
             <div>
                 <select id="select_crossSat">
@@ -177,7 +177,7 @@
             </div>
         </div>
         <div style="padding: 3px">
-            <h4>选择时间范围</h4>
+            <h4 class="h4title">选择时间范围</h4>
 
             <div style="padding: 3px">
                 <label for="dateTimePickerBegin">起始点：</label>
@@ -188,9 +188,9 @@
                 <input type="text" id="dateTimePickerEnd" placeholder="请输入结束时间"/>
             </div>
         </div>
-        <button type="button" id="queryCrossSats" class="btn btn-default" style="position: relative;left: 20px">查询过境卫星
+        <button type="button" id="queryCrossSats" class="btn btn-default" style="width:40%;position: relative;left: 2px;font-size:1px">查询过境卫星
         </button>
-        <button type="button" id="clearCrossPolyline" class="btn btn-default" style="position: relative;left: 40px">
+        <button type="button" id="clearCrossPolyline" class="btn btn-default" style="width:44%;position: relative;left: 15px;font-size:1px">
             清除过境卫星轨迹
         </button>
     </div>
@@ -203,7 +203,7 @@
 
     <div style="height: 89%;overflow: auto">
         <div id="perpective">
-            <h4>选择观察模式</h4>
+            <h4 class="h4title">选择观察模式</h4>
             <img src="img/tracksat/3D_1.png"
                  id="three_d_display_button"
                  title="三维模式"
@@ -229,7 +229,7 @@
         <br> <br> <br> <br>
 
         <div id="otherDispleyOpts">
-            <h4>其他显示选项</h4>
+            <h4 class="h4title">其他显示选项</h4>
             &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_showsatSweep"/> 显示卫星传感器扫描范围 </label>
             <br>
             &nbsp;&nbsp;&nbsp;<label><input name="otherOpts" type="checkbox" id="cb_showsatOrbit"/> 显示卫星轨道 </label> <br>
@@ -248,13 +248,13 @@
 
     <h2 class="h2title">选择卫星</h2>
 
-    <div style="height: 89%;overflow: auto">
+    <div style="height: 90%;overflow: auto;width:95%">
         <form id="satcontrols">
             <fieldset>
                 <!--<legend>选择卫星:</legend>-->
                 <dl id="controls_satellite">
                     <dt>
-                        <label for="select_satellite_group">卫星类别:</label>
+                        <label for="select_satellite_group" class="h4title">卫星类别:</label>
                     </dt>
                     <dd>
                         <select id="select_satellite_group">
@@ -282,7 +282,7 @@
                         </select>
                     </dd>
                     <dt>
-                        <label for="select_satellite">选择具体卫星:</label>
+                        <label for="select_satellite" class="h4title">选择具体卫星:</label>
                     </dt>
                     <dd>
                         <select id="select_satellite"></select>
