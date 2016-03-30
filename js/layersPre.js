@@ -69,7 +69,6 @@ $('#datatree').on('select', function (event) {
             return false;
         }
     })
-    //console.log(item);
 });
 
 function getImageryFromLayerName(layerName) {
@@ -104,7 +103,6 @@ function getImageryFromLayerName(layerName) {
             style : 'default',
             format : 'tiles',
             tileMatrixSetID : 'w',//注意web墨卡托此时是w
-            // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
             maximumLevel: 19,
             credit : new Cesium.Credit('天地图')
         });

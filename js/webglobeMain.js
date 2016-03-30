@@ -1,5 +1,6 @@
 /**
  * Created by chet on 7/18/15.
+ * 越来越想将代码重新组织为一个又一个的对象了。
  */
 var ui;
 var carousel_items = [];
