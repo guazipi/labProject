@@ -30,7 +30,7 @@ var source = [
                 {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"},
             ]},
             {icon: "js/jqwidgets/treePng/folder.png", label: "FPAR数据产品", expanded: true, items: [
-                {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "1982-2006年全球FPAR产品"},
+                {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "1982-2006年全球平均FPAR产品"},
                 {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2006年全球年平均FPAR产品"},
             ]},
         ]},
