@@ -77,7 +77,7 @@ $(document).ready(function () {
     var ellipsoid = viewer.scene.globe.ellipsoid;
     var scene = viewer.scene;
     //handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    showmousePosandsatlabel(scene, mouselabels, ellipsoid);
+    satTLE.showmousePosandsatlabel(scene, mouselabels, ellipsoid);
     //双击左键回到最初的视角
     initial.backOriginalView(scene);
 
@@ -107,8 +107,8 @@ $(document).ready(function () {
         var now = Cesium.JulianDate.now(); // TODO> we'll want to base on tick and time-speedup
 
         if (satrecs.length > 0) {
-            var sats = updateSatrecsPosVel(satrecs, now); // TODO: sgp4 needs minutesSinceEpoch from timeclock
-            updateSatelliteEntityPos(sats.positions);
+            var sats = satTLE.updateSatrecsPosVel(satrecs, now); // TODO: sgp4 needs minutesSinceEpoch from timeclock
+            satTLE.updateSatelliteEntityPos(sats.positions);
 
             // propagate [GLOBAL]
             satrecs = sats.newSatrecs;

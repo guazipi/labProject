@@ -52,7 +52,7 @@ $("#track-nav").click(function() {
                 $("#select_satellite").empty();
 
                 //初始化并且添加entity到scene
-                populateSatelliteEntity();
+                satTLE.populateSatelliteEntity();
 
 
                 /**
@@ -224,12 +224,12 @@ $("#cb_showsatLabel").click(function() {
 $("#cb_showsatOrbit").click(function() {
     if ($("#cb_showsatOrbit").is(':checked')) {
         for (var i = 0; i < satrecs.length; i++) {
-            var positions = orbitPos(satrecs[i]);
+            var positions = satTLE.orbitPos(satrecs[i]);
 
             var color = new Cesium.Color(1.0, i / satrecs.length, 0.4, 0.9);
             //console.log(color);
 
-            addOrbit(i, positions, color);
+            satTLE.addOrbit(i, positions, color);
         }
     } else {
         for (var i = 0; i < satrecs.length; i++) {
@@ -246,7 +246,7 @@ $("#cb_showsatSweep").click(function() {
         //如果scene中没有显示卫星扫过的范围，即时生成卫星扫描的范围的entity
         if (!viewer.entities.getById(satData[0].noradId + "02")) {
             //生成卫星扫描的范围的entity
-            pupulateSatSweep();
+            satTLE.pupulateSatSweep();
         }
 
         for (var i = 0; i < satrecs.length; i++) {

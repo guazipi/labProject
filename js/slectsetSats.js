@@ -51,12 +51,12 @@ function getCertainSats(satGroup) {
             }
         }
         //初始化satrecs
-        getSatrecsFromTLESArray(data);
+        satTLE.getSatrecsFromTLESArray(data);
         //去掉之前scene中所有的entity，下面要添加新一轮的entity了
         viewer.entities.removeAll();
 
         //初始化并且添加entity到scene
-        populateSatelliteEntity();
+        satTLE.populateSatelliteEntity();
 
         $("#cb_showsatSweep").prop("checked", false);
         $("#cb_showsatOrbit").prop("checked", false);

@@ -82,7 +82,7 @@ function initialUpdateatsDialog() {
             //清空选择卫星的select中的选择项
             $("#select_satellite").empty();
             //初始化并且添加entity到scene
-            populateSatelliteEntity();
+            satTLE.populateSatelliteEntity();
 
         }
     });
