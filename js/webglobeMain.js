@@ -83,7 +83,7 @@ $(document).ready(function () {
     ui = new UI();
 
     //初始化图片轮询
-    //initializeCarousel();
+    initial.iniCarousel();
 
     ui.carousel();
     ui.data();
@@ -91,7 +91,7 @@ $(document).ready(function () {
     //initializeSlider();
 
     //初始化日期标签，在卫星追踪hud－选择卫星显示框中
-    initializeDatelabel();
+    initial.initializeDatelabel();
 
     //显示鼠标坐标
     viewer.scene.primitives.add(mouselabels);
@@ -100,7 +100,7 @@ $(document).ready(function () {
     //handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     showmousePosandsatlabel(scene, mouselabels, ellipsoid);
     //双击左键回到最初的视角
-    backOriginalView(scene);
+    initial.backOriginalView(scene);
 
     //生成全局的Balloon widget
     var balloonContainer = document.createElement('div');
