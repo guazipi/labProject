@@ -9,6 +9,7 @@ initial=function(){
         iniElevationSlider:iniElevationSlider,
         iniCarousel:iniCarousel
     };
+    //先初始化成两个函数,把功能实现再说,然后再去完善这个功能,让他更全面些,有头有尾巴
 
     function iniLayerSwitch(){
         jQuery('#LayerSwitcher').slider({
@@ -85,6 +86,9 @@ initial=function(){
             });
         });
     }
+
+
+    return initial;
 };
 
 var initialize= function () {
@@ -99,3 +103,6 @@ var iii=initialized();
 //iii.***
 //这样组织的原因是把相关的函数变量或者只用一次的,中间的函数都整理到一个大的函数对象内部,便于组织管理也便于访问,
 //感觉自己在将一个功能的代码搞到一块的能力还有点欠缺的.
+
+//最好的是将所有的代码都整理为对象的形式,整个项目的入口其实也只有一个$(document).ready(function () {})或者onload两个,
+// 这两个一般都是比较简洁的写法了(一两句代码就把功能实现了),更多的东西是在这些简洁的东西后面
