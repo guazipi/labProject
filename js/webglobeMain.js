@@ -84,7 +84,7 @@ $(document).ready(function () {
     ui = new UI();
 
     //初始化图片轮询
-    initializeCarousel();
+    //initializeCarousel();
 
     ui.carousel();
     ui.data();
