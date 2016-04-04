@@ -1,14 +1,14 @@
 /**
  * Created by Administrator on 2016/1/25.
  */
-var PrepareDataNav=function (){
+var PrepareDataNav = function () {
     var layers = [];
     layers.push(["卫星影像", 'world_image']);
     layers.push(["地图", 'world_vector']);
     layers.push(["2000中国区域叶面积指数", 'LAI_2000_China']);
     layers.push(["2005中国区域叶面积指数", 'LAI_2005_China']);
     layers.push(["2010中国区域叶面积指数", 'LAI_2010_China']);
-    layers.push(["1982-2006年全球FPAR产品", 'FPAR1982-2006']);
+    layers.push(["1982-2006年全球平均FPAR产品", 'FPAR1982-2006']);
     layers.push(["2006年全球年平均FPAR产品", '2006average']);
 // Create jqxTree
     var source = [
@@ -20,25 +20,37 @@ var PrepareDataNav=function (){
         },
         {
             icon: "js/jqwidgets/treePng/folder.png", label: "陆表要素产品", expanded: true, items: [
-            {icon: "js/jqwidgets/treePng/folder.png", label: "植被产品", expanded: true, items: [
-                {icon: "js/jqwidgets/treePng/folder.png", label: "中国区域叶面积指数产品", expanded: true, items: [
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "植被产品", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中国区域叶面积指数产品", expanded: true, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"},
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2005中国区域叶面积指数"},
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2010中国区域叶面积指数"},
-                ]},
-                {icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据产品", expanded: true, items: [
+                ]
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据产品", expanded: true, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"},
-                ]},
-                {icon: "js/jqwidgets/treePng/folder.png", label: "FPAR数据产品", expanded: true, items: [
+                ]
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "FPAR数据产品", expanded: true, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "1982-2006年全球平均FPAR产品"},
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2006年全球年平均FPAR产品"},
-                ]},
-            ]},
-            {icon: "js/jqwidgets/treePng/folder.png", label: "积雪产品", expanded: true, items: [
-                {icon: "js/jqwidgets/treePng/folder.png", label: "青藏高原/中亚地区积雪产品数据集", expanded: true, items: [
+                ]
+                },
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "积雪产品", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "青藏高原/中亚地区积雪产品数据集", expanded: true, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"}
-                ]}
-            ]},
+                ]
+                }
+            ]
+            },
         ]
         },
         {
@@ -50,7 +62,7 @@ var PrepareDataNav=function (){
 
 
     function getImageryFromLayerName(layerName) {
-        var layersArr=[];
+        var layersArr = [];
 
         var value = Math.PI * 256.0 / 180.0;
         var extent = new Cesium.Rectangle(-value, -value, value, value);
@@ -70,19 +82,19 @@ var PrepareDataNav=function (){
                 numberOfLevelZeroTilesY: 1
             }),
         });
-        if(layerName=="world_vector"){
+        if (layerName == "world_vector") {
             return imageryProvider;
-        }else{
+        } else {
             layersArr.push(imageryProvider);
             //天地图中文注记
-            var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
-                url : 'http://t0.tianditu.com/cia_w/wmts',
-                layer : 'cia',
-                style : 'default',
-                format : 'tiles',
-                tileMatrixSetID : 'w',//注意web墨卡托此时是w
+            var tiandituProvider = new Cesium.WebMapTileServiceImageryProvider({
+                url: 'http://t0.tianditu.com/cia_w/wmts',
+                layer: 'cia',
+                style: 'default',
+                format: 'tiles',
+                tileMatrixSetID: 'w',//注意web墨卡托此时是w
                 maximumLevel: 19,
-                credit : new Cesium.Credit('天地图')
+                credit: new Cesium.Credit('天地图')
             });
             layersArr.push(tiandituProvider);
 
@@ -91,7 +103,46 @@ var PrepareDataNav=function (){
 
     }
 
-    function initialDataNav(){
+    function iniLegendDiv(legendUrl,divHeight,divWidth) {
+        var legendDiv = document.createElement("div");
+        legendDiv.id = "productLegendDiv";
+        legendDiv.style.position = "absolute";
+        legendDiv.style.backgroundColor = 'rgba(254, 252, 252,0.8)';
+        legendDiv.style.left = "80%";
+        legendDiv.style.bottom = "20%";
+        legendDiv.style.height = divHeight;
+        legendDiv.style.width = divWidth;
+        legendDiv.style.zindex = 1000;
+
+        var legendImage = document.createElement("img");
+        legendImage.src = legendUrl;
+        legendImage.style.height = "90%";
+        legendImage.style.width = "90%";
+        legendDiv.appendChild(legendImage);
+        document.body.appendChild(legendDiv);
+    }
+
+    function getLegend(layerName) {
+        switch (layerName) {
+            case 'LAI_2000_China':
+                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                break;
+            case 'LAI_2005_China':
+                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                break;
+            case 'LAI_2010_China':
+                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                break;
+            case 'FPAR1982-2006':
+                iniLegendDiv("./img/productLegend/FPAR.png","5%","14%");
+                break;
+            case '2006average':
+                iniLegendDiv("./img/productLegend/FPAR.png","5%","14%");
+                break;
+        }
+    }
+
+    function initialDataNav() {
         $('#datatree').jqxTree({source: source, width: '58%', height: '98%', theme: ""});
         $('#datatree').on('select', function (event) {
             var args = event.args;
@@ -99,14 +150,19 @@ var PrepareDataNav=function (){
 
             $.each(layers, function (key, value) {
                 if (value[0] === item.label) {
+                    if (document.getElementById("productLegendDiv")!==null)
+                        document.body.removeChild(document.getElementById("productLegendDiv"));
+
                     viewer.scene.imageryLayers.removeAll(true);
 
-                    var getImageryProvider=getImageryFromLayerName(value[1]);
+                    var getImageryProvider = getImageryFromLayerName(value[1]);
                     //console.log(getImageryProvider);
-                    if(getImageryProvider instanceof Array){
+                    if (getImageryProvider instanceof Array) {
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider[0]);
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider[1]);
-                    }else{
+                        //给数据产品添加图例
+                        getLegend(value[1]);
+                    } else {
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
                     }
                     // viewer.scene.imageryLayers.addImageryProvider();
@@ -118,7 +174,7 @@ var PrepareDataNav=function (){
     }
 
     return {
-        initialDataNav:initialDataNav
+        initialDataNav: initialDataNav
     }
 }
 
