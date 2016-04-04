@@ -94,7 +94,7 @@ $(document).ready(function () {
     balloonViewModel = balloon.viewModel;
 
 
-    satelliteClickDetails(viewer.scene);
+    operateSats.satelliteClickDetails(viewer.scene);
 
     //初始化右侧div中的tabs标签
     var tabs = $("#rightInfoList_div").tabs();
@@ -128,7 +128,7 @@ $(document).ready(function () {
             } else {
                 //根据跟踪卫星entity的id去显示该卫星的详细信息
                 var satNoradId = viewer.trackedEntity.id;
-                displayStats(sats, satNoradId);
+                operateSats.displayStats(sats, satNoradId);
             }
         }
 
