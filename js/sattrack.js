@@ -44,7 +44,7 @@ $("#track-nav").click(function() {
 
             setTimeout(function(){
                 //初始化从数据库取得的tle数据
-                initialTLES();
+                satTLE.initialTLES();
 
                 //默认select_satellite_group选择国内所有资源卫星
                 $("#select_satellite_group").val("innerSats");
@@ -106,7 +106,8 @@ $("#track-nav").click(function() {
 $('#crosssat_button').click(function() {
     if ($('#satsCrossSwr').css('display') === 'none' || !$('#satsCrossSwr').css('display')) {
         $('#drawSthTools').html("");
-        readyDrawsth();
+        initial.initialDraw();
+        //readyDrawsth();
 
 
         if ($("#sattrack_buttons").offset().left == "15") {

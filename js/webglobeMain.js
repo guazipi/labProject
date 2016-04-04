@@ -25,33 +25,10 @@ $(document).ready(function () {
                 numberOfLevelZeroTilesY: 1
             }),
         }),
-        //imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-        //    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-        //}),
-        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
-        //    url: "../webGL2015/data/bluemarble/",
-        //    fileExtension: "jpg"
-        //}),
-        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
-        //    url: "/Earth_Data/bluemmarble/",
-        //    fileExtension: "jpg"
-        //}),
-        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
-        //    url: "js/cesium/Assets/Textures/NaturalEarthII",
-        //    fileExtension: "jpg"
-        //}),
         terrainProvider: new Cesium.CesiumTerrainProvider({
             url: '//assets.agi.com/stk-terrain/world',
             requestVertexNormals: true
         }),
-        //terrainProvider: new Cesium.CesiumTerrainProvider({
-        //    url: 'http://10.2.3.1/World_DEM',
-        //    requestVertexNormals: true
-        //}),
-        //imageryProvider: new Cesium.TileMapServiceImageryProvider({
-        //    url: "/Earth_Data/world_png",
-        //    fileExtension: "png"
-        //}),
         baseLayerPicker: false,
         animation: false,
         fullscreenButton: false,
