@@ -37,7 +37,12 @@ $("#track-nav").click(function() {
         $('#satellite_form').hide();
         $('#satshelp').hide();
 
+        //卫星轨道模拟停止时，网页下部的图片轮询显示
+        $('#prod').show();
     } else {
+        //卫星轨道模拟时，去掉网页下部的图片轮询
+        $('#prod').hide();
+
         ui.dataClose();
         // viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(0.5, -9.5, 170.0, 89.0));
         // setTimeout(function() {
@@ -198,12 +203,15 @@ $("#three_d_display_button").click(function() {
         //viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(124.5, -9.5, 140.0, 90.0));
         viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
     }, 2100);
+    operateSats.secondDTo3D("./dataset/3dmodels/Deep_space.bgltf");
 })
 $("#columbus_display_button").click(function() {
     viewer.scene.morphToColumbusView(2.0);
+    operateSats.thirdDTo2D('../../img/satellites/satellite.png');
 })
 $("#two_d_display_button").click(function() {
     viewer.scene.morphTo2D(2.0);
+    operateSats.thirdDTo2D('../../img/satellites/satellite.png');
 })
 
 /**
