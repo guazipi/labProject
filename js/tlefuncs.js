@@ -264,7 +264,7 @@ function updateSatrecsPosVel(satrecs, julianDate) {
         //minutesSinceEpoch = jdSat.getMinutesDifference(julianDate);
 
         union = satrecTmp.epochyr.toString() + satrecTmp.epochdays.toString();
-        dateArray = DateFromEpoch(parseFloat(union));
+        dateArray = initial.DateFromEpoch(parseFloat(union));
 
         newDate = new Date(parseInt(dateArray['year']), parseInt(dateArray['month']) - 1, parseInt(dateArray['day']),
             parseInt(dateArray['hour']), parseInt(dateArray['minute']), parseInt(dateArray['second']));
@@ -387,7 +387,7 @@ function orbitPos(satrec) {
     //var jdSat = new Cesium.JulianDate.fromTotalDays(satrec.jdsatepoch);
     //将卫星获取的epoch转化为一个date对象，再转化为julianDate对象
     union = satrec.epochyr.toString() + satrec.epochdays.toString();
-    dateArray = DateFromEpoch(parseFloat(union));
+    dateArray = initial.DateFromEpoch(parseFloat(union));
     //当生成date对象时，生产的对象month加了一个1，所以此时人为的减去一个1
     newDate = new Date(parseInt(dateArray['year']), parseInt(dateArray['month']) - 1, parseInt(dateArray['day']),
         parseInt(dateArray['hour']), parseInt(dateArray['minute']), parseInt(dateArray['second']));

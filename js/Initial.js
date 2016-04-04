@@ -10,6 +10,7 @@ initial = function () {
         iniElevationSlider: iniElevationSlider,
         iniCarousel: iniCarousel,
         backOriginalView:backOriginalView,
+        DateFromEpoch:DateFromEpoch,
         initializeDatelabel:initializeDatelabel,
     };
 

@@ -85,10 +85,12 @@ $(document).ready(function () {
     //初始化图片轮询
     initial.iniCarousel();
 
+    //初始化页面左边栏的数据导航内容
+    var preData=new PrepareDataNav();
+    preData.initialDataNav();
     ui.carousel();
     ui.data();
-    ////初始化时间序列的滑块
-    //initializeSlider();
+
 
     //初始化日期标签，在卫星追踪hud－选择卫星显示框中
     initial.initializeDatelabel();
