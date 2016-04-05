@@ -20,3 +20,18 @@ var iii = initialized();
 
 //拿到一个功能需求，在感觉不能完全把握下手时，就是不能了然于心，那就先完成一点是一点，遇到问题解决问题，突然你就豁然开朗了
 // 先初始化成两个函数,把功能实现再说,然后再去完善这个功能,让他更全面些,有头有尾巴
+
+//
+//匿名函数的自执行
+//
+//var changeBalloon=function(balloonViewModel, clickposition){
+//    if (balloonViewModel) {
+//        if ('position' in balloonViewModel) {
+//            if (balloonViewModel.position && clickposition) {
+//                var cart2 = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, clickposition);
+//                balloonViewModel.position = cart2;
+//                balloonViewModel.update();
+//            }
+//        }
+//    }
+//}(balloonViewModel, clickposition);

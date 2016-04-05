@@ -2,7 +2,7 @@
  * Created by chet on 15/7/22.
  */
 var viewer; //整个球体显示到viewer
-var handler; //鼠标控制器
+//var handler; //鼠标控制器
 var satrecs = []; // populated from onclick file load
 var satData = []; // list of satellite data and metadata
 var satPositions = []; // calculated by updateSatrecsPosVel()

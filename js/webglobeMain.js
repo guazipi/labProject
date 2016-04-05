@@ -9,22 +9,22 @@ $(document).ready(function () {
     var value = Math.PI * 256.0 / 180.0;
     var extent = new Cesium.Rectangle(-value, -value, value, value);
     viewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-            url: '/QuadServer/services/maps/wmts100',
-            layer: 'world_image',
-            //layer: 'world_vector',
-            style: 'default',
-            format: 'image/jpeg',
-            tileMatrixSetID: 'PGIS_TILE_STORE',
-            minimumLevel: 0,
-            maximumLevel: 19,
-            credit: new Cesium.Credit('world_country'),
-            tilingScheme: new Cesium.GeographicTilingScheme({
-                rectangle: extent,
-                numberOfLevelZeroTilesX: 1,
-                numberOfLevelZeroTilesY: 1
-            }),
-        }),
+        //imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+        //    url: '/QuadServer/services/maps/wmts100',
+        //    layer: 'world_image',
+        //    //layer: 'world_vector',
+        //    style: 'default',
+        //    format: 'image/jpeg',
+        //    tileMatrixSetID: 'PGIS_TILE_STORE',
+        //    minimumLevel: 0,
+        //    maximumLevel: 19,
+        //    credit: new Cesium.Credit('world_country'),
+        //    tilingScheme: new Cesium.GeographicTilingScheme({
+        //        rectangle: extent,
+        //        numberOfLevelZeroTilesX: 1,
+        //        numberOfLevelZeroTilesY: 1
+        //    }),
+        //}),
         terrainProvider: new Cesium.CesiumTerrainProvider({
             url: '//assets.agi.com/stk-terrain/world',
             requestVertexNormals: true
@@ -74,12 +74,11 @@ $(document).ready(function () {
 
     //显示鼠标坐标
     viewer.scene.primitives.add(mouselabels);
-    var ellipsoid = viewer.scene.globe.ellipsoid;
-    var scene = viewer.scene;
-    //handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    satTLE.showmousePosandsatlabel(scene, mouselabels, ellipsoid);
-    //双击左键回到最初的视角
-    initial.backOriginalView(scene);
+    satTLE.showmousePosandsatlabel(viewer.scene, mouselabels, viewer.scene.globe.ellipsoid);
+    //注册事件，按空格键回到最初的视角
+    initial.backOriginalView(viewer.scene);
+    //注册事件，双击左键，拉近camera与物体的距离，放大
+    initial.doubleClickZoomIn(viewer.scene);
 
     //生成全局的Balloon widget
     var balloonContainer = document.createElement('div');

@@ -30,8 +30,8 @@ var PrepareDataNav = function () {
                 ]
                 },
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据产品", expanded: true, items: [
-                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"},
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据", expanded: true, items: [
+                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2013年中亚植被覆盖度数据产品"},
                 ]
                 },
                 {
@@ -46,7 +46,7 @@ var PrepareDataNav = function () {
                 icon: "js/jqwidgets/treePng/folder.png", label: "积雪产品", expanded: true, items: [
                 {
                     icon: "js/jqwidgets/treePng/folder.png", label: "青藏高原/中亚地区积雪产品数据集", expanded: true, items: [
-                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"}
+                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "青藏高原MODIS每日无云积雪产品"}
                 ]
                 }
             ]
@@ -107,37 +107,39 @@ var PrepareDataNav = function () {
         var legendDiv = document.createElement("div");
         legendDiv.id = "productLegendDiv";
         legendDiv.style.position = "absolute";
-        legendDiv.style.backgroundColor = 'rgba(254, 252, 252,0.8)';
+        legendDiv.style.backgroundColor = 'rgba(254, 252, 252,0.9)';
         legendDiv.style.left = "80%";
         legendDiv.style.bottom = "20%";
         legendDiv.style.height = divHeight;
         legendDiv.style.width = divWidth;
         legendDiv.style.zindex = 1000;
+        legendDiv.style.borderRadius="10px";
 
         var legendImage = document.createElement("img");
         legendImage.src = legendUrl;
-        legendImage.style.height = "90%";
-        legendImage.style.width = "90%";
+        legendImage.style.height = "95%";
+        legendImage.style.width = "95%";
         legendDiv.appendChild(legendImage);
         document.body.appendChild(legendDiv);
     }
 
+    //给资源数据产品添加图例（颜色对照表）
     function getLegend(layerName) {
         switch (layerName) {
             case 'LAI_2000_China':
-                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                iniLegendDiv("./img/productLegend/LAI.png","23%","20%");
                 break;
             case 'LAI_2005_China':
-                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                iniLegendDiv("./img/productLegend/LAI.png","23%","20%");
                 break;
             case 'LAI_2010_China':
-                iniLegendDiv("./img/productLegend/LAI.png","25%","20%");
+                iniLegendDiv("./img/productLegend/LAI.png","23%","20%");
                 break;
             case 'FPAR1982-2006':
-                iniLegendDiv("./img/productLegend/FPAR.png","5%","14%");
+                iniLegendDiv("./img/productLegend/FPAR.png","4%","16%");
                 break;
             case '2006average':
-                iniLegendDiv("./img/productLegend/FPAR.png","5%","14%");
+                iniLegendDiv("./img/productLegend/FPAR.png","4%","16%");
                 break;
         }
     }
@@ -165,7 +167,6 @@ var PrepareDataNav = function () {
                     } else {
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
                     }
-                    // viewer.scene.imageryLayers.addImageryProvider();
                     return false;
                 }
             })

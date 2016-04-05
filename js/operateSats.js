@@ -9,6 +9,8 @@ operateSats=function(){
         displayStats:displayStats,
         satelliteClickDetails:satelliteClickDetails,
         removeEditPrimitive:removeEditPrimitive,
+        secondDTo3D:secondDTo3D,
+        thirdDTo2D:thirdDTo2D,
     };
 
     /**
@@ -290,8 +292,43 @@ operateSats=function(){
             viewer.scene.primitives.remove(val);
         });
     }
+    function secondDTo3D(){
+        var satnum, max, entity;
+
+        for (satnum = 0, max = satData.length; satnum < max; satnum += 1) {
+            entity=viewer.entities.getById(satData[satnum].noradId);
+            if(entity!==null){
+                entity.billboard.show=new Cesium.ConstantProperty(false);
+                entity.model.show=new Cesium.ConstantProperty(true);
+            }
+        }
+
+    }
+    function thirdDTo2D(){
+        var satnum, max, entity;
+
+        for (satnum = 0, max = satData.length; satnum < max; satnum += 1) {
+            entity=viewer.entities.getById(satData[satnum].noradId);
+            if(entity!==null){
+                entity.model.show=new Cesium.ConstantProperty(false);
+                entity.billboard.show=new Cesium.ConstantProperty(true);
+            }
+        }
+    }
 
 
 
     return operateSats;
 }();
+
+//function changeBallon(balloonViewModel, clickposition) {
+//    if (balloonViewModel) {
+//        if ('position' in balloonViewModel) {
+//            if (balloonViewModel.position && clickposition) {
+//                var cart2 = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, clickposition);
+//                balloonViewModel.position = cart2;
+//                balloonViewModel.update();
+//            }
+//        }
+//    }
+//}

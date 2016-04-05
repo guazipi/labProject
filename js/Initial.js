@@ -10,6 +10,7 @@ initial = function () {
         iniElevationSlider: iniElevationSlider,
         iniCarousel: iniCarousel,
         backOriginalView:backOriginalView,
+        doubleClickZoomIn:doubleClickZoomIn,
         DateFromEpoch:DateFromEpoch,
         initializeDatelabel:initializeDatelabel,
         initialDraw:readyDrawsth,
@@ -132,16 +133,57 @@ initial = function () {
     }
 
     /**
-     * 在没有跟踪卫星的情况下，单击右键回到最初的观察角度
+     * 在没有跟踪卫星的情况下，按空格键回到最初的观察角度
      * @param scene
      */
     function backOriginalView(scene) {
-        var backViewHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-        backViewHandler.setInputAction(function (movement) {
-            if (!viewer.trackedEntity) {
-                scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
+        //var backViewHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+        //backViewHandler.setInputAction(function (movement) {
+        //    if (!viewer.trackedEntity) {
+        //        scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
+        //    }
+        //}, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+
+        function getFlagForKeyCode(keyCode) {
+            switch (keyCode) {
+                case ' '.charCodeAt(0):
+                    return 'spaceKey';
+                //case 'A'.charCodeAt(0):
+                //    return 'moveLeft';
+                default:
+                    return undefined;
             }
-        }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+        }
+        document.addEventListener('keydown', function(e) {
+            var flagName = getFlagForKeyCode(e.keyCode);
+            if (flagName == 'spaceKey') {
+                if (!viewer.trackedEntity) {
+                    scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
+                }
+            }
+        }, false);
+    }
+
+    /**
+     * 双击放大放大放大
+     */
+    function doubleClickZoomIn(scene) {
+        var doubleClickHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+        doubleClickHandler.setInputAction(function (movement) {
+            var cameraPos = scene.camera.position;
+            var cartographicPos = Cesium.Ellipsoid.WGS84.cartesianToCartographic(cameraPos);
+            var height=cartographicPos.height;
+            console.log(height);
+            //defaultMoveAmount:100000.0;
+            if(height>3000000.0){
+                scene.camera.moveForward(3000000.0);
+            }else if(height<200000.0){
+                //defaultLookAmount  Math.PI / 60.0
+                scene.camera.lookUp(Cesium.Math.toRadians(90));
+            }else{
+                scene.camera.moveForward(200000.0);
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
     }
 
 
