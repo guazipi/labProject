@@ -203,15 +203,15 @@ $("#three_d_display_button").click(function() {
         //viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(124.5, -9.5, 140.0, 90.0));
         viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
     }, 2100);
-    operateSats.secondDTo3D("./dataset/3dmodels/Deep_space.bgltf");
+    operateSats.secondDTo3D();
 })
 $("#columbus_display_button").click(function() {
     viewer.scene.morphToColumbusView(2.0);
-    operateSats.thirdDTo2D('../../img/satellites/satellite.png');
+    operateSats.thirdDTo2D();
 })
 $("#two_d_display_button").click(function() {
     viewer.scene.morphTo2D(2.0);
-    operateSats.thirdDTo2D('../../img/satellites/satellite.png');
+    operateSats.thirdDTo2D();
 })
 
 /**

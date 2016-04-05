@@ -98,9 +98,10 @@ satTLE = function () {
             entity = viewer.entities.add({
                 id: satData[satnum].noradId,
                 position: new Cesium.Cartesian3(0, 0, 0),
-                //billboard: {
-                //    image: "../../img/satellites/satellite.png"
-                //},
+                billboard: {
+                    image: "./img/satellites/satellite.png",
+                    show:false
+                },
                 model: {
                     uri: "./dataset/3dmodels/Deep_space.bgltf",
                     show: 'true',

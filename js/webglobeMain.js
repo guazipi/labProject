@@ -135,18 +135,6 @@ $(document).ready(function () {
 
     }, CALC_INTERVAL_MS);
 
-    function changeBallon(balloonViewModel, clickposition) {
-        if (balloonViewModel) {
-            if ('position' in balloonViewModel) {
-                if (balloonViewModel.position && clickposition) {
-                    var cart2 = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, clickposition);
-                    balloonViewModel.position = cart2;
-                    balloonViewModel.update();
-                }
-            }
-        }
-    }
-
     /**
      * 每次更新卫星billboard的位置后，不会立即显示，需要重新绘制canvas上变化的元素，
      * 这样更新后的卫星billboard才会及时显示在球体周围
@@ -157,7 +145,18 @@ $(document).ready(function () {
         scene.initializeFrame(); // takes optional 'time' argument
 
         if (balloonViewModel.showBalloon == true) {
-            changeBallon(balloonViewModel, clickposition);
+            //changeBallon(balloonViewModel, clickposition);
+            var changeBalloon=function(balloonViewModel, clickposition){
+                if (balloonViewModel) {
+                    if ('position' in balloonViewModel) {
+                        if (balloonViewModel.position && clickposition) {
+                            var cart2 = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, clickposition);
+                            balloonViewModel.position = cart2;
+                            balloonViewModel.update();
+                        }
+                    }
+                }
+            }(balloonViewModel, clickposition);
         }
 
         scene.render();
