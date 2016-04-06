@@ -30,12 +30,7 @@ modelSwitch = function () {
     }
 
     function toSatelliteY() {
-        // viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(0.5, -9.5, 170.0, 89.0));
-        // setTimeout(function() {
-        //     viewer.camera.moveBackward(900000);
-        // }, 600)
-
-        $('#sattrack_buttons').show();
+         $('#sattrack_buttons').show();
 
         setTimeout(function(){
             //初始化从数据库取得的tle数据

@@ -194,8 +194,6 @@ initial = function () {
     function initializeDatelabel() {
         //$.ajaxSettings.async = false;
         $.getJSON("php/getTLE/initialDatelabel.php", function (data) {
-            //console.log(data);
-            //alert(data);
             var dateArray = DateFromEpoch(data);
 
             $("#yearLabel").text(dateArray['year']);

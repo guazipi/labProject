@@ -105,13 +105,13 @@ $("#three_d_display_button").click(function() {
     //设置转换视野这个动作开始2100毫秒后执行一个动作，
     //正好接上上一个动作的执行，基本看不出来
     setTimeout(function() {
-        //viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(124.5, -9.5, 140.0, 90.0));
         viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
     }, 2100);
     operateSats.secondDTo3D();
 })
 $("#columbus_display_button").click(function() {
     viewer.scene.morphToColumbusView(2.0);
+
     operateSats.thirdDTo2D();
 })
 $("#two_d_display_button").click(function() {
@@ -144,7 +144,6 @@ $("#cb_showsatOrbit").click(function() {
             var positions = satTLE.orbitPos(satrecs[i]);
 
             var color = new Cesium.Color(1.0, i / satrecs.length, 0.4, 0.9);
-            //console.log(color);
 
             satTLE.addOrbit(i, positions, color);
         }
