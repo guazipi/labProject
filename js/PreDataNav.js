@@ -218,6 +218,7 @@ var PrepareDataNav = function () {
             html += "<img height='290' width='450'  src=" + url + " >";
             return html;
         }
+
         return "lakeProvider";
     }
 
@@ -292,11 +293,11 @@ var PrepareDataNav = function () {
                         }
                         //给数据产品添加图例
                         getLegend(value[1]);
-                    } else if(getImageryProvider==="lakeProvider"){
+                    } else if (getImageryProvider === "lakeProvider") {
                         viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
                         viewer.scene.imageryLayers.addImageryProvider(tiandituProvider);
                         getLegend(value[1]);
-                    }else {
+                    } else {
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
                     }
                     return false;
@@ -305,6 +306,7 @@ var PrepareDataNav = function () {
         });
 
     }
+
     /**
      * Created by Administrator on 2015/12/13.
      */
@@ -394,9 +396,9 @@ var PrepareDataNav = function () {
         ];
         var imgUrl;
 
-        for(var i=0;i<globalLake.length;i++){
-            if(lakeName==globalLake[i][0]){
-                imgUrl=globalLake[i][1];
+        for (var i = 0; i < globalLake.length; i++) {
+            if (lakeName == globalLake[i][0]) {
+                imgUrl = globalLake[i][1];
                 break;
             }
         }
@@ -404,11 +406,50 @@ var PrepareDataNav = function () {
         return imgUrl;
     }
 
+    function invokeSlect(layerName) {
+        //$("#datatree").find('li:first>ul>li')[0];//卫星影像
+        //$("#datatree").find('li:first>ul>li')[1];//地图
+        //$("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[0]//2000年叶面积
+        //$("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[1]//2005年叶面积
+        //$("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[2]//2010年叶面积
+        //$("#datatree").find('li:first+li>ul>li>ul>li+li>ul>li')[0]//2013年中亚植被
+        //$("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[0]//1982-2006 FPAR
+        //$("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[1]//2006 FPAR
+        //$("#datatree").find('li:first+li>ul>li+li>ul>li>ul>li')[0]//2011年 MODIS no cloud
+        //("#datatree").find('li:first+li+li>ul>li')[0]//global lake
+        switch (layerName) {
+            case 'LAI_2000_China':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[0]);
+                break;
+            case 'LAI_2005_China':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[1]);
+                break;
+            case 'LAI_2010_China':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[2]);
+                break;
+            case 'FPAR1982-2006':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[0]);
+                break;
+            case '2006average':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[1]);
+                break;
+            case 'no_cloud_snow':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li+li>ul>li>ul>li')[0]);
+                break;
+            case 'zhongyaPlant':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li>ul>li')[0]);
+                break;
+            case 'globalLake_change':
+                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li+li>ul>li')[0]);
+                break;
+        }
+    }
 
     return {
-        initialDataNav: initialDataNav
+        initialDataNav: initialDataNav,
+        invokeSlect: invokeSlect,
     }
-}
+}();
 
 
 

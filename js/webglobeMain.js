@@ -63,8 +63,9 @@ $(document).ready(function () {
     initial.iniCarousel();
 
     //初始化页面左边栏的数据导航内容
-    var preData=new PrepareDataNav();
-    preData.initialDataNav();
+    //var preData=new PrepareDataNav();
+    //preData.initialDataNav();
+    PrepareDataNav.initialDataNav();
     ui.carousel();
     ui.data();
 
