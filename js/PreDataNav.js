@@ -400,9 +400,15 @@ var PrepareDataNav = function () {
                         }
                         //给数据产品添加图例
                         getLegend(value[1]);
+
+                        //每一次更改数据产品都将地名，行政边界和地形都勾选上
+                        $('#basicLayer').jqxTree('checkAll')
                     } else if (getImageryProvider === "lakeProvider") {
                         resetEarthCloth();
                         getLegend(value[1]);
+
+                        //每一次更改数据产品都将地名，行政边界和地形都勾选上
+                        $('#basicLayer').jqxTree('checkAll')
                     } else {
                         //world_vector
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
