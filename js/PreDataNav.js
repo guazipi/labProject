@@ -218,7 +218,6 @@ var PrepareDataNav = function () {
             html += "<img height='290' width='450'  src=" + url + " >";
             return html;
         }
-
         return "lakeProvider";
     }
 
@@ -267,7 +266,7 @@ var PrepareDataNav = function () {
                 iniLegendDiv("./img/productLegend/plant.png", "81%", "20%", "3%", "15%");
                 break;
             case 'globalLake_change':
-                iniLegendDiv("./img/productLegend/lake.png", "81%", "20%", "6%", "15%");
+                iniLegendDiv("./img/productLegend/lake.png", "81%", "20%", "4%", "15%");
                 break;
         }
     }
