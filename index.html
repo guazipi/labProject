@@ -51,11 +51,10 @@
                     </li>
                     <li><a href="#" id="geo-space-nav">地学空间信息模拟</a>
 
-                        <div class="sec-nav" id="geo-space-sec-nav">
+                        <div class="sec-nav1" id="geo-space-sec-nav">
                             <div><a href="javascript:ui.sim(1);" id="btn001">时序模拟</a></div>
-                            <div><a href='javascript:ui.dialog("三维数值模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>三维数值模拟</a></div>
-                            <!--<div><a href="javascript:ui.sim(3);">时空拉伸模拟</a></div>-->
-                            <div><a href='javascript:ui.dialog("三维数值模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>时空拉伸模拟</a></div>
+                            <!--<div><a href='javascript:ui.dialog("三维数值模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>三维数值模拟</a></div>
+                            <div><a href='javascript:ui.dialog("时空拉伸模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>时空拉伸模拟</a></div>-->
                         </div>
                     </li>
                     <li><a id="track-nav" href="javascript:void(0)">卫星轨道模拟</a></li>
@@ -145,7 +144,7 @@
     <div style="height: 90%;overflow: auto;width:95%;left:4%;position: absolute;">
 
         <div>
-            <h4 class="h4title">选择感兴趣的区域</h4>
+            <h5 class="h4title">选择感兴趣的区域</h5>
 
             <div id="drawSthTools">
             </div>
@@ -153,7 +152,7 @@
             </div>
         </div>
         <div>
-            <h4 class="h4title">选择卫星</h4>
+            <h5 class="h4title">选择卫星</h5>
 
             <div>
                 <select id="select_crossSat">
@@ -176,24 +175,24 @@
                 </select>
             </div>
         </div>
-        <div style="padding: 3px">
-            <h4 class="h4title">选择时间范围</h4>
+        <div style="padding: 1px">
+            <h5 class="h4title">选择时间范围</h5>
 
-            <div style="padding: 3px">
+            <div style="padding: 1px">
                 <label for="dateTimePickerBegin">起始点：</label>
                 <input type="text" id="dateTimePickerBegin" placeholder="请输入起始时间"/><br>
             </div>
-            <div style="padding: 3px">
+            <div style="padding: 1px">
                 <label for="dateTimePickerEnd">结束点：</label>
                 <input type="text" id="dateTimePickerEnd" placeholder="请输入结束时间"/>
             </div>
         </div>
         <button type="button" id="queryCrossSats" class="btn btn-default"
-                style="width:40%;position: relative;left: 2px;font-size:1px">查询过境卫星
+                style="width:40%;position: relative;left: 2px;font-size:0.2px">查询
         </button>
         <button type="button" id="clearCrossPolyline" class="btn btn-default"
-                style="width:44%;position: relative;left: 15px;font-size:1px">
-            清除过境卫星轨迹
+                style="width:44%;position: relative;left: 15px;font-size:0.2px">
+            清除轨迹
         </button>
     </div>
 </div>
@@ -228,7 +227,7 @@
                  onmouseout="this.src='img/tracksat/2D_1.png'"
                  class="perspective_button"/>
         </div>
-        <br> <br> <br> <br>
+        <br> <br> <br>
 
         <div id="otherDispleyOpts">
             <h4 class="h4title">其他显示选项</h4>
@@ -250,7 +249,7 @@
 
     <h2 class="h2title">选择卫星</h2>
 
-    <div style="height: 90%;overflow: auto;width:95%;left:2%;position: absolute;">
+    <div style="height: 85%;overflow: auto;width:95%;left:2%;position: absolute;">
         <form id="satcontrols">
             <fieldset>
                 <!--<legend>选择卫星:</legend>-->
@@ -292,7 +291,7 @@
                 </dl>
             </fieldset>
         </form>
-        上次更新时间：<label id="yearLabel">2015</label>年<label id="monthLabel">7</label>月<label id="dayLabel">25</label>日
+        <h4 class="h4title">上次更新时间：</h4><label id="yearLabel">2015</label>年<label id="monthLabel">7</label>月<label id="dayLabel">25</label>日
         <label id="hourLabel">02</label>:<label id="minuteLabel">39</label>:<label id="secondLabel">48</label>
         <br>
     </div>
@@ -315,8 +314,6 @@
 
         <p>针对国家迫切需要解决的全球资源和环境问题，从数字地球科学平台、全球变化地球科学要素空间信息和全球环境资源遥感应用等方面展开研究。</p>
 
-        <p>
-            针对全球化带来的“大数据问题”，研究多源异构海量数据网络组织、地学时空过程计算集成、地球系统多维表现与多用户协同等关键技术。将地球空间数据、地学高性能计算、地球要素表达和呈现等系统进行有机集成，构建数字地球科学平台系统，形成地球空间信息科学研究的基础数据管理、计算、服务和工具系统环境。</p>
     </div>
 </div>
 <!--************************************网页右边框－显示卫星详细信息和过境卫星信息**************************************-->
@@ -457,8 +454,13 @@
     </div>
     <div class="panel-body" id="panelBody">
         <hr>
+        <div style="height:14%;border-width:5px;margin-top:2px">
+            <ul id="basicLayer"></ul>
+        </div>
+        <div style="height:85%">
+            <ul id="datatree"></ul>
+        </div>
 
-        <ul id="datatree"></ul>
 
     </div>
     <!--<div class="panel-footer" id="panelFooter_div">-->
@@ -514,7 +516,7 @@
         <div class="prod-descr">全国湖泊水位变化</div>
     </div>
     <div id="obliqueModel">
-        <a href="../obliqueModel/viewGltf/" target="_blank"><img class="nav-item" src="img/obliqueModel.jpg"/></a>
+        <a href="../apacheRoot/viewGltf/" target="_blank"><img class="nav-item" src="img/obliqueModel.jpg"/></a>
 
         <div class="prod-descr">嘉善地区倾斜摄影模型</div>
     </div>
@@ -535,6 +537,7 @@
 <script type="text/javascript" src="js/jqwidgets/gettheme.js"></script>
 <script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxpanel.js"></script>
 <script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxtree.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxcheckbox.js"></script>
 <script type="text/javascript" src="js/jqwidgets/jqwidgets/jqxexpander.js"></script>
 
 
@@ -559,6 +562,7 @@
 
 <script type="text/javascript" src="js/PreDataNav.js"></script>
 <script type="text/javascript" src="js/UI.js"></script>
+<script type="text/javascript" src="js/moduleSwitch.js"></script>
 
 <script type="text/javascript" src="js/drawHelper/DrawHelper.js"></script>
 

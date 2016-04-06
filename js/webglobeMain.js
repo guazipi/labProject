@@ -36,22 +36,12 @@ $(document).ready(function () {
         timeline: false
     });
     //控制地球的初始视野为中国
-    viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
-    //viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -19.5, 130.0, 70.0));
-    // viewer.scene.camera.viewRectangle(new Cesium.Rectangle(124.5, -9.5, 140.0, 70.0));
+    viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 125.0, 80.0));
     //控制球体下部的图层等信息不显示，比如cesium的图标和bing地图的credit信息
     $('.cesium-viewer-bottom').hide();
-    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
-        url : 'http://t0.tianditu.com/cia_w/wmts',
-        layer : 'cia',
-        style : 'default',
-        format : 'tiles',
-        tileMatrixSetID : 'w',//注意web墨卡托此时是w
-        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
-        maximumLevel: 19,
-        credit : new Cesium.Credit('天地图')
-    });
-    viewer.scene.imageryLayers.addImageryProvider(tiandituProvider);
+
+    viewer.scene.imageryLayers.addImageryProvider(PrepareDataNav.tiandituProviderBoundary);
+    viewer.scene.imageryLayers.addImageryProvider(PrepareDataNav.tiandituProviderPlaceName);
 
     ui = new UI();
 

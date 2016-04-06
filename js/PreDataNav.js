@@ -62,8 +62,19 @@ var PrepareDataNav = function () {
         ]
         }
     ];
-    //天地图中文注记
-    var tiandituProvider = new Cesium.WebMapTileServiceImageryProvider({
+    //天地图边界
+    var tiandituProviderBoundary = new Cesium.WebMapTileServiceImageryProvider({
+        url: 'http://t0.tianditu.cn/ibo_w/wmts',
+        layer: 'ibo',
+        style: 'default',
+        format: 'tiles',
+        tileMatrixSetID: 'w',//注意web墨卡托此时是w
+        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
+        maximumLevel: 19,
+        credit: new Cesium.Credit('天地图')
+    });
+    //天地图中文地名注记
+    var tiandituProviderPlaceName = new Cesium.WebMapTileServiceImageryProvider({
         url: 'http://t0.tianditu.com/cia_w/wmts',
         layer: 'cia',
         style: 'default',
@@ -72,6 +83,12 @@ var PrepareDataNav = function () {
         maximumLevel: 19,
         credit: new Cesium.Credit('天地图')
     });
+    //地形
+    var terrainProvider = new Cesium.CesiumTerrainProvider({
+        url: '//assets.agi.com/stk-terrain/world',
+        requestVertexNormals: true
+    })
+
 
     //quadServer上的影像底图
     var value = Math.PI * 256.0 / 180.0;
@@ -156,7 +173,8 @@ var PrepareDataNav = function () {
         } else {
             layersArr.push(quadServerProvider);
 
-            layersArr.push(tiandituProvider);
+            layersArr.push(tiandituProviderBoundary);
+            layersArr.push(tiandituProviderPlaceName);
 
             return layersArr;
         }
@@ -174,8 +192,8 @@ var PrepareDataNav = function () {
         });
         layersArr.push(quadServerProviderImage);
         layersArr.push(TMSProvider);
-        layersArr.push(tiandituProvider);
-        console.log(layersArr);
+        layersArr.push(tiandituProviderBoundary);
+        layersArr.push(tiandituProviderPlaceName);
 
         return layersArr;
     }
@@ -267,13 +285,102 @@ var PrepareDataNav = function () {
                 iniLegendDiv("./img/productLegend/plant.png", "81%", "20%", "3%", "15%");
                 break;
             case 'globalLake_change':
-                iniLegendDiv("./img/productLegend/lake.png", "81%", "20%", "4%", "15%");
+                iniLegendDiv("./img/productLegend/lake.png", "81%", "20%", "4%", "13%");
+                break;
+        }
+    }
+
+    //var sourceCheckBox = [
+    //    {
+    //        icon: "js/jqwidgets/treePng/folder.png", label: "基础图层", expanded: true, items: [{
+    //        icon: "js/jqwidgets/treePng/folder.png", label: "卫星影像", expanded: true, checked: true,items: [
+    //            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "影像底图", checked: true},
+    //            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地名与边界", checked: true},
+    //            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地形", checked: true}
+    //        ]
+    //    }, {
+    //        icon: "js/jqwidgets/treePng/folder.png", label: "地图", expanded: true, items: []
+    //    }
+    //    ]
+    //    }
+    //];
+
+    var sourceCheckBox = [
+        {
+            icon: "js/jqwidgets/treePng/folder.png", label: "主数据库", expanded: true, checked: true, items: [
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地名", checked: true},
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "行政边界", checked: true},
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地形", checked: true}
+        ]
+        }
+    ];
+
+
+    function afterPlaceNameChecked(isChecked) {
+        var imageryLayersLength = viewer.scene.imageryLayers.length;
+        if (isChecked) {
+            var placeNameImagery = viewer.scene.imageryLayers.get(imageryLayersLength - 1);
+            placeNameImagery.alpha = 1.0
+        } else {
+            var placeNameImagery = viewer.scene.imageryLayers.get(imageryLayersLength - 1);
+            placeNameImagery.alpha = 0.0
+        }
+    }
+
+    function afterBoundaryChecked(isChecked) {
+        var imageryLayersLength = viewer.scene.imageryLayers.length;
+        if (isChecked) {
+            var boundaryImagery = viewer.scene.imageryLayers.get(imageryLayersLength - 2);
+            boundaryImagery.alpha = 1.0
+        } else {
+            var boundaryImagery = viewer.scene.imageryLayers.get(imageryLayersLength - 2);
+            boundaryImagery.alpha = 0.0
+        }
+    }
+
+    function afterTerrainChecked(isChecked) {
+        if (isChecked) {
+            viewer.terrainProvider = terrainProvider;
+        } else {
+            viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
+        }
+    }
+
+    function checkBoxChange(labelName, isChecked) {
+        switch (labelName) {
+            case "地名":
+                afterPlaceNameChecked(isChecked);
+                break;
+            case "行政边界":
+                afterBoundaryChecked(isChecked);
+                break;
+            case "地形":
+                afterTerrainChecked(isChecked);
                 break;
         }
     }
 
     function initialDataNav() {
-        $('#datatree').jqxTree({source: source, width: '58%', height: '98%', theme: ""});
+        $('#basicLayer').jqxTree({
+            source: sourceCheckBox,
+            height: '100%',
+            hasThreeStates: true,
+            checkboxes: true,
+            width: '58%'
+        });
+        $('#basicLayer').css('visibility', 'visible');
+        //如果不设置的话，一开始加载，checkbox的框的高度高一点，不美观
+        $('.jqx-checkbox').css("margin-top", "4.5px");
+        $('#basicLayer').on('checkChange', function (event) {
+            var args = event.args;
+            var item = $('#basicLayer').jqxTree('getItem', args.element);
+            var checked = args.checked;
+            if(item!==null){
+                checkBoxChange(item.label, checked);
+            }
+        });
+
+        $('#datatree').jqxTree({source: source, width: '58%', height: '100%', theme: ""});
         $('#datatree').on('select', function (event) {
             var args = event.args;
             var item = $('#datatree').jqxTree('getItem', args.element);
@@ -294,11 +401,15 @@ var PrepareDataNav = function () {
                         //给数据产品添加图例
                         getLegend(value[1]);
                     } else if (getImageryProvider === "lakeProvider") {
-                        viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
-                        viewer.scene.imageryLayers.addImageryProvider(tiandituProvider);
+                        resetEarthCloth();
                         getLegend(value[1]);
                     } else {
+                        //world_vector
                         viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
+                        var boundary = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
+                        var placeName = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
+                        boundary.alpha = 0.0;
+                        placeName.alpha = 0.0;
                     }
                     return false;
                 }
@@ -445,9 +556,19 @@ var PrepareDataNav = function () {
         }
     }
 
+    //重置earth为最初的图层
+    function resetEarthCloth() {
+        viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
+        viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
+        viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
+    }
+
     return {
         initialDataNav: initialDataNav,
         invokeSlect: invokeSlect,
+        resetEarthCloth: resetEarthCloth,
+        tiandituProviderPlaceName: tiandituProviderPlaceName,
+        tiandituProviderBoundary: tiandituProviderBoundary
     }
 }();
 

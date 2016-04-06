@@ -95,10 +95,12 @@ function UI() {
         this.carousel();
     }
     this.isShow=function(){
-        if (!$('.web3dglobe-data').is(':visible')) {
-            this.data();
+        if ($('.web3dglobe-data').is(':visible')) {
+            modelSwitch.toDataNavN();
         } else {
-            this.dataClose();
+            modelSwitch.toSatelliteN();
+            modelSwitch.toSimulationN();
+            modelSwitch.toDataNavY();
         }
     }
 
@@ -111,12 +113,13 @@ function UI() {
         //this.dialog('地学空间信息模拟', idx == 1 ? '时序模拟' : (idx == 2 ? '三维数值模拟' : '时空拉伸模拟'));
         if (idx == 1) {
             if ($('#timingsimulation').is(':visible')){
-                $('#timingsimulation').hide();
-                initial.destroyLayerSwitch();
+                modelSwitch.toSimulationN();
+                modelSwitch.toDataNavY();
             }
             else{
-                $('#timingsimulation').show();
-                initial.iniLayerSwitch();
+                modelSwitch.toSatelliteN();
+                modelSwitch.toDataNavN();
+                modelSwitch.toSimulationY();
             }
         }
         if (idx == 3) {

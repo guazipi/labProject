@@ -1637,6 +1637,7 @@ button.jqx-button, input[type=button].jqx-button,  input[type=submit].jqx-button
     text-align: left;
     border: none;
     outline: none;
+    /*margin: 0 0 0 0;*/
     margin: 0 0 0 0;
     white-space: nowrap;
     text-overflow: ellipsis;

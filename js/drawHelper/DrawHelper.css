@@ -63,7 +63,8 @@ css rules for the draw helper components
 }
 
 .toolbar > .button {
-    margin: 5px;
+    /*margin: 5px;*/
+    margin: 1px;
     padding: 10px;
     border: 1px solid #eee;
     cursor: pointer;

@@ -81,10 +81,6 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
 }
 
 .sec-nav {
-    background: rgba(73, 145, 203, 0.9);
-}
-
-.sec-nav {
     position: absolute;
     z-index: 100;
     width: 100%;
@@ -92,10 +88,26 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     height: 0px;
     overflow: hidden;
     transition: height 0.2s ease;
+    background: rgba(73, 145, 203, 0.9);
 }
 
 .main-nav li:hover .sec-nav {
     height: 90px;
+}
+
+.sec-nav1 {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    text-align: center;
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.2s ease;
+    background: rgba(73, 145, 203, 0.9);
+}
+
+.main-nav li:hover .sec-nav1 {
+    height: 30px;
 }
 
 .navigation {

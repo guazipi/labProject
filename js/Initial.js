@@ -158,7 +158,7 @@ initial = function () {
             var flagName = getFlagForKeyCode(e.keyCode);
             if (flagName == 'spaceKey') {
                 if (!viewer.trackedEntity) {
-                    scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 130.0, 89.0));
+                    scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 125.0, 80.0));
                 }
             }
         }, false);
