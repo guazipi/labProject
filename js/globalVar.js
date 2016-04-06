@@ -43,3 +43,7 @@ Array.prototype.remove = function(obj) {
         }
     }
 }
+
+var ui;
+var carousel_items = [];
+var prodList = [];

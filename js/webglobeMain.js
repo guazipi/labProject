@@ -1,10 +1,6 @@
 /**
  * Created by chet on 7/18/15.
  */
-var ui;
-var carousel_items = [];
-var prodList = [];
-
 $(document).ready(function () {
     var value = Math.PI * 256.0 / 180.0;
     var extent = new Cesium.Rectangle(-value, -value, value, value);
