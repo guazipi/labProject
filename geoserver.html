@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Hello World!</title>
+    <script src="js/cesium/Cesium.js"></script>
+    <script src="js/jquery/jquery-1.11.3.min.js"></script>
+    <style>
+        @import url(js/cesium/Widgets/widgets.css);
+
+        html, body, #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    var layers = viewer.scene.imageryLayers;
+
+    //    var imageProvide = new Cesium.WebMapServiceImageryProvider({
+    //        url: "http://sedac.ciesin.columbia.edu/geoserver/wms",
+    //        parameters: {
+    //            transparent: true,
+    //            format: "image/png"
+    //        },
+    //        layers: "gpw-v3:gpw-v3-population-density_2000"
+    //    });
+    //    var wmts = layers.addImageryProvider(imageProvide);
+    //    wmts.alpha=0.7;
+
+//    var imageProvide = new Cesium.WebMapServiceImageryProvider({
+////        url: "http://localhost:8088/geoserver/gis/wms",
+//        url: "/geoserver/gis/wms",
+//        parameters: {
+//            transparent: true,
+//            format: "image/png"
+//        },
+//        layers: "gis:jjj"
+////        layers: "cite:MODIS11"
+////        layers: "cite:VegCov_CenAsXJ_75.7E_40.2N_"
+//    });
+//    var wmts = layers.addImageryProvider(imageProvide);
+
+    var imageProvide =new Cesium.TileMapServiceImageryProvider({
+        url: "/map_data/no_cloud_snow/",
+        //url: "http://10.2.4.1:8092/Earth_Data/bluemmarble/",
+        fileExtension: "png"
+    });
+    var tms = layers.addImageryProvider(imageProvide);
+
+
+    //http://localhost:8088/geoserver/gis/wms?service=WMS&version=1.1.0&request=GetMap&layers=gis:zhongya&styles=&bbox=46.51793
+
+
+    //中文地名标注，仅仅是地名
+    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
+        url : 'http://t0.tianditu.com/cva_w/wmts',
+        layer : 'cva',
+        style : 'default',
+        format : 'tiles',
+        tileMatrixSetID : 'w',//注意web墨卡托此时是w
+        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
+        maximumLevel: 19,
+        credit : new Cesium.Credit('kkkkk')
+    });
+
+    //中文地名标注，地名加路网
+    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
+        url : 'http://t0.tianditu.com/cia_w/wmts',
+        layer : 'cia',
+        style : 'default',
+        format : 'tiles',
+        tileMatrixSetID : 'w',//注意web墨卡托此时是w
+        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
+        maximumLevel: 19,
+        credit : new Cesium.Credit('kkkkk')
+    });
+
+    layers.addImageryProvider(tiandituProvider);
+
+
+</script>
+</body>
+<html>

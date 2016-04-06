@@ -292,6 +292,7 @@ operateSats=function(){
             viewer.scene.primitives.remove(val);
         });
     }
+    //2d或者2.5的模式向3d模式切换时，以卫星的模型代替billboard的图片
     function secondDTo3D(){
         var satnum, max, entity;
 
@@ -304,6 +305,7 @@ operateSats=function(){
         }
 
     }
+    //3d模式向2d或者2.5的模式切换时，2d或者2.5的模式下不显示模型，所以以billboard的图片代替
     function thirdDTo2D(){
         var satnum, max, entity;
 
