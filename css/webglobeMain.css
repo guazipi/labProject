@@ -143,11 +143,6 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     color: #fff;
 }
 
-.nav-item:hover {
-    border-color: #999;
-    cursor: pointer;
-}
-
 .web3dglobe-bar {
     background-color: #134483;
     font-family: "微软雅黑";
@@ -244,6 +239,11 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     border: 1px solid #CCCCCC;
     background: transparent;
 }
+#carousel img:hover {
+    /*border: 4px solid #38EA25;*/
+    border: 3px solid #CCCCCC;
+    background: transparent;
+}
 
 #carousel div.prod-descr {
     text-align: center;
@@ -257,8 +257,8 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     border: 1px solid #CCCCCC;
 }
 
-.nav-item:hover {
-    border-color: #99866e;
+.nav-item {
+    border: 4px solid #38EA25;
     cursor: pointer;
 }
 

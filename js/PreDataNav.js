@@ -260,32 +260,93 @@ var PrepareDataNav = function () {
         document.body.appendChild(legendDiv);
     }
 
+    function selectedStatus(layerName) {
+        //$("#carousel").rcarousel('goToPage',2);
+        // $("#carousel").rcarousel('next');
+        //console.log($("#carousel").rcarousel('getTotalPages'));
+        //var b = a(this.element).data("data");
+        //alert($("#carousel").data("data").pages.length);
+        // alert($("#carousel").rcarousel('getCurrentPage'));
+
+        var carouselItem = [];
+        var isShow = false;
+
+        $("#carousel img").each(function () {
+            this.style.border = "1px solid #CCCCCC";
+            this.background = "transparent";
+            carouselItem.push(this.getAttribute('originalTitle'));
+        })
+        function makeShow() {
+            for (var i = 0; i < carouselItem.length; i++) {
+                if (layerName == carouselItem[i]) {
+                    $("#carousel img").each(function () {
+                        var originalTitle = this.getAttribute('originalTitle');
+                        if (layerName == originalTitle) {
+                            this.style.border = "4px solid #38EA25";
+                            this.background = "transparent";
+                            return false;
+                        }
+                    })
+                    return;
+                }
+            }
+            $("#carousel").rcarousel('next');
+            carouselItem = [];
+            //dom操作与js逻辑执行相斥，先缓缓，让dom先执行
+            setTimeout(function(){
+                $("#carousel img").each(function () {
+                    carouselItem.push(this.getAttribute('originalTitle'));
+                });
+
+                $("#carousel img").each(function () {
+                    var originalTitle = this.getAttribute('originalTitle');
+                    if (layerName == originalTitle) {
+                        this.style.border = "4px solid #38EA25";
+                        this.background = "transparent";
+                        return false;
+                    }
+                })
+                makeShow();
+            },500);
+        }
+
+        makeShow();
+    }
+
     //给资源数据产品添加图例（颜色对照表）
     function getLegend(layerName) {
         switch (layerName) {
-            case 'LAI_2000_China':
-                iniLegendDiv("./img/productLegend/LAI.png", "81%", "16%", "15%", "18%");
+            case "LAI_2000_China":
+                selectedStatus("LAI_2000_China");
+                iniLegendDiv("./img/productLegend/LAI.png", "310px", "170px", "15%", "18%");
                 break;
             case 'LAI_2005_China':
-                iniLegendDiv("./img/productLegend/LAI.png", "81%", "16%", "15%", "18%");
+                selectedStatus('LAI_2005_China');
+                iniLegendDiv("./img/productLegend/LAI.png", "310px", "170px", "15%", "18%");
                 break;
             case 'LAI_2010_China':
-                iniLegendDiv("./img/productLegend/LAI.png", "81%", "16%", "15%", "18%");
+                selectedStatus('LAI_2010_China');
+                iniLegendDiv("./img/productLegend/LAI.png", "310px", "170px", "15%", "18%");
                 break;
             case 'FPAR1982-2006':
-                iniLegendDiv("./img/productLegend/FPAR.png", "81%", "20%", "5%", "16%");
+                selectedStatus("FPAR1982-2006");
+                iniLegendDiv("./img/productLegend/FPAR.png", "310px", "170px", "5%", "16%");
                 break;
             case '2006average':
-                iniLegendDiv("./img/productLegend/FPAR.png", "81%", "20%", "5%", "16%");
+                selectedStatus('2006average');
+                iniLegendDiv("./img/productLegend/FPAR.png", "310px", "170px", "5%", "16%");
                 break;
             case 'no_cloud_snow':
-                iniLegendDiv("./img/productLegend/modisSnow.png", "81%", "20%", "7%", "14%");
+                selectedStatus('no_cloud_snow');
+                iniLegendDiv("./img/productLegend/modisSnow.png", "310px", "170px", "7%", "14%");
                 break;
             case 'zhongyaPlant':
-                iniLegendDiv("./img/productLegend/plant.png", "81%", "20%", "3%", "15%");
+                selectedStatus('zhongyaPlant');
+                iniLegendDiv("./img/productLegend/plant.png", "310px", "170px", "3%", "15%");
                 break;
             case 'globalLake_change':
-                iniLegendDiv("./img/productLegend/lake.png", "81%", "20%", "4%", "13%");
+                selectedStatus('globalLake_change');
+                iniLegendDiv("./img/productLegend/lake.png", "310px", "170px", "4%", "13%");
                 break;
         }
     }
@@ -375,7 +436,7 @@ var PrepareDataNav = function () {
             var args = event.args;
             var item = $('#basicLayer').jqxTree('getItem', args.element);
             var checked = args.checked;
-            if(item!==null){
+            if (item !== null) {
                 checkBoxChange(item.label, checked);
             }
         });
@@ -536,27 +597,35 @@ var PrepareDataNav = function () {
         //("#datatree").find('li:first+li+li>ul>li')[0]//global lake
         switch (layerName) {
             case 'LAI_2000_China':
+                selectedStatus('LAI_2000_China');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[0]);
                 break;
             case 'LAI_2005_China':
+                selectedStatus('LAI_2005_China');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[1]);
                 break;
             case 'LAI_2010_China':
+                selectedStatus('LAI_2010_China');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[2]);
                 break;
             case 'FPAR1982-2006':
+                selectedStatus('FPAR1982-2006');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[0]);
                 break;
             case '2006average':
+                selectedStatus('2006average');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[1]);
                 break;
             case 'no_cloud_snow':
+                selectedStatus('no_cloud_snow');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li+li>ul>li>ul>li')[0]);
                 break;
             case 'zhongyaPlant':
+                selectedStatus('zhongyaPlant');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li>ul>li')[0]);
                 break;
             case 'globalLake_change':
+                selectedStatus('globalLake_change');
                 $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li+li>ul>li')[0]);
                 break;
         }
