@@ -53,8 +53,7 @@ initial = function () {
                     dataImageLayer[2].alpha = 0;
 
                     dataImageLayer[0].alpha = ui.value / 5;
-
-                    //console.log(ui.value);
+                    $("#currentYear").html("中国区域叶面积指数变化：2000年");
                 } else if (ui.value >= 5 && ui.value < 10) {
                     dataImageLayer[0].alpha = 1;
                     dataImageLayer[1].alpha = 1;
@@ -62,7 +61,7 @@ initial = function () {
 
                     dataImageLayer[0].alpha = (1 - (ui.value - 5) / 5);
                     dataImageLayer[1].alpha = (ui.value - 5) / 5;
-
+                    $("#currentYear").html("中国区域叶面积指数变化：2005年");
                 } else if (ui.value >= 10 && ui.value < 15) {
                     dataImageLayer[0].alpha = 0;
                     dataImageLayer[1].alpha = 1;
@@ -70,7 +69,7 @@ initial = function () {
 
                     dataImageLayer[1].alpha = (1 - (ui.value - 10) / 5);
                     dataImageLayer[2].alpha = (ui.value - 10) / 5;
-
+                    $("#currentYear").html("中国区域叶面积指数变化：2010年");
                 }
             }
         });

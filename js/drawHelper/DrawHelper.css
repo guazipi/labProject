@@ -51,10 +51,6 @@
 /*
 css rules for the draw helper components
 */
-#drawSthTools{
-    height: 60px;
-}
-
 .toolbar {
     margin: 0px;
     padding: 0px;
@@ -66,8 +62,8 @@ css rules for the draw helper components
     /*margin: 5px;*/
     /*margin: 1px;*/
     /*padding: 10px;*/
-    margin: 3px;
-    padding: 7px;
+    margin: 1px;
+    padding: 4px;
     border: 1px solid #eee;
     cursor: pointer;
     float:left;

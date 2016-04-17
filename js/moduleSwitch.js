@@ -97,6 +97,8 @@ modelSwitch = function () {
 
         //当卫星追踪hud消失时，去掉scene中所有的entity
         viewer.entities.removeAll();
+        //去掉显示当前卫星位置坐标的标签
+        mouselabels.removeAll();
         //去掉追踪过境卫星时所画的图形
         operateSats.removeEditPrimitive();
         //下面的方法不管用，会调用那些已经destroyed的图形再次destroy（）
@@ -121,6 +123,14 @@ modelSwitch = function () {
         $('#sats_displayopts').hide();
         $('#satellite_form').hide();
         $('#satshelp').hide();
+
+        if(viewer.scene.SceneMode!==Cesium.SceneMode.SCENE3D ){
+            //转换视野的过程持续2000毫秒
+            viewer.scene.morphTo3D(2.0);
+            setTimeout(function() {
+                viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
+            }, 2100);
+        }
     }
 
     function toSimulationY() {

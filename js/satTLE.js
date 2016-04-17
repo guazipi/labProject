@@ -407,7 +407,7 @@ satTLE = function () {
                         fillColor: Cesium.Color.DARKORANGE,
                         outlineColor: Cesium.Color.BLACK,
                         style: Cesium.LabelStyle.FILL,
-                        text: '（' + lon + ', ' + lat + '）'
+                        text: '当前鼠标位置:(' + lon + ', ' + lat + ')'
                     });
                 }
             }

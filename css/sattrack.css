@@ -7,10 +7,12 @@
 .h4title{
     font-size:10px;
     /**font-weight:bold;**/
+    margin-top:1px;
+    margin-bottom:1px;
 }
 
 .hud_button {
-    height: 60%;
+    height: 85%;
     width: 18%;
     display: inline-block;
     margin: 3px;
@@ -44,19 +46,24 @@
     top: 90px;
     left: 305px;
     z-index: 100;
-    width: 12%;
+    width: 13%;
     text-align: center;
     display: none;
+    height:40px;
 }
 /***************************卫星追踪－过境卫星********************************/
 #satsCrossSwr {
     display: none;
-    top: 155px;
+    /*top: 155px;*/
     left: 305px;
-    /*width: 15.5%;*/
-    width: 12%;
+    width: 13%;
     /*overflow: auto;*/
     height: 37%;
+    top:135px;
+
+}
+#drawSthTools{
+    height: 30%;
 }
 .datePickerInput{
     border-radius: 4px;
@@ -67,9 +74,9 @@
 
 #sats_displayopts {
     display: none;
-    top: 155px;
+    top: 135px;
     left: 305px;
-    width: 12%;
+    width: 13%;
     /*overflow: auto;*/
     height: 31%;
 }
@@ -83,20 +90,24 @@
     float: left;
     text-align: center
 }
+#otherDispleyOpts{
+    float:left;
+}
 
 #otherDispleyOpts label {
     color: rgba(9, 9, 10, 0.5);
+    font-size:11px;
 }
 
 /***************************卫星追踪－选择卫星********************************/
 #satellite_form {
     display: none;
-    top: 155px;
+    top: 135px;
     left: 305px;
     /*overflow: auto;*/
     height: 25%;
     /*width:15.5%*/
-    width: 12%;
+    width: 13%;
 }
 
 #satellite_form fieldset {
@@ -121,8 +132,8 @@
 }
 
 #satcontrols dd {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 #satcontrols select {
@@ -135,16 +146,16 @@
     font-size: 14px;
     /*height: 25px;*/
     line-height: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     padding: 4px 6px;
     vertical-align: middle;
 }
 /***************************卫星追踪－帮助********************************/
 #satshelp {
     display: none;
-    top: 155px;
+    top: 135px;
     left: 305px;
-    width: 12%;
+    width: 13%;
     /*overflow: auto;*/
     height: 35%;
 }
@@ -152,4 +163,5 @@
 #satshelp p {
     margin: 4px;
     color: rgb(11, 6, 2);
+    font-size:14px;
 }
