@@ -3,17 +3,6 @@
  */
 satTLE = function () {
     "use strict";
-    var satTLE = {
-        initialTLES: initialTLES,
-        getSatrecsFromTLESArray:getSatrecsFromTLESArray,
-        populateSatelliteEntity: populateSatelliteEntity,
-        pupulateSatSweep: pupulateSatSweep,
-        updateSatelliteEntityPos:updateSatelliteEntityPos,
-        updateSatrecsPosVel:updateSatrecsPosVel,
-        showmousePosandsatlabel:showmousePosandsatlabel,
-        orbitPos:orbitPos,
-        addOrbit:addOrbit,
-    };
 
     function initialTLES() {
         /**
@@ -100,7 +89,7 @@ satTLE = function () {
                 position: new Cesium.Cartesian3(0, 0, 0),
                 billboard: {
                     image: "./img/satellites/satellite.png",
-                    show:false
+                    show: false
                 },
                 model: {
                     uri: "./dataset/3dmodels/Deep_space.bgltf",
@@ -523,6 +512,76 @@ satTLE = function () {
             }
         });
     }
+
+    //国内所有卫星
+    var innerSatsNum = [
+        "39150",
+        "40118",
+        "40701",
+        "37820",
+        "33320",
+        "33321",
+        "38997",
+        "25940",
+        "28057",
+        "32062",
+        "40336",
+        "26481",
+        "28470",
+        "38038",
+        "38046",
+        "27430",
+        "31113",
+        "37781"
+    ];
+    //国外所有卫星
+    var foreignSats = [
+        "16613",
+        "20436",
+        "22823",
+        "25260",
+        "27421",
+        "38755",
+        "40053",
+        "06126",
+        "07615",
+        "10702",
+        "13367",
+        "14780",
+        "25682",
+        "39084",
+        "25994",
+        "28931",
+        "39766",
+        "33396",
+        "18960",
+        "21688",
+        "23323",
+        "23751",
+        "23827",
+        "24971",
+        "25758",
+        "28051",
+        "28649",
+        "29710",
+        "21574",
+        "23560",
+        "27386",
+        "23710",
+        "32382"];
+    var satTLE = {
+        initialTLES: initialTLES,
+        getSatrecsFromTLESArray: getSatrecsFromTLESArray,
+        populateSatelliteEntity: populateSatelliteEntity,
+        pupulateSatSweep: pupulateSatSweep,
+        updateSatelliteEntityPos: updateSatelliteEntityPos,
+        updateSatrecsPosVel: updateSatrecsPosVel,
+        showmousePosandsatlabel: showmousePosandsatlabel,
+        orbitPos: orbitPos,
+        addOrbit: addOrbit,
+        innerSatsNum: innerSatsNum,
+        foreignSats: foreignSats,
+    };
 
 
     return satTLE;
