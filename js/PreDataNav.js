@@ -633,7 +633,12 @@ var PrepareDataNav = function () {
 
     //重置earth为最初的图层
     function resetEarthCloth() {
-        viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
+        var imageryProvider= new Cesium.ArcGisMapServerImageryProvider({
+            url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+        });
+        viewer.scene.imageryLayers.addImageryProvider(imageryProvider);
+
+        //viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
         viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
         viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
     }

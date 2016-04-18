@@ -26,7 +26,6 @@ modelSwitch = function () {
         PrepareDataNav.resetEarthCloth();
         if (document.getElementById("productLegendDiv") !== null)
             document.body.removeChild(document.getElementById("productLegendDiv"));
-
     }
 
     function toSatelliteY() {
