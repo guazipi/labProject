@@ -6,7 +6,7 @@
  * sattrack.js sattrack.js sattrack.js
  */
 //点击卫星追踪导航条显示卫星追踪hud
-$("#track-nav").click(function() {
+$("#track-nav").click(function () {
     if ($('#sattrack_buttons').is(':visible')) {
         modelSwitch.toSatelliteN();
         modelSwitch.toDataNavY();
@@ -17,7 +17,7 @@ $("#track-nav").click(function() {
     }
 })
 //切换显示卫星追踪下的几个显示框
-$('#crosssat_button').click(function() {
+$('#crosssat_button').click(function () {
     if ($('#satsCrossSwr').css('display') === 'none' || !$('#satsCrossSwr').css('display')) {
         $('#drawSthTools').html("");
         initial.initialDraw();
@@ -38,7 +38,7 @@ $('#crosssat_button').click(function() {
         $('#satsCrossSwr').attr("style", "display:none");
     }
 })
-$('#display_button').click(function() {
+$('#display_button').click(function () {
     if ($('#sats_displayopts').css('display') === 'none' || !$('#sats_displayopts').css('display')) {
         if ($("#sattrack_buttons").offset().left == "15") {
             $('#sats_displayopts').attr("style", "display:block");
@@ -53,7 +53,7 @@ $('#display_button').click(function() {
         $('#sats_displayopts').attr("style", "display:none");
     }
 })
-$('#satselect_button').click(function() {
+$('#satselect_button').click(function () {
     if ($('#satellite_form').css('display') === 'none' || !$('#satellite_form').css('display')) {
         if ($("#sattrack_buttons").offset().left == "15") {
             $('#satellite_form').attr("style", "display:block");
@@ -69,7 +69,7 @@ $('#satselect_button').click(function() {
         $('#satellite_form').attr("style", "display:none");
     }
 })
-$('#satshelp_button').click(function() {
+$('#satshelp_button').click(function () {
     if ($('#satshelp').css('display') === 'none' || !$('#satshelp').css('display')) {
         if ($("#sattrack_buttons").offset().left == "15") {
             $('#satshelp').attr("style", "display:block");
@@ -87,34 +87,34 @@ $('#satshelp_button').click(function() {
 })
 
 //点击追踪过境卫星、显示选项、选择卫星和帮助显示框的右上角的close按钮，关闭该显示框
-$("#satsCrossSwr_close").click(function() {
+$("#satsCrossSwr_close").click(function () {
     $("#satsCrossSwr").attr("style", "display:none");
 })
-$("#mapopts_close").click(function() {
+$("#mapopts_close").click(function () {
     $("#sats_displayopts").attr("style", "display:none");
 })
-$("#satellite_form_close").click(function() {
+$("#satellite_form_close").click(function () {
     $("#satellite_form").attr("style", "display:none");
 })
-$("#instructions_close").click(function() {
+$("#instructions_close").click(function () {
     $("#satshelp").attr("style", "display:none");
 })
-$("#three_d_display_button").click(function() {
+$("#three_d_display_button").click(function () {
     //转换视野的过程持续2000毫秒
     viewer.scene.morphTo3D(2.0);
     //设置转换视野这个动作开始2100毫秒后执行一个动作，
     //正好接上上一个动作的执行，基本看不出来
-    setTimeout(function() {
+    setTimeout(function () {
         viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
     }, 2100);
     operateSats.secondDTo3D();
 })
-$("#columbus_display_button").click(function() {
+$("#columbus_display_button").click(function () {
     viewer.scene.morphToColumbusView(2.0);
 
     operateSats.thirdDTo2D();
 })
-$("#two_d_display_button").click(function() {
+$("#two_d_display_button").click(function () {
     viewer.scene.morphTo2D(2.0);
     operateSats.thirdDTo2D();
 })
@@ -122,7 +122,7 @@ $("#two_d_display_button").click(function() {
 /**
  * checkbox控制是否显示卫星的标签
  */
-$("#cb_showsatLabel").click(function() {
+$("#cb_showsatLabel").click(function () {
     if ($("#cb_showsatLabel").is(':checked')) {
         for (var i = 0; i < satrecs.length; i++) {
             viewer.entities.getById(satData[i].noradId).label.show = true;
@@ -138,14 +138,23 @@ $("#cb_showsatLabel").click(function() {
 /**
  * checkbox控制是否显示卫星轨道
  */
-$("#cb_showsatOrbit").click(function() {
+$("#cb_showsatOrbit").click(function () {
     if ($("#cb_showsatOrbit").is(':checked')) {
         for (var i = 0; i < satrecs.length; i++) {
             var positions = satTLE.orbitPos(satrecs[i]);
 
-            var color = new Cesium.Color(1.0, i / satrecs.length, 0.4, 0.9);
-
-            satTLE.addOrbit(i, positions, color);
+            for(var k= 0,innerLength=satTLE.innerSatsNum.length;k<innerLength;k++){
+                if (satrecs[i].satnum === parseInt(satTLE.innerSatsNum[k])) {
+                    var color = new Cesium.Color(1.0, k / innerLength, 0.0, 0.8);
+                    satTLE.addOrbit(i, positions, color);
+                }
+            }
+            for(var m= 0,outerLength=satTLE.foreignSats.length;m<innerLength;m++){
+                if (satrecs[i].satnum === parseInt(satTLE.foreignSats[m])) {
+                    var color = new Cesium.Color(0.0,(1-m / outerLength),0.0, 1.0, 0.8);
+                    satTLE.addOrbit(i, positions, color);
+                }
+            }
         }
     } else {
         for (var i = 0; i < satrecs.length; i++) {
@@ -157,7 +166,7 @@ $("#cb_showsatOrbit").click(function() {
 /**
  * checkbox控制是否显示卫星传感器扫描范围
  */
-$("#cb_showsatSweep").click(function() {
+$("#cb_showsatSweep").click(function () {
     if ($("#cb_showsatSweep").is(':checked')) {
         //如果scene中没有显示卫星扫过的范围，即时生成卫星扫描的范围的entity
         if (!viewer.entities.getById(satData[0].noradId + "02")) {
@@ -179,7 +188,7 @@ $("#cb_showsatSweep").click(function() {
 /**
  * checkbox控制切换卫星视角
  */
-$("#cb_toggleSatView").click(function() {
+$("#cb_toggleSatView").click(function () {
     if ($("#cb_toggleSatView").is(':checked')) {
         alert("请首先点击选择您要切换观察视角的卫星");
         document.getElementById("cb_toggleSatView").checked = false;
@@ -193,7 +202,7 @@ $("#cb_toggleSatView").click(function() {
     }
 });
 //控制右边显示卫星信息和过境卫星的div的收缩
-$("#hideSatInfoPanel").click(function() {
+$("#hideSatInfoPanel").click(function () {
     if ($("#hideSatInfoPanel").attr("class") == "layout-button-left") {
         $("#rightSide_div").css('width', "290px");
         //$("#rightSide_div").css('height', "450px");
@@ -216,7 +225,7 @@ $("#hideSatInfoPanel").click(function() {
  * 但有时候会出现取消选中之后，会遗留有一个鼠标的值显示在球体上，
  * 所以就设置点选事件，如果没选中就删除掉所有的鼠标坐标标签。
  */
-$("#cb_showmousepos").click(function() {
+$("#cb_showmousepos").click(function () {
     if (!$("#cb_showmousepos").is(':checked')) {
         mouselabels.removeAll();
     }

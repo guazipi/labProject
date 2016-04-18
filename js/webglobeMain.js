@@ -40,6 +40,8 @@ $(document).ready(function () {
     //控制球体下部的图层等信息不显示，比如cesium的图标和bing地图的credit信息
     $('.cesium-viewer-bottom').hide();
 
+    navigationInitialization('cesiumContainer', viewer);
+
     viewer.scene.imageryLayers.addImageryProvider(PrepareDataNav.tiandituProviderBoundary);
     viewer.scene.imageryLayers.addImageryProvider(PrepareDataNav.tiandituProviderPlaceName);
 

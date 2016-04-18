@@ -15,7 +15,10 @@ modelSwitch = function () {
     function toDataNavY() {
         ui.data();
         $('#prod').show();
-        $('#basicLayer').jqxTree('checkAll')
+        $('#basicLayer').jqxTree('checkAll');
+        $(".distance-legend").css({
+            "bottom":"105px"
+    })
     }
 
     function toDataNavN() {
@@ -26,6 +29,10 @@ modelSwitch = function () {
         PrepareDataNav.resetEarthCloth();
         if (document.getElementById("productLegendDiv") !== null)
             document.body.removeChild(document.getElementById("productLegendDiv"));
+
+        $(".distance-legend").css({
+            "bottom":"30px"
+        })
     }
 
     function toSatelliteY() {
