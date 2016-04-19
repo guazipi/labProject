@@ -151,7 +151,7 @@ $("#cb_showsatOrbit").click(function () {
             }
             for(var m= 0,outerLength=satTLE.foreignSats.length;m<innerLength;m++){
                 if (satrecs[i].satnum === parseInt(satTLE.foreignSats[m])) {
-                    var color = new Cesium.Color(0.0,(1-m / outerLength),0.0, 1.0, 0.8);
+                    var color = new Cesium.Color(0.0,(1-m / outerLength),1.0, 1.0, 0.8);
                     satTLE.addOrbit(i, positions, color);
                 }
             }
