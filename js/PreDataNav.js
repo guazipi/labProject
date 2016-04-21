@@ -112,6 +112,9 @@ var PrepareDataNav = function () {
 
     function getImageryFromLayerName(layerName) {
         switch (layerName) {
+            case 'world_vector':
+                return getLayerFromQuadServer(layerName);
+                break;
             case 'world_image':
                 return getLayerFromQuadServer(layerName);
                 break;
@@ -168,16 +171,23 @@ var PrepareDataNav = function () {
             }),
         });
 
-        if (layerName == "world_vector") {
-            return quadServerProvider;
-        } else {
-            layersArr.push(quadServerProvider);
+        layersArr.push(quadServerProvider);
 
-            layersArr.push(tiandituProviderBoundary);
-            layersArr.push(tiandituProviderPlaceName);
+        layersArr.push(tiandituProviderBoundary);
+        layersArr.push(tiandituProviderPlaceName);
 
-            return layersArr;
-        }
+        return layersArr;
+
+        //if (layerName == "world_vector") {
+        //    return quadServerProvider;
+        //} else {
+        //    layersArr.push(quadServerProvider);
+        //
+        //    layersArr.push(tiandituProviderBoundary);
+        //    layersArr.push(tiandituProviderPlaceName);
+        //
+        //    return layersArr;
+        //}
 
     }
 
@@ -213,9 +223,9 @@ var PrepareDataNav = function () {
                             $("#aaa").html(htmlStr);
                             var lakeName = $("#aaa td")[0].innerText;
                             $.each($("#aaa td"), function (key, value) {
-                                value.style.fontSize = '18px';
+                                value.style.fontSize = '10px';
                             })
-                            $("#aaa td")[0].style.fontSize = '25px';
+                            $("#aaa td")[0].style.fontSize = '15px';
                             var imgUrl = getImgUrl(lakeName);
 
                             clickposition = scene.camera.pickEllipsoid(click.position, ellipsoid);
@@ -233,7 +243,7 @@ var PrepareDataNav = function () {
 
         function getTif(url) {
             var html = "";
-            html += "<img height='290' width='450'  src=" + url + " >";
+            html += "<img height='120' width='300'  src=" + url + " >";
             return html;
         }
 
@@ -293,7 +303,7 @@ var PrepareDataNav = function () {
             $("#carousel").rcarousel('next');
             carouselItem = [];
             //dom操作与js逻辑执行相斥，先缓缓，让dom先执行
-            setTimeout(function(){
+            setTimeout(function () {
                 $("#carousel img").each(function () {
                     carouselItem.push(this.getAttribute('originalTitle'));
                 });
@@ -307,7 +317,7 @@ var PrepareDataNav = function () {
                     }
                 })
                 makeShow();
-            },500);
+            }, 500);
         }
 
         makeShow();
@@ -347,6 +357,18 @@ var PrepareDataNav = function () {
             case 'globalLake_change':
                 selectedStatus('globalLake_change');
                 iniLegendDiv("./img/productLegend/lake.png", "310px", "170px", "4%", "13%");
+                break;
+            case 'world_image':
+                $("#carousel img").each(function () {
+                    this.style.border = "1px solid #CCCCCC";
+                    this.background = "transparent";
+                });
+                break;
+            case 'world_vector':
+                $("#carousel img").each(function () {
+                    this.style.border = "1px solid #CCCCCC";
+                    this.background = "transparent";
+                });
                 break;
         }
     }
@@ -456,6 +478,12 @@ var PrepareDataNav = function () {
                     var getImageryProvider = getImageryFromLayerName(value[1]);
                     if (getImageryProvider instanceof Array) {
                         var length = getImageryProvider.length;
+
+                        if(value[1]=="vector"){
+                            getImageryProvider[1].alpha=0.0;
+                            getImageryProvider[2].alpha=0.0;
+                        }
+                        var length = getImageryProvider.length;
                         for (var i = 0; i < length; i++) {
                             viewer.scene.imageryLayers.addImageryProvider(getImageryProvider[i]);
                         }
@@ -470,14 +498,21 @@ var PrepareDataNav = function () {
 
                         //每一次更改数据产品都将地名，行政边界和地形都勾选上
                         $('#basicLayer').jqxTree('checkAll')
-                    } else {
-                        //world_vector
-                        viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
-                        var boundary = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
-                        var placeName = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
-                        boundary.alpha = 0.0;
-                        placeName.alpha = 0.0;
                     }
+                    //else {
+                    //    //world_vector
+                    //    viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
+                    //    var boundary = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
+                    //    var placeName = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
+                    //    boundary.alpha = 0.0;
+                    //    placeName.alpha = 0.0;
+                    //
+                    //    $("#carousel img").each(function () {
+                    //        console.log(this);
+                    //        this.style.border = "1px solid #CCCCCC";
+                    //        this.background = "transparent";
+                    //    });
+                    //}
                     return false;
                 }
             })
@@ -633,12 +668,12 @@ var PrepareDataNav = function () {
 
     //重置earth为最初的图层
     function resetEarthCloth() {
-        var imageryProvider= new Cesium.ArcGisMapServerImageryProvider({
-            url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-        });
-        viewer.scene.imageryLayers.addImageryProvider(imageryProvider);
+        //var imageryProvider= new Cesium.ArcGisMapServerImageryProvider({
+        //    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+        //});
+        //viewer.scene.imageryLayers.addImageryProvider(imageryProvider);
 
-        //viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
+        viewer.scene.imageryLayers.addImageryProvider(quadServerProviderImage);
         viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
         viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
     }

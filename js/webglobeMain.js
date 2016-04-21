@@ -5,22 +5,22 @@ $(document).ready(function () {
     var value = Math.PI * 256.0 / 180.0;
     var extent = new Cesium.Rectangle(-value, -value, value, value);
     viewer = new Cesium.Viewer('cesiumContainer', {
-        //imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-        //    url: '/QuadServer/services/maps/wmts100',
-        //    layer: 'world_image',
-        //    //layer: 'world_vector',
-        //    style: 'default',
-        //    format: 'image/jpeg',
-        //    tileMatrixSetID: 'PGIS_TILE_STORE',
-        //    minimumLevel: 0,
-        //    maximumLevel: 19,
-        //    credit: new Cesium.Credit('world_country'),
-        //    tilingScheme: new Cesium.GeographicTilingScheme({
-        //        rectangle: extent,
-        //        numberOfLevelZeroTilesX: 1,
-        //        numberOfLevelZeroTilesY: 1
-        //    }),
-        //}),
+        imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+            url: '/QuadServer/services/maps/wmts100',
+            layer: 'world_image',
+            //layer: 'world_vector',
+            style: 'default',
+            format: 'image/jpeg',
+            tileMatrixSetID: 'PGIS_TILE_STORE',
+            minimumLevel: 0,
+            maximumLevel: 19,
+            credit: new Cesium.Credit('world_country'),
+            tilingScheme: new Cesium.GeographicTilingScheme({
+                rectangle: extent,
+                numberOfLevelZeroTilesX: 1,
+                numberOfLevelZeroTilesY: 1
+            }),
+        }),
         terrainProvider: new Cesium.CesiumTerrainProvider({
             url: '//assets.agi.com/stk-terrain/world',
             requestVertexNormals: true

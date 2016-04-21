@@ -24,7 +24,7 @@ $('#crosssat_button').click(function () {
         //readyDrawsth();
 
 
-        if ($("#sattrack_buttons").offset().left == "15") {
+        if ($("#sattrack_buttons").offset().left<"50") {
             $('#satsCrossSwr').attr("style", "display:block");
             $("#satsCrossSwr").css("left", '15px');
         } else {
@@ -40,7 +40,8 @@ $('#crosssat_button').click(function () {
 })
 $('#display_button').click(function () {
     if ($('#sats_displayopts').css('display') === 'none' || !$('#sats_displayopts').css('display')) {
-        if ($("#sattrack_buttons").offset().left == "15") {
+        //console.log($("#sattrack_buttons").offset());
+        if ($("#sattrack_buttons").offset().left <"50") {
             $('#sats_displayopts').attr("style", "display:block");
             $("#sats_displayopts").css("left", '15px');
         } else {
@@ -55,7 +56,7 @@ $('#display_button').click(function () {
 })
 $('#satselect_button').click(function () {
     if ($('#satellite_form').css('display') === 'none' || !$('#satellite_form').css('display')) {
-        if ($("#sattrack_buttons").offset().left == "15") {
+        if ($("#sattrack_buttons").offset().left <"50") {
             $('#satellite_form').attr("style", "display:block");
             $("#satellite_form").css("left", '15px');
         } else {
@@ -71,7 +72,7 @@ $('#satselect_button').click(function () {
 })
 $('#satshelp_button').click(function () {
     if ($('#satshelp').css('display') === 'none' || !$('#satshelp').css('display')) {
-        if ($("#sattrack_buttons").offset().left == "15") {
+        if ($("#sattrack_buttons").offset().left <"50") {
             $('#satshelp').attr("style", "display:block");
             $("#satshelp").css("left", '15px');
         } else {

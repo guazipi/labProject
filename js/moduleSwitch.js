@@ -17,8 +17,10 @@ modelSwitch = function () {
         $('#prod').show();
         $('#basicLayer').jqxTree('checkAll');
         $(".distance-legend").css({
-            "bottom":"105px"
-    })
+            "bottom": "105px"
+        });
+        $('#datatree').jqxTree('uncheckAll');
+        $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first')[0]);
     }
 
     function toDataNavN() {
@@ -31,14 +33,14 @@ modelSwitch = function () {
             document.body.removeChild(document.getElementById("productLegendDiv"));
 
         $(".distance-legend").css({
-            "bottom":"30px"
+            "bottom": "30px"
         })
     }
 
     function toSatelliteY() {
-         $('#sattrack_buttons').show();
+        $('#sattrack_buttons').show();
 
-        setTimeout(function(){
+        setTimeout(function () {
             //初始化从数据库取得的tle数据
             satTLE.initialTLES();
 
@@ -95,7 +97,7 @@ modelSwitch = function () {
             //    }
             //}
 
-        },1000)
+        }, 1000)
     }
 
     function toSatelliteN() {
@@ -130,10 +132,10 @@ modelSwitch = function () {
         $('#satellite_form').hide();
         $('#satshelp').hide();
 
-        if(viewer.scene.SceneMode!==Cesium.SceneMode.SCENE3D ){
+        if (viewer.scene.SceneMode !== Cesium.SceneMode.SCENE3D) {
             //转换视野的过程持续2000毫秒
             viewer.scene.morphTo3D(2.0);
-            setTimeout(function() {
+            setTimeout(function () {
                 viewer.scene.camera.viewRectangle(new Cesium.Rectangle.fromDegrees(110.5, -9.5, 135.0, 90.0));
             }, 2100);
         }
