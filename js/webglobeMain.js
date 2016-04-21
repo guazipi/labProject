@@ -81,7 +81,6 @@ $(document).ready(function () {
     };
     balloonViewModel = balloon.viewModel;
 
-
     operateSats.satelliteClickDetails(viewer.scene);
 
     //初始化右侧div中的tabs标签
