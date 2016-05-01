@@ -19,8 +19,14 @@ modelSwitch = function () {
         $(".distance-legend").css({
             "bottom": "105px"
         });
-        $('#datatree').jqxTree('uncheckAll');
-        $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first')[0]);
+
+        setTimeout(function(){
+            console.log($('#datatree'));
+            $('#datatree').jqxTree('uncheckAll');
+            $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first')[0]);
+        },1000);
+
+        $("#rightSide_div").hide();
     }
 
     function toDataNavN() {
@@ -144,6 +150,8 @@ modelSwitch = function () {
     function toSimulationY() {
         $('#timingsimulation').show();
         initial.iniLayerSwitch();
+
+        $("#rightSide_div").hide();
     }
 
     function toSimulationN() {

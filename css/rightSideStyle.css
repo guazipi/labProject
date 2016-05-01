@@ -12,6 +12,8 @@
     z-index: 500;
     opacity: 0.9;
 
+    display:none;
+
     /*/!*动画显示*!/*/
     transition: width 1s, height 1s;
     -moz-transition: width 1s, height 1s; /* Firefox 4 */

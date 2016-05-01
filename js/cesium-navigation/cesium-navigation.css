@@ -378,7 +378,8 @@ select {
 .navigation-controls {
     position: fixed;
     right: 30px;
-    top: 260px;
+    /*top: 260px;*/
+    top: 200px;
     width: 30px;
     border: 1px solid rgba(255, 255, 255, .1);
     font-weight: 300;
@@ -432,7 +433,8 @@ select {
     pointer-events: auto;
     position: fixed;
     right: 0;
-    top: 150px;
+    /*top: 150px;*/
+    top: 100px;
     width: 95px;
     height: 95px
 }

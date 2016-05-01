@@ -5,6 +5,9 @@ var PrepareDataNav = function () {
     var layers = [];
     layers.push(["卫星影像", 'world_image']);
     layers.push(["地图", 'world_vector']);
+    layers.push(["天地图影像", 'tianditu_image']);
+    layers.push(["Bing影像地图", 'bing_image']);
+    layers.push(["ESRI影像地图", 'esri_image']);
     layers.push(["2000中国区域叶面积指数", 'LAI_2000_China']);
     layers.push(["2005中国区域叶面积指数", 'LAI_2005_China']);
     layers.push(["2010中国区域叶面积指数", 'LAI_2010_China']);
@@ -16,51 +19,142 @@ var PrepareDataNav = function () {
 // Create jqxTree
     var source = [
         {
-            icon: "js/jqwidgets/treePng/folder.png", label: "基础图层", expanded: true, items: [
+            icon: "js/jqwidgets/treePng/folder.png", label: "基础图层", expanded: false, items: [
             {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "卫星影像", selected: true},
-            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地图"}
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地图"},
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "天地图影像"},
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "Bing影像地图"},
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "ESRI影像地图"},
+
         ]
         },
         {
-            icon: "js/jqwidgets/treePng/folder.png", label: "陆表要素产品", expanded: true, items: [
+            icon: "js/jqwidgets/treePng/folder.png", label: "陆表要素", expanded: true, items: [
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "植被产品", expanded: true, items: [
+                icon: "js/jqwidgets/treePng/folder.png", label: "植被", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "中国区域叶面积指数产品", expanded: true, items: [
+                    icon: "js/jqwidgets/treePng/folder.png", label: "全球森林植被高度数据产品", expanded: true, items: []
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "FPAR数据产品", expanded: false, items: [
+                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "1982-2006年全球平均FPAR产品"},
+                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2006年全球年平均FPAR产品"},
+                ]
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中国区域叶面积指数产品", expanded: false, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2000中国区域叶面积指数"},
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2005中国区域叶面积指数"},
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2010中国区域叶面积指数"},
                 ]
                 },
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据", expanded: true, items: [
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中亚(含新疆)植被覆盖度数据", expanded: false, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2013年中亚植被覆盖度数据产品"},
                 ]
-                },
-                {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "FPAR数据产品", expanded: true, items: [
-                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "1982-2006年全球平均FPAR产品"},
-                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2006年全球年平均FPAR产品"},
-                ]
-                },
+                }
             ]
             },
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "积雪产品", expanded: true, items: [
+                icon: "js/jqwidgets/treePng/folder.png", label: "积雪", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "青藏高原/中亚地区积雪产品数据集", expanded: true, items: [
+                    icon: "js/jqwidgets/treePng/folder.png", label: "青藏高原/中亚地区积雪产品数据集", expanded: false, items: [
                     {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "2011年05月31日青藏高原MODIS每日无云积雪产品"}
                 ]
-                }
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "南极地区冰盖冻融遥感数据产品", expanded: true, items: [
+                ]
+                },
             ]
             },
         ]
         },
         {
-            icon: "js/jqwidgets/treePng/folder.png", label: "内陆水体要素产品", expanded: true, items: [
-            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "全球湖泊水位变化数据产品"}
+            icon: "js/jqwidgets/treePng/folder.png", label: "海洋要素", expanded: true, items: [
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海面降雨月均距平", expanded: false, items: [
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "海面高度异常月均距平", expanded: true, items: [
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海表温度月均距平", expanded: false, items: [
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "南海海表盐度产品", expanded: true, items: [
+            ]
+            }
         ]
-        }
+        },
+        {
+            icon: "js/jqwidgets/treePng/folder.png", label: "内陆水体要素", expanded: true, items: [
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "水体颜色", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "2000-2012年全国十大湖泊水体颜色数据集", expanded: false, items: [
+                ]
+                },
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "水位", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "全球湖泊水位变化数据产品", expanded: false, items: [
+                    {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "全球湖泊水位变化数据产品"}
+                ]
+                },
+            ]
+            },
+        ]
+        },
+        {
+            icon: "js/jqwidgets/treePng/folder.png", label: "大气要素", expanded: true, items: [
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "大气环境", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "京津城市廊典型大气数据产品", expanded: false, items: [
+                ]
+                },
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "二氧化碳", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "全球大气CO2浓度变化产品", expanded: false, items: [
+                ]
+                },
+            ]
+            },
+        ]
+        },
+        {
+            icon: "js/jqwidgets/treePng/folder.png", label: "城市要素", expanded: true, items: [
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "城市环境", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "元中都遗址区遥感监测图", expanded: false, items: [
+                ]
+                },
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "2003年-2007年苏州地区地表沉降", expanded: false, items: [
+                ]
+                },
+            ]
+            },
+            {
+                icon: "js/jqwidgets/treePng/folder.png", label: "文化遗产", expanded: true, items: [
+                {
+                    icon: "js/jqwidgets/treePng/folder.png", label: "中国世界遗产遥感影像数据库及示范地动态监测产品", expanded: false, items: [
+                ]
+                },
+            ]
+            },
+        ]
+        },
     ];
     //天地图边界
     var tiandituProviderBoundary = new Cesium.WebMapTileServiceImageryProvider({
@@ -118,8 +212,14 @@ var PrepareDataNav = function () {
             case 'world_image':
                 return getLayerFromQuadServer(layerName);
                 break;
-            case 'world_vector':
-                return getLayerFromQuadServer(layerName)
+            case 'tianditu_image':
+                return getLayerFromOuterServer(layerName)
+                break;
+            case 'bing_image':
+                return getLayerFromOuterServer(layerName)
+                break;
+            case 'esri_image':
+                return getLayerFromOuterServer(layerName)
                 break;
             case 'LAI_2000_China':
                 return getLayerFromQuadServer(layerName);
@@ -191,6 +291,38 @@ var PrepareDataNav = function () {
 
     }
 
+    function getLayerFromOuterServer(layerName){
+        var layersArr = [];
+
+        var bing = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            key : Cesium.BingMapsApi.defaultKey,
+            mapStyle : Cesium.BingMapsStyle.AERIAL
+        });
+        var esri = new Cesium.ArcGisMapServerImageryProvider({
+            url : 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+        });
+        var tianditu_image = new Cesium.WebMapTileServiceImageryProvider({
+            url: 'http://t0.tianditu.com/img_w/wmts',
+            layer: 'img',
+            style: 'default',
+            format: 'tiles',
+            tileMatrixSetID: 'w',//注意web墨卡托此时是w
+            maximumLevel: 19,
+            credit: new Cesium.Credit('天地图')
+        });
+        if(layerName=='tianditu_image'){
+            layersArr.push(tianditu_image);
+        }else if(layerName=='bing_image'){
+            layersArr.push(bing);
+        }else if(layerName=='esri_image'){
+            layersArr.push(esri);
+        }
+
+        layersArr.push(tiandituProviderBoundary);
+        layersArr.push(tiandituProviderPlaceName);
+        return layersArr;
+    }
     function getLayerFromTMS(layerName) {
         var layersArr = [];
 
@@ -281,7 +413,9 @@ var PrepareDataNav = function () {
         var carouselItem = [];
         var isShow = false;
 
-        $("#carousel img").each(function () {
+        $("#carousel img").each(function (index) {
+            //console.log(index);
+            //console.log("jjj");
             this.style.border = "1px solid #CCCCCC";
             this.background = "transparent";
             carouselItem.push(this.getAttribute('originalTitle'));
@@ -479,9 +613,9 @@ var PrepareDataNav = function () {
                     if (getImageryProvider instanceof Array) {
                         var length = getImageryProvider.length;
 
-                        if(value[1]=="vector"){
-                            getImageryProvider[1].alpha=0.0;
-                            getImageryProvider[2].alpha=0.0;
+                        if (value[1] == "vector") {
+                            getImageryProvider[1].alpha = 0.0;
+                            getImageryProvider[2].alpha = 0.0;
                         }
                         var length = getImageryProvider.length;
                         for (var i = 0; i < length; i++) {
