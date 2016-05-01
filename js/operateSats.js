@@ -71,6 +71,8 @@ operateSats=function(){
      * @param satNoradId
      */
     function showSatDetail(satNoradId) {
+        $("#rightSide_div").show();
+
         //点击某个卫星的entity之后，网页右侧的显示卫星信息和过境卫星的div自动展开
         $("#rightSide_div").css('width', "290px");
         //$("#rightSide_div").css('height', "450px");

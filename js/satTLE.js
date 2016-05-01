@@ -98,14 +98,13 @@ satTLE = function () {
                     minimumPixelSize: 64
                 },
                 label: {
-                    font: '15px sans-serif',
+                    font: 'bold 1.5em "宋体",Arial,Times',
                     pixelOffset: new Cesium.Cartesian2(16, 12),
                     horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
-                    fillColor: Cesium.Color.DARKORANGE,
+                    fillColor: Cesium.Color.RED,
                     outlineColor: Cesium.Color.BLACK,
                     style: Cesium.LabelStyle.FILL,
-                    text: satData[satnum].name + "卫星"
-
+                    text: " "+satData[satnum].name + "卫星"
                 }
             }); // BOGUS position
             // attach names for mouse interaction
@@ -119,7 +118,7 @@ satTLE = function () {
     }
 
     function pupulateSatSweep() {
-        var satnum, max, sweepPolygon;
+        var satnum, max, sweepPolygon,color;
         for (satnum = 0, max = satData.length; satnum < max; satnum += 1) {
             sweepPolygon = viewer.entities.add({
                 id: satData[satnum].noradId + "02",
@@ -128,7 +127,8 @@ satTLE = function () {
                     //hierarchy: hierarchy,
                     extrudedHeight: 0,
                     perPositionHeight: true,
-                    material: Cesium.Color.ORANGE.withAlpha(0.5),
+                    //material: Cesium.Color.RED.withAlpha(0.5),
+                    material: Cesium.Color.WHITE.withAlpha(0.9),
                     outline: true,
                     outlineColor: Cesium.Color.BLACK
                 }
@@ -165,7 +165,7 @@ satTLE = function () {
                 if (oldPos._value.x != 0) {
                     //showSatSweep(posnum, oldPos, newPos);
                     showSatSweep2(posnum, newPos);
-                    //showSatSweep1(posnum, oldPos, newPos);
+                    //showSatSweep3(posnum, oldPos, newPos);
                 }
             }
         }
@@ -264,14 +264,17 @@ satTLE = function () {
         height = newCartographic.height; //是地表以上的高度，单位是米
         //var newPos0 = Cesium.Cartesian3.fromDegrees(newLon, newLat);
 
+        //hierarchy = Cesium.Cartesian3.fromDegreesArrayHeights([newLon, newLat, height,
+        //    newLon, newLat, 0,
+        //    newLon - 0.9, newLat - 0.9, 0
+        //]);
         hierarchy = Cesium.Cartesian3.fromDegreesArrayHeights([newLon, newLat, height,
-            newLon, newLat, 0,
-            newLon - 0.9, newLat - 0.9, 0
+            parseFloat(newLon)+0.5, parseFloat(newLat)-0.1, 0,
+            parseFloat(newLon) - 0.5, parseFloat(newLat) +0.1, 0,
         ]);
         if (viewer.entities.getById(satData[posnum].noradId + "02")) {
             viewer.entities.getById(satData[posnum].noradId + "02").polygon.hierarchy = hierarchy;
         }
-
     }
 
     function showSatSweep1(posnum, oldPosition, newPosition) {
@@ -390,13 +393,13 @@ satTLE = function () {
                     labels.add({
                         //show : true,
                         position: cartesian,
-                        font: '16px sans-serif',
+                        font: 'bold 2em "宋体",Arial,Times',
                         pixelOffset: new Cesium.Cartesian2(16, 12),
-                        //fillColor: new Cesium.Color(0.6, 0.9, 1.0),
-                        fillColor: Cesium.Color.DARKORANGE,
-                        outlineColor: Cesium.Color.BLACK,
+                        //fillColor: new Cesium.Color(1.0, 0.0,0.0,1.0),
+                        fillColor: Cesium.Color.WHITE,
+                        outlineColor: Cesium.Color.WHITE,
                         style: Cesium.LabelStyle.FILL,
-                        text: '当前鼠标位置:(' + lon + ', ' + lat + ')'
+                        text: '当前鼠标位置:(' + lon + ', ' + lat + ')',
                     });
                 }
             }

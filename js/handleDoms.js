@@ -211,8 +211,8 @@ $("#hideSatInfoPanel").click(function () {
 
         $("#hideSatInfoPanel").attr("class", "layout-button-right");
     } else {
-        $("#rightSide_div").css('width', "40px");
-        $("#rightSide_div").css('height', "40px");
+        $("#rightSide_div").css('width', "30px");
+        $("#rightSide_div").css('height', "30px");
 
         $("#hideSatInfoPanel").attr("class", "layout-button-left");
     }
