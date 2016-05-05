@@ -12,6 +12,7 @@ $("#track-nav").click(function () {
         modelSwitch.toDataNavY();
     } else {
         modelSwitch.toSimulationN();
+        modelSwitch.toPopulationN();
         modelSwitch.toDataNavN();
         modelSwitch.toSatelliteY();
     }

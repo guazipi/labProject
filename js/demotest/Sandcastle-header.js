@@ -37,7 +37,7 @@
                 onclick();
             };
             button.textContent = text;
-            document.getElementById(toolbarID || 'toolbar').appendChild(button);
+            document.getElementById(toolbarID || 'toolbar_popu').appendChild(button);
         },
         addDefaultToolbarButton : function(text, onclick, toolbarID) {
             window.Sandcastle.addToolbarButton(text, onclick, toolbarID);

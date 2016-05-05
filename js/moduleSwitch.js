@@ -9,7 +9,9 @@ modelSwitch = function () {
         toSatelliteY: toSatelliteY,
         toSatelliteN: toSatelliteN,
         toSimulationY: toSimulationY,
-        toSimulationN: toSimulationN
+        toSimulationN: toSimulationN,
+        toPopulationY:toPopulationY,
+        toPopulationN:toPopulationN
     };
 
     function toDataNavY() {
@@ -41,6 +43,9 @@ modelSwitch = function () {
         $(".distance-legend").css({
             "bottom": "30px"
         })
+        if(balloonViewModel.showBalloon){
+            balloonViewModel.showBalloon = false;
+        }
     }
 
     function toSatelliteY() {
@@ -158,7 +163,15 @@ modelSwitch = function () {
         $('#timingsimulation').hide();
         initial.destroyLayerSwitch();
     }
+    function toPopulationY() {
+        $("#toolbar_popu").show();
+        initial.addPopulation();
+    }
 
+    function toPopulationN() {
+        $("#toolbar_popu").hide();
+        initial.destroyPopulation();
+    }
 
     return modelSwitch;
 }();

@@ -63,8 +63,7 @@ var PrepareDataNav = function () {
                 ]
                 },
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "南极地区冰盖冻融遥感数据产品", expanded: true, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png", label: "南极地区冰盖冻融遥感数据产品", expanded: true, items: []
                 },
             ]
             },
@@ -73,20 +72,16 @@ var PrepareDataNav = function () {
         {
             icon: "js/jqwidgets/treePng/folder.png", label: "海洋要素", expanded: true, items: [
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海面降雨月均距平", expanded: false, items: [
-            ]
+                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海面降雨月均距平", expanded: false, items: []
             },
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "海面高度异常月均距平", expanded: true, items: [
-            ]
+                icon: "js/jqwidgets/treePng/folder.png", label: "海面高度异常月均距平", expanded: true, items: []
             },
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海表温度月均距平", expanded: false, items: [
-            ]
+                icon: "js/jqwidgets/treePng/folder.png", label: "太平洋海表温度月均距平", expanded: false, items: []
             },
             {
-                icon: "js/jqwidgets/treePng/folder.png", label: "南海海表盐度产品", expanded: true, items: [
-            ]
+                icon: "js/jqwidgets/treePng/folder.png", label: "南海海表盐度产品", expanded: true, items: []
             }
         ]
         },
@@ -95,8 +90,10 @@ var PrepareDataNav = function () {
             {
                 icon: "js/jqwidgets/treePng/folder.png", label: "水体颜色", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "2000-2012年全国十大湖泊水体颜色数据集", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png",
+                    label: "2000-2012年全国十大湖泊水体颜色数据集",
+                    expanded: false,
+                    items: []
                 },
             ]
             },
@@ -116,16 +113,14 @@ var PrepareDataNav = function () {
             {
                 icon: "js/jqwidgets/treePng/folder.png", label: "大气环境", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "京津城市廊典型大气数据产品", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png", label: "京津城市廊典型大气数据产品", expanded: false, items: []
                 },
             ]
             },
             {
                 icon: "js/jqwidgets/treePng/folder.png", label: "二氧化碳", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "全球大气CO2浓度变化产品", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png", label: "全球大气CO2浓度变化产品", expanded: false, items: []
                 },
             ]
             },
@@ -136,20 +131,20 @@ var PrepareDataNav = function () {
             {
                 icon: "js/jqwidgets/treePng/folder.png", label: "城市环境", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "元中都遗址区遥感监测图", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png", label: "元中都遗址区遥感监测图", expanded: false, items: []
                 },
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "2003年-2007年苏州地区地表沉降", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png", label: "2003年-2007年苏州地区地表沉降", expanded: false, items: []
                 },
             ]
             },
             {
                 icon: "js/jqwidgets/treePng/folder.png", label: "文化遗产", expanded: true, items: [
                 {
-                    icon: "js/jqwidgets/treePng/folder.png", label: "中国世界遗产遥感影像数据库及示范地动态监测产品", expanded: false, items: [
-                ]
+                    icon: "js/jqwidgets/treePng/folder.png",
+                    label: "中国世界遗产遥感影像数据库及示范地动态监测产品",
+                    expanded: false,
+                    items: []
                 },
             ]
             },
@@ -291,16 +286,16 @@ var PrepareDataNav = function () {
 
     }
 
-    function getLayerFromOuterServer(layerName){
+    function getLayerFromOuterServer(layerName) {
         var layersArr = [];
 
         var bing = new Cesium.BingMapsImageryProvider({
-            url : 'https://dev.virtualearth.net',
-            key : Cesium.BingMapsApi.defaultKey,
-            mapStyle : Cesium.BingMapsStyle.AERIAL
+            url: 'https://dev.virtualearth.net',
+            key: Cesium.BingMapsApi.defaultKey,
+            mapStyle: Cesium.BingMapsStyle.AERIAL
         });
         var esri = new Cesium.ArcGisMapServerImageryProvider({
-            url : 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+            url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
         });
         var tianditu_image = new Cesium.WebMapTileServiceImageryProvider({
             url: 'http://t0.tianditu.com/img_w/wmts',
@@ -311,11 +306,11 @@ var PrepareDataNav = function () {
             maximumLevel: 19,
             credit: new Cesium.Credit('天地图')
         });
-        if(layerName=='tianditu_image'){
+        if (layerName == 'tianditu_image') {
             layersArr.push(tianditu_image);
-        }else if(layerName=='bing_image'){
+        } else if (layerName == 'bing_image') {
             layersArr.push(bing);
-        }else if(layerName=='esri_image'){
+        } else if (layerName == 'esri_image') {
             layersArr.push(esri);
         }
 
@@ -323,6 +318,7 @@ var PrepareDataNav = function () {
         layersArr.push(tiandituProviderPlaceName);
         return layersArr;
     }
+
     function getLayerFromTMS(layerName) {
         var layersArr = [];
 
@@ -414,8 +410,6 @@ var PrepareDataNav = function () {
         var isShow = false;
 
         $("#carousel img").each(function (index) {
-            //console.log(index);
-            //console.log("jjj");
             this.style.border = "1px solid #CCCCCC";
             this.background = "transparent";
             carouselItem.push(this.getAttribute('originalTitle'));
@@ -609,6 +603,10 @@ var PrepareDataNav = function () {
 
                     viewer.scene.imageryLayers.removeAll(true);
                     viewer.dataSources.removeAll();
+                    if(balloonViewModel.showBalloon){
+                        balloonViewModel.showBalloon = false;
+                    }
+
                     var getImageryProvider = getImageryFromLayerName(value[1]);
                     if (getImageryProvider instanceof Array) {
                         var length = getImageryProvider.length;
@@ -633,20 +631,6 @@ var PrepareDataNav = function () {
                         //每一次更改数据产品都将地名，行政边界和地形都勾选上
                         $('#basicLayer').jqxTree('checkAll')
                     }
-                    //else {
-                    //    //world_vector
-                    //    viewer.scene.imageryLayers.addImageryProvider(getImageryProvider);
-                    //    var boundary = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderBoundary);
-                    //    var placeName = viewer.scene.imageryLayers.addImageryProvider(tiandituProviderPlaceName);
-                    //    boundary.alpha = 0.0;
-                    //    placeName.alpha = 0.0;
-                    //
-                    //    $("#carousel img").each(function () {
-                    //        console.log(this);
-                    //        this.style.border = "1px solid #CCCCCC";
-                    //        this.background = "transparent";
-                    //    });
-                    //}
                     return false;
                 }
             })
@@ -753,6 +737,22 @@ var PrepareDataNav = function () {
         return imgUrl;
     }
 
+    function getItemLabelFromLayername(layerName) {
+        var itemLabel,thisLi;
+        $.each(layers, function (key, value) {
+            if (layerName == value[1]) {
+                itemLabel= value[0];
+            }
+        })
+        var liArr=$('#datatree').find('li');
+        $.each(liArr,function(key,val){
+            if(val.innerText==itemLabel)
+                thisLi=this;
+        })
+
+        return thisLi;
+    }
+
     function invokeSlect(layerName) {
         //$("#datatree").find('li:first>ul>li')[0];//卫星影像
         //$("#datatree").find('li:first>ul>li')[1];//地图
@@ -767,35 +767,35 @@ var PrepareDataNav = function () {
         switch (layerName) {
             case 'LAI_2000_China':
                 selectedStatus('LAI_2000_China');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[0]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('LAI_2000_China'));
                 break;
             case 'LAI_2005_China':
                 selectedStatus('LAI_2005_China');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[1]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('LAI_2005_China'));
                 break;
             case 'LAI_2010_China':
                 selectedStatus('LAI_2010_China');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li>ul>li')[2]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('LAI_2010_China'));
                 break;
             case 'FPAR1982-2006':
                 selectedStatus('FPAR1982-2006');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[0]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('FPAR1982-2006'));
                 break;
             case '2006average':
                 selectedStatus('2006average');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li+li>ul>li')[1]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('2006average'));
                 break;
             case 'no_cloud_snow':
                 selectedStatus('no_cloud_snow');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li+li>ul>li>ul>li')[0]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('no_cloud_snow'));
                 break;
             case 'zhongyaPlant':
                 selectedStatus('zhongyaPlant');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li>ul>li>ul>li+li>ul>li')[0]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('zhongyaPlant'));
                 break;
             case 'globalLake_change':
                 selectedStatus('globalLake_change');
-                $('#datatree').jqxTree('selectItem', $("#datatree").find('li:first+li+li>ul>li')[0]);
+                $('#datatree').jqxTree('selectItem', getItemLabelFromLayername('globalLake_change'));
                 break;
         }
     }

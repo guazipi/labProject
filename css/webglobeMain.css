@@ -239,6 +239,7 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     border: 1px solid #CCCCCC;
     background: transparent;
 }
+
 #carousel img:hover {
     /*border: 4px solid #38EA25;*/
     border: 3px solid #CCCCCC;
@@ -351,7 +352,7 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     z-index: 100;
 }
 
-#select_crossSat{
+#select_crossSat {
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     /*width: 95%;*/
@@ -359,9 +360,39 @@ html, body, dl, dd, dt, p, h1, h2, legend, img {
     color: #555555;
     display: inline-block;
     font-size: 14px;
-     height: 35px;
+    height: 35px;
     line-height: 20px;
     margin-bottom: 10px;
     padding: 4px 6px;
     vertical-align: middle;
+}
+
+/*<!--添加全球人口信息对比的功能，承载三个按钮的div-->*/
+#toolbar_popu {
+    margin: 5px;
+    padding: 2px 5px;
+    right: 8px;
+    top: 100px;
+    position: relative;
+    display: none;
+}
+
+#cover {
+    position: absolute;
+    background-color: rgba(6, 4, 21, 0.6);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 100;
+    display: none;
+}
+
+#cover img {
+    position:relative;
+    width: 80px;
+    height: 80px;
+    margin: 400px auto;
+    display:block;
 }

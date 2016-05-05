@@ -98,7 +98,8 @@ satTLE = function () {
                     minimumPixelSize: 64
                 },
                 label: {
-                    font: 'bold 1.5em "宋体",Arial,Times',
+                    //font: 'bold 1.5em "宋体",Arial,Times',
+                    font: 'bold 1.5em "Open Sans", sans-serif',
                     pixelOffset: new Cesium.Cartesian2(16, 12),
                     horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
                     fillColor: Cesium.Color.RED,
@@ -399,7 +400,7 @@ satTLE = function () {
                         fillColor: Cesium.Color.WHITE,
                         outlineColor: Cesium.Color.WHITE,
                         style: Cesium.LabelStyle.FILL,
-                        text: '当前鼠标位置:(' + lon + ', ' + lat + ')',
+                        text: '当前鼠标位置:(' + lon + ',' + lat + ')',
                     });
                 }
             }

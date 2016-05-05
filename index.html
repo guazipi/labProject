@@ -28,6 +28,7 @@
     </style>
 </head>
 <body oncontextmenu="window.event.returnvalue=false">
+<div id="cover"><img src="./dataset/loading.gif"></div>
 <div id="wrapper">
     <!-- Fixed navbar -->
     <!--************************************网站导航条**************************************-->
@@ -52,10 +53,15 @@
                     </li>
                     <li><a href="#" id="geo-space-nav">地学空间信息模拟</a>
 
-                        <div class="sec-nav1" id="geo-space-sec-nav">
+                        <!--<div class="sec-nav1" id="geo-space-sec-nav">-->
+                            <!--<div><a href="javascript:ui.sim(1);" id="btn001">时序模拟</a></div>-->
+                            <!--&lt;!&ndash;<div><a href='javascript:ui.dialog("三维数值模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>三维数值模拟</a></div>-->
+                            <!--<div><a href='javascript:ui.dialog("时空拉伸模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>时空拉伸模拟</a></div>&ndash;&gt;-->
+                        <!--</div>-->
+                        <div class="sec-nav" id="geo-space-sec-nav">
                             <div><a href="javascript:ui.sim(1);" id="btn001">时序模拟</a></div>
-                            <!--<div><a href='javascript:ui.dialog("三维数值模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>三维数值模拟</a></div>
-                            <div><a href='javascript:ui.dialog("时空拉伸模拟","对不起，此项功能暂未提交！试试其他的功能吧！");'>时空拉伸模拟</a></div>-->
+                            <div><a href='javascript:ui.sim(2);'>全球人口信息模拟</a></div>
+                            <div><a  href="../apacheRoot/viewGltf/" target="_blank">嘉善倾斜摄影模型</a></div>
                         </div>
                     </li>
                     <li><a id="track-nav" href="javascript:void(0)">卫星轨道模拟</a></li>
@@ -72,6 +78,8 @@
         <div class="popup" id="satellite_popup"></div>
         <!--************************************球体显示div**************************************-->
         <div id="cesiumContainer"></div>
+        <!--添加全球人口信息对比的功能，承载三个按钮的div-->
+        <div id="toolbar_popu"></div>
         <!--************************************球体下部的图片轮询条********************************-->
         <div id="prod"></div>
     </div>
@@ -574,7 +582,7 @@
 <script type="text/javascript" src="js/ligerTree.js"></script>
 <script type="text/javascript" src="js/globalVar.js"></script>
 
-<!--<script type="text/javascript" src="js/demotest/Sandcastle-header.js"></script>-->
+<script type="text/javascript" src="js/demotest/Sandcastle-header.js"></script>
 <!--<script type="text/javascript" src="js/demotest/addSimpleFile.js"></script>-->
 
 <script type="text/javascript" src="js/SatTLE.js"></script>
