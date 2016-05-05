@@ -68,6 +68,11 @@ css rules for the draw helper components
     cursor: pointer;
     float:left;
     border-radius:8px;
+    width:23%;
+}
+.toolbar > .button span{
+    text-align:center;
+    display:block;
 }
 
 .toolbar > .button:hover {
