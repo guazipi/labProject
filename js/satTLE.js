@@ -129,7 +129,7 @@ satTLE = function () {
                     extrudedHeight: 0,
                     perPositionHeight: true,
                     //material: Cesium.Color.RED.withAlpha(0.5),
-                    material: Cesium.Color.WHITE.withAlpha(0.9),
+                    material: Cesium.Color.DODGERBLUE.withAlpha(0.4),
                     outline: true,
                     outlineColor: Cesium.Color.BLACK
                 }

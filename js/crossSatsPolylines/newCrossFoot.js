@@ -23,14 +23,14 @@ $('#clearCrossPolyline').click(function () {
     var length = viewer.scene.primitives.length;
     var removeArray = new Array();
     for (var i = 0; i < length; i++) {
-        var primit=viewer.scene.primitives.get(i);
+        var primit = viewer.scene.primitives.get(i);
         if ("imageFoot" in viewer.scene.primitives.get(i)) {
             //viewer.scene.primitives.remove(viewer.scene.primitives.get(i));
             removeArray.push(viewer.scene.primitives.get(i));
             //break;
         }
     }
-    if(removeArray.length>0){
+    if (removeArray.length > 0) {
         $.each(removeArray, function (k, val) {
             viewer.scene.primitives.remove(val);
         });
@@ -42,11 +42,11 @@ function excuteQuery() {
     //if (!editPrimitive) {
     //    return;
     //}
-    if (isEndGreaterBegin()&&editPrimitive) {
+    if (isEndGreaterBegin() && editPrimitive) {
         //生成查询状态的对话框
         createCoverDiv();
 
-        $("#cancelQuery").attr('disabled',true);
+        $("#cancelQuery").attr('disabled', true);
 
         var now = new Date;
         var nowString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
@@ -86,7 +86,7 @@ function excuteQuery() {
                 }
             }
             $("#cancelQuery").val("确 定");
-            $("#cancelQuery").attr('disabled',false);
+            $("#cancelQuery").attr('disabled', false);
             $("#cancelQuery").click(function () {
                 $("#coverMiddle").remove();
                 $("#cover").remove();

@@ -19,7 +19,8 @@ usefullFuncs.getDateObjFromText = function(dateTxt) {
 		hour, minute, second;
 	month = parseInt(dateTxt.slice(5, 7));
 	day = parseInt(dateTxt.slice(8, 10));
-	year = parseInt(dateTxt.slice(2, 4));
+	//year = parseInt(dateTxt.slice(2, 4));
+	year = parseInt(dateTxt.slice(0, 4));
 	hour = parseInt(dateTxt.slice(11, 13));
 	minute = parseInt(dateTxt.slice(14, 16));
 	//second = parseInt(dateTxt.slice(17, 19));

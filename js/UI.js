@@ -91,10 +91,10 @@ function UI() {
             $("#satshelp").css("left", '15px');
         }
         viewer.resize();
-        
+
         this.carousel();
     }
-    this.isShow=function(){
+    this.isShow = function () {
         if ($('.web3dglobe-data').is(':visible')) {
             modelSwitch.toDataNavN();
         } else {
@@ -113,53 +113,55 @@ function UI() {
     this.sim = function (idx) {
         //this.dialog('地学空间信息模拟', idx == 1 ? '时序模拟' : (idx == 2 ? '三维数值模拟' : '时空拉伸模拟'));
         if (idx == 1) {
-            if($("#toolbar_popu").is(':visible')){
-                if ($('#timingsimulation').is(':visible')){
+            if ($("#toolbar_popu").is(':visible')) {
+                modelSwitch.toPopulationN();
+                if ($('#timingsimulation').is(':visible')) {
                     modelSwitch.toSimulationN();
-                   // modelSwitch.toDataNavY();
+                    // modelSwitch.toDataNavY();
                 }
-                else{
+                else {
                     //modelSwitch.toSatelliteN();
                     //modelSwitch.toDataNavN();
                     modelSwitch.toSimulationY();
                 }
-            }else{
-                if ($('#timingsimulation').is(':visible')){
+            } else {
+                if ($('#timingsimulation').is(':visible')) {
                     modelSwitch.toSimulationN();
                     modelSwitch.toDataNavY();
                 }
-                else{
+                else {
                     modelSwitch.toSatelliteN();
                     modelSwitch.toDataNavN();
                     modelSwitch.toSimulationY();
                 }
             }
         }
-        setTimeout(function(){
-            if(idx==2){
-                if($("#timingsimulation").is(':visible')){
-                    if ($('#toolbar_popu').is(':visible')){
+        if (idx == 2) {
+            //setTimeout(function () {
+                if ($("#timingsimulation").is(':visible')) {
+                    modelSwitch.toSimulationN();
+                    if ($('#toolbar_popu').is(':visible')) {
                         modelSwitch.toPopulationN();
                         // modelSwitch.toDataNavY();
                     }
-                    else{
+                    else {
                         //modelSwitch.toSatelliteN();
                         //modelSwitch.toDataNavN();
                         modelSwitch.toPopulationY();
                     }
-                }else{
-                    if ($('#toolbar_popu').is(':visible')){
+                } else {
+                    if ($('#toolbar_popu').is(':visible')) {
                         modelSwitch.toPopulationN();
                         modelSwitch.toDataNavY();
                     }
-                    else{
+                    else {
                         modelSwitch.toSatelliteN();
                         modelSwitch.toDataNavN();
                         modelSwitch.toPopulationY();
                     }
                 }
-            }
-        },300);
+            //}, 300);
+        }
 
         if (idx == 3) {
             if ($('#Elevationsimulation').is(':visible'))

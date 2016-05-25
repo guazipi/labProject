@@ -12,6 +12,6 @@ $mysql_dbname = 'labtles';
 
 //$mysql_host = '10.2.3.4';
 //$mysql_username = 'root';
-//$mysql_pwd = 'qwer1234';
+//$mysql_pwd = 'qwer!@#$';
 //$mysql_dbname = 'labtles';
 
