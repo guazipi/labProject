@@ -39,7 +39,7 @@ $(document).ready(function () {
     viewer.scene.camera.viewRectangle(Cesium.Rectangle.fromDegrees(100.5, -10.5, 125.0, 80.0));
     //控制球体下部的图层等信息不显示，比如cesium的图标和bing地图的credit信息
     $('.cesium-viewer-bottom').hide();
-    viewer.scene.globe._surface.tileProvider._debug.wireframe = true;
+    //viewer.scene.globe._surface.tileProvider._debug.wireframe = true;
 
     navigationInitialization('cesiumContainer', viewer);
 

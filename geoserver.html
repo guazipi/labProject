@@ -53,42 +53,42 @@
 //    });
 //    var wmts = layers.addImageryProvider(imageProvide);
 
-    var imageProvide =new Cesium.TileMapServiceImageryProvider({
-        url: "/map_data/no_cloud_snow/",
-        //url: "http://10.2.4.1:8092/Earth_Data/bluemmarble/",
-        fileExtension: "png"
-    });
-    var tms = layers.addImageryProvider(imageProvide);
+//    var imageProvide =new Cesium.TileMapServiceImageryProvider({
+//        url: "/map_data/no_cloud_snow/",
+//        //url: "http://10.2.4.1:8092/Earth_Data/bluemmarble/",
+//        fileExtension: "png"
+//    });
+//    var tms = layers.addImageryProvider(imageProvide);
 
 
     //http://localhost:8088/geoserver/gis/wms?service=WMS&version=1.1.0&request=GetMap&layers=gis:zhongya&styles=&bbox=46.51793
 
 
     //中文地名标注，仅仅是地名
-    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
-        url : 'http://t0.tianditu.com/cva_w/wmts',
-        layer : 'cva',
-        style : 'default',
-        format : 'tiles',
-        tileMatrixSetID : 'w',//注意web墨卡托此时是w
-        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
-        maximumLevel: 19,
-        credit : new Cesium.Credit('kkkkk')
-    });
-
-    //中文地名标注，地名加路网
-    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
-        url : 'http://t0.tianditu.com/cia_w/wmts',
-        layer : 'cia',
-        style : 'default',
-        format : 'tiles',
-        tileMatrixSetID : 'w',//注意web墨卡托此时是w
-        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
-        maximumLevel: 19,
-        credit : new Cesium.Credit('kkkkk')
-    });
-
-    layers.addImageryProvider(tiandituProvider);
+//    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
+//        url : 'http://t0.tianditu.com/cva_w/wmts',
+//        layer : 'cva',
+//        style : 'default',
+//        format : 'tiles',
+//        tileMatrixSetID : 'w',//注意web墨卡托此时是w
+//        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
+//        maximumLevel: 19,
+//        credit : new Cesium.Credit('kkkkk')
+//    });
+//
+//    //中文地名标注，地名加路网
+//    var tiandituProvider=new Cesium.WebMapTileServiceImageryProvider({
+//        url : 'http://t0.tianditu.com/cia_w/wmts',
+//        layer : 'cia',
+//        style : 'default',
+//        format : 'tiles',
+//        tileMatrixSetID : 'w',//注意web墨卡托此时是w
+//        // tileMatrixLabels : ['default028mm:0', 'default028mm:1', 'default028mm:2' ...],
+//        maximumLevel: 19,
+//        credit : new Cesium.Credit('kkkkk')
+//    });
+//
+//    layers.addImageryProvider(tiandituProvider);
 
 
 </script>
