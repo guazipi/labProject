@@ -3,3 +3,4 @@
  */
 var Config={};
 Config.isCancelQuery=false;
+var Gers={};

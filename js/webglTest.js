@@ -1,19 +1,15 @@
 /**
  * Created by Administrator on 2016/6/6.
  */
-var Detector = {
+Gers.Detector = {
     canvas: !!window.CanvasRenderingContext2D,
     webgl: (function () {
-
         try {
-
             var canvas = document.createElement('canvas');
             return !!( window.WebGLRenderingContext && ( canvas.getContext('webgl') || canvas.getContext('experimental-webgl') ) );
 
         } catch (e) {
-
             return false;
-
         }
 
     })(),
@@ -21,7 +17,6 @@ var Detector = {
     fileapi: window.File && window.FileReader && window.FileList && window.Blob,
 
     getWebGLErrorMessage: function () {
-
         var element = document.createElement('div');
         element.id = 'webgl-error-message';
         element.style.fontFamily = 'monospace';
@@ -55,13 +50,10 @@ var Detector = {
 
         element = Detector.getWebGLErrorMessage();
         element.id = id;
-
         parent.appendChild(element);
-
     }
-
 };
-if (!Detector.webgl || navigator.appName != "Netscape") {
+if (!Gers.Detector.webgl || navigator.appName != "Netscape") {
     $("a.various").fancybox({
         autoDimensions: !1,
         autoScale: !1,
