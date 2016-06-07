@@ -521,7 +521,7 @@ var PrepareDataNav = function () {
             icon: "js/jqwidgets/treePng/folder.png", label: "主数据库", expanded: true, checked: true, items: [
             {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地名", checked: true},
             {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "行政边界", checked: true},
-            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地形", checked: true}
+            {icon: "js/jqwidgets/treePng/contactsIcon.png", label: "地形", id:"treeTerrain",checked: false}
         ]
         }
     ];
@@ -606,7 +606,6 @@ var PrepareDataNav = function () {
                     if(balloonViewModel.showBalloon){
                         balloonViewModel.showBalloon = false;
                     }
-
                     var getImageryProvider = getImageryFromLayerName(value[1]);
                     if (getImageryProvider instanceof Array) {
                         var length = getImageryProvider.length;
@@ -623,7 +622,8 @@ var PrepareDataNav = function () {
                         getLegend(value[1]);
 
                         //每一次更改数据产品都将地名，行政边界和地形都勾选上
-                        $('#basicLayer').jqxTree('checkAll')
+                        $('#basicLayer').jqxTree('checkAll');
+                        $("#basicLayer").jqxTree('uncheckItem',  $("#treeTerrain")[0]);
                     } else if (getImageryProvider === "lakeProvider") {
                         resetEarthCloth();
                         getLegend(value[1]);

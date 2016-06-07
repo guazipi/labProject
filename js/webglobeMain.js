@@ -21,10 +21,10 @@ $(document).ready(function () {
                 numberOfLevelZeroTilesY: 1
             }),
         }),
-        terrainProvider: new Cesium.CesiumTerrainProvider({
-            url: '//assets.agi.com/stk-terrain/world',
-            requestVertexNormals: true
-        }),
+        //terrainProvider: new Cesium.CesiumTerrainProvider({
+        //    url: '//assets.agi.com/stk-terrain/world',
+        //    requestVertexNormals: true
+        //}),
         baseLayerPicker: false,
         animation: false,
         fullscreenButton: false,
