@@ -325,7 +325,7 @@ var PrepareDataNav = function () {
         //tms服务器上的图层
         var TMSProvider = new Cesium.TileMapServiceImageryProvider({
             url: "/map_data/" + layerName + "/",
-            //url: "http://10.2.4.1:8092/Earth_Data/bluemmarble/",
+            //url: "/gersEarth/map_data/"+layerName+"/",
             fileExtension: "png"
         });
         layersArr.push(quadServerProviderImage);
