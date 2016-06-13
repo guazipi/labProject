@@ -45,30 +45,6 @@ $post_data ['geometryType'] = $geometryType;
 $post_data ['maxAllowableOffset'] = $maxAllowableOffset;
 $url = "http://ids.ceode.ac.cn/ArcGIS/rest/services/ids_c_SPOT1_v/MapServer/0/query";
 
-function do_post_request($url, $data, $optional_headers = null)
-{
-    $params = array('http' => array(
-        'method' => 'POST',
-        'content' => $data
-    ));
-    if ($optional_headers !== null) {
-        $params['http']['header'] = $optional_headers;
-    }
-//    $ctx = stream_context_create($params);
-//    $fp = @fopen($url, 'rb', false, $ctx);
-//    if (!$fp) {
-//        throw new Exception("Problem with $url, $php_errormsg");
-//    }
-//    $response = @stream_get_contents($fp);
-//    if ($response === false) {
-//        throw new Exception("Problem reading data from $url, $php_errormsg");
-//    }
-//    return $response;
-    $context = stream_context_create($params);
-    $result = file_get_contents($url, false, $context);
-
-    return $result;
-}
 function post($url, $post_data = '', $timeout = 50){//curl
 
     $ch = curl_init();
@@ -99,3 +75,4 @@ function post($url, $post_data = '', $timeout = 50){//curl
 $response=post($url, $post_data);
 //$response = do_post_request($url, $post_data);
 echo $response;
+//echo "jjjjj";

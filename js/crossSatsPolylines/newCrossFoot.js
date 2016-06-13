@@ -66,35 +66,22 @@ function excuteQuery() {
             if (editPrimitive.hasOwnProperty("extent")) {
                 var features = getCrossRecs.crossRectangle(times, editPrimitive);
                 // alert(features);
-                if (features[0].geometry.rings[0]) {
+                if (features.length>0) {
                     displayFeatures(features);
-                }else{
-                    var now = new Date;
-                    var nowString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-                    $("#status").append("---时间" + nowString + "：数据查询错误，请更改查询条件，重新执行查询！\n");
                 }
-
             }
             if (editPrimitive.hasOwnProperty("center")) {
                 var features = getCrossRecs.crossCircle(times, editPrimitive);
                 //alert(features);//经常是undefined，因为是异步获取数据，所以在还没获取数据的时候，已经执行到了这里，所以弹出undefined
 
-                if (features[0].geometry.rings[0]) {
+                if (features.length>0) {
                     displayFeatures(features);
-                }else{
-                    var now = new Date;
-                    var nowString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-                    $("#status").append("---时间" + nowString + "：数据查询错误，请更改查询条件，重新执行查询！\n");
                 }
             }
             if (editPrimitive.hasOwnProperty("positions")) {
                 var features = getCrossRecs.crossPoly(times, editPrimitive);
-                if (features[0].geometry.rings[0]) {
+                if (features.length>0) {
                     displayFeatures(features);
-                }else{
-                    var now = new Date;
-                    var nowString = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-                    $("#status").append("---时间" + nowString + "：数据查询错误，请更改查询条件，重新执行查询！\n");
                 }
             }
             $("#cancelQuery").val("确 定");
