@@ -89,7 +89,7 @@ function excuteQuery() {
             $("#cancelQuery").attr('disabled', false);
             $("#cancelQuery").click(function () {
                 $("#coverMiddle").remove();
-                $("#cover").remove();
+                $("#coverFull").remove();
             })
         }
     }
@@ -242,7 +242,7 @@ function displayFeatures(featuresArray) {
 
 
 function createCoverDiv() {
-    var cover = $('<div id="cover"></div>').css({
+    var cover = $('<div id="coverFull"></div>').css({
         "display": "block",
         "position": "fixed",
         "z-index": 700,
